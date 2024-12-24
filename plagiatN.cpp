@@ -194,7 +194,7 @@ int main(int argc, char* argv[]) {
     Document doc2("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.");
     Document doc3("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.");
 
-    std::vector<Document> documents = {doc1, doc1, doc3};
+    std::vector<Document> documents = {doc1, doc2, doc3};
 
     // Define weights for each n-gram size
     std::map<int, double> weights;
@@ -234,7 +234,7 @@ int main(int argc, char* argv[]) {
             weighted_scores[pair] += weights[n] * score;
         }
     }
-
+    
     // Output the final weighted similarity scores
     for (const auto& [pair, score] : weighted_scores) {
         std::cout << "Weighted similarity between document " << pair.first + 1
