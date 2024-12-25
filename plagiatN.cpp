@@ -13,12 +13,16 @@
 
 // TODO - Implement the weighted similarity calculation
 
+// TODO - make Corpus Class
+
 class Document {
 public:
     std::string text;
+    // TODO : change tf to frequency divide by length of n-grams
     std::map<std::string, int> tf;
     std::map<std::string, double> tf_idf;
-
+    // TODO : add name attribute
+    // TODO : constructor pdf , text reader
     explicit Document(const std::string& t) : text(t) {}
 
     void preprocess_text() {
@@ -103,6 +107,9 @@ public:
 
 class SimilarityAnalyzer {
 public:
+    // TODO : tf-idf calculator
+    // TODO : euclidien calculator
+    // TODO : Manhattan calculator
     enum Method {
         COSINE,
         JACCARD
@@ -120,11 +127,11 @@ public:
     }
 
 private:
-    static double compute_cosine_similarity(const Document& doc1, const Document& doc2) {
+    static double compute_cosine_similarity(const Document& doc1, const Document& doc2) { // APPROVED
         double dot_product = 0.0, magnitude_doc1 = 0.0, magnitude_doc2 = 0.0;
 
         for (const auto& ngram : doc1.tf_idf) {
-            if (doc2.tf_idf.find(ngram.first) != doc2.tf_idf.end()) {
+            if (doc2.tf_idf.find(ngram.first) != doc2.tf_idf.end()) { // if the ngram is common
                 dot_product += ngram.second * doc2.tf_idf.at(ngram.first);
             }
             magnitude_doc1 += ngram.second * ngram.second;
@@ -141,7 +148,7 @@ private:
         return dot_product / (sqrt(magnitude_doc1) * sqrt(magnitude_doc2));
     }
 
-    static double compute_jaccard_similarity(const Document& doc1, const Document& doc2) {
+    static double compute_jaccard_similarity(const Document& doc1, const Document& doc2) { // APPROVED
         std::set<std::string> ngrams1, ngrams2;
 
         for (const auto& ngram : doc1.tf) {
@@ -198,6 +205,8 @@ int main(int argc, char* argv[]) {
 
     std::vector<Document> documents = {doc1, doc2, doc3};
 
+    // TODO : maybe add it to the PlagiarismDetector class
+
     // Define weights for each n-gram size
     std::map<int, double> weights;
     double total_weight = 0.0;
@@ -238,6 +247,7 @@ int main(int argc, char* argv[]) {
     }
     
     // Output the final weighted similarity scores
+    // TODO : CHange output 
     for (const auto& [pair, score] : weighted_scores) {
         std::cout << "Weighted similarity between document " << pair.first + 1
                   << " and document " << pair.second + 1
