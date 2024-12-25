@@ -11,6 +11,8 @@
 #include <regex>
 #include <iterator>
 
+// TODO - Implement the weighted similarity calculation
+
 class Document {
 public:
     std::string text;
