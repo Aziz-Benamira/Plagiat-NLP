@@ -25,7 +25,7 @@ public:
     // TODO : constructor pdf , text reader
     explicit Document(const std::string& t) : text(t) {}
 
-    void preprocess_text() {
+    void tokenization() {
         // Convert to lowercase
         std::transform(text.begin(), text.end(), text.begin(), ::tolower);
 
@@ -226,7 +226,7 @@ int main(int argc, char* argv[]) {
     // Iterate through n-gram sizes
     for (int n = 1; n <= max_n; ++n) {
         for (auto& doc : documents) {
-            doc.preprocess_text();
+            doc.tokenization();
             doc.compute_tf(n);
         }
 
