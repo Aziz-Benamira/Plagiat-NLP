@@ -16,10 +16,16 @@ class Document{
         string title;
         types type;
         vector<string> tokens;
+        set<string> unique_tokens;
         map<string,double> tf; // la frequence de chaque token
-        explicit Document(const std::string& t) : text(t) {}
-        
+        explicit Document(const std::string& text) : text(text) {
+            // this->tokenization();
+            // this->compute_tf(1);
+
+        }
+        Document(const string& text, types type, string title="Unknown"):text(text),type(type),title(title){}
         void tokenization(set<string> stopwords);
+        void tokenization();
         vector<string> create_ngrams(int n) const;
         void compute_tf(vector<string>& ngrams) ;
         void compute_tf(int n) ;

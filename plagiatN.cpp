@@ -203,7 +203,7 @@ int main(int argc, char* argv[]) {
     Document doc2("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.");
     Document doc3("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.");
 
-    std::vector<Document> documents = {doc1, doc2, doc3};
+    std::vector<Document> documents = { doc2, doc3};
 
     // TODO : maybe add it to the PlagiarismDetector class
 
@@ -225,6 +225,8 @@ int main(int argc, char* argv[]) {
 
     // Iterate through n-gram sizes
     for (int n = 1; n <= max_n; ++n) {
+        doc1.tokenization();
+        doc1.compute_tf(n);
         for (auto& doc : documents) {
             doc.tokenization();
             doc.compute_tf(n);
@@ -233,6 +235,7 @@ int main(int argc, char* argv[]) {
         for (auto& doc : documents) {
             doc.compute_tf_idf(documents, n);
         }
+        doc1.compute_tf_idf(documents,n);
 
         SimilarityAnalyzer::Method method = SimilarityAnalyzer::COSINE;
         PlagiarismDetector detector;
