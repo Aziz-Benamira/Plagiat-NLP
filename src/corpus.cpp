@@ -3,8 +3,9 @@
 
 void Corpus::add_document(const std::shared_ptr<Document>& doc){
     Documents.push_back(doc);
-    for(const auto& token: doc->tokens){
-        tokens_.insert(token);
+    for(const auto& token_pair: doc->tf){
+        tokens_.insert(token_pair.first);
+        df[token_pair.first]++; // mettre à jour df
     } 
 }
 
@@ -12,8 +13,9 @@ void Corpus::compute_df(){
     int N = Documents.size();
     int nb=0;
     for(const auto& doc: Documents){
-        for(const auto& token: doc->unique_tokens){
-            df[token]++;
+        // TODO : à changer utiliser les ngram de TF des docs
+        for(const auto& token_pair: doc->tf){
+            df[token_pair.first]++;
         }
     }
 
@@ -22,13 +24,13 @@ void Corpus::compute_df(){
 
 map<string,double> Corpus::compute_tf_idf(Document& doc) const{
     map<string,double> tf_idf;
-    for(const auto& term: doc.tokens){
+    for(const auto& term_pair: doc.tf){
         int dff = 0;
-        if(tokens_.find(term) != tokens_.end()){
-            dff== df.at(term);
+        if(tokens_.find(term_pair.first) != tokens_.end()){
+            dff== df.at(term_pair.first);
         }
         double idf = log10(Documents.size()/(1.0+dff));
-        tf_idf[term] = doc.tf[term] * idf;
+        tf_idf[term_pair.first] = doc.tf[term_pair.first] * idf;
     }
     return tf_idf;
 }

@@ -29,15 +29,16 @@ int main(int argc, char* argv[]){
     auto doc2 =make_shared<Document>("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, "ML 2");
     auto doc3=make_shared<Document>("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, "ML 3");
     auto doc4= make_shared<Document>("Aziz Loves Machine learning and find that adam is also passionate about it so they work together to build a project",ANGLAIS, "ML 4");
-    // we can add these to the constructor
+    int ngram = atoi(argv[1]);
+    cout<<"ngram : "<<ngram<<endl;
     doc1->tokenization();
     doc2->tokenization();
     doc3->tokenization();
     doc4->tokenization();
-    doc1->compute_tf(1);
-    doc2->compute_tf(1);
-    doc3->compute_tf(1);
-    doc4->compute_tf(1);
+    doc1->compute_tf(ngram);
+    doc2->compute_tf(ngram);
+    doc3->compute_tf(ngram);
+    doc4->compute_tf(ngram);
     Corpus DOCS;
     DOCS.add_document(doc2);
     DOCS.add_document(doc3);
@@ -45,7 +46,7 @@ int main(int argc, char* argv[]){
     DOCS.compute_df();
     map<string,double> doc1_tfidf = DOCS.compute_tf_idf(*doc1);
     
-    map<string,double> doc2_tfidf = DOCS.compute_tf_idf(*doc4);
+    map<string,double> doc2_tfidf = DOCS.compute_tf_idf(*doc2);
     for(auto terms: doc2_tfidf){
         cout<<terms.first << ":" <<terms.second<<endl;
     }
