@@ -16,22 +16,23 @@ class PlagiarismDetector{
 
         map<shared_ptr<Document>,double>check_plagiarism(Document& Doc_to_check){
             double max_score = 0;
-            for(int i=1;i++;i=ngram_range){
-                max_score+= 1/i;
+            for(int i=1;i<=ngram_range;i++){
+                max_score+= 1.0/(ngram_range-i+1);
+        
             }
             map<shared_ptr<Document>,double> result;
-            for(int ngram = 1;ngram++; ngram<=ngram_range){
-                cout<<"NGRAM : "<<ngram<<endl;
+            for(int ngram = 1;ngram<=ngram_range;ngram++){
+                // cout<<"NGRAM : "<<ngram<<endl;
                 Doc_to_check.compute_tf(ngram);
-                for(auto doc: Analyzer.LeCorpus.Documents){
+                for(auto& doc: Analyzer.LeCorpus.Documents){
                     doc->compute_tf(ngram);
                 }
                 Analyzer.LeCorpus.compute_df();
-                for(auto doc: Analyzer.LeCorpus.Documents){
-                    result[doc] += Analyzer.compute_score(Doc_to_check,*doc)/(ngram_range-ngram);
+                for(auto& doc: Analyzer.LeCorpus.Documents){
+                    result[doc] += Analyzer.compute_score(Doc_to_check,*doc)/(ngram_range-ngram+1);
                 }
             }
-            for(auto doc: Analyzer.LeCorpus.Documents){
+            for(auto& doc: Analyzer.LeCorpus.Documents){
                     result[doc] /= max_score;
                 }
             return result;

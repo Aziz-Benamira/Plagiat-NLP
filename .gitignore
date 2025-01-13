@@ -22,7 +22,6 @@
 *.ilk
 
 # IDE specific files
-.vscode/
 .idea/
 *.code-workspace
 

@@ -58,7 +58,7 @@ class Document{
         //     os << pair.first << ": " << pair.second << endl;
         // }
         std::vector<std::pair<std::string, double>> sorted_tf(doc.tf.begin(), doc.tf.end());
-        std::sort(sorted_tf.begin(), sorted_tf.end(), [](const auto& a, const auto& b) {return a.second > b.second;});
+        std::sort(sorted_tf.begin(), sorted_tf.end(), [](const pair<string, double>& a, const pair<string, double>& b) {return a.second > b.second;});
 
         os << "Top 5 most frequent terms:\n";
         for (int i = 0; i < std::min(5, int(sorted_tf.size())); ++i) {

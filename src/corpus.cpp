@@ -27,7 +27,7 @@ map<string,double> Corpus::compute_tf_idf(const Document& doc) const{
     for(const auto& term_pair: doc.tf){
         int dff = 0;
         if(tokens_.find(term_pair.first) != tokens_.end()){
-            dff== df.at(term_pair.first);
+            dff= df.at(term_pair.first);
         }
         double idf = log10(Documents.size()/(1.0+dff));
         tf_idf[term_pair.first] = doc.tf.at(term_pair.first) * idf;

@@ -100,7 +100,7 @@ private:
         for (const auto& tf_term : tf_idf_1) {
             a.insert(tf_term.first);
             if (tf_idf_2.find(tf_term.first) != tf_idf_2.end()) { // if the ngram is common
-                cout<<tf_term.first<<"First doc : "<<tf_term.second<<" Second doc : "<<tf_idf_2.at(tf_term.first)<<endl; 
+                // cout<<tf_term.first<<"First doc : "<<tf_term.second<<" Second doc : "<<tf_idf_2.at(tf_term.first)<<endl; 
                 result += (tf_term.second - tf_idf_2.at(tf_term.first)) * (tf_term.second - tf_idf_2.at(tf_term.first));
             } else {
                 result += tf_term.second * tf_term.second;
