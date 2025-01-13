@@ -19,11 +19,23 @@ class Document{
         set<string> unique_tokens;
         map<string,double> tf; // la frequence de chaque token
         explicit Document(const std::string& text) : text(text) {
-            // this->tokenization();
-            // this->compute_tf(1);
+            this->tokenization();
+            this->compute_tf(1);
 
         }
-        Document(const string& text, types type, string title="Unknown"):text(text),type(type),title(title){}
+        Document(const std::string& text, int tf_num) : text(text) {
+            this->tokenization();
+            this->compute_tf(tf_num);
+
+        }
+        Document(const string& text, types type, string title="Unknown"):text(text),type(type),title(title){
+            this->tokenization();
+            this->compute_tf(1);
+        }
+        Document(const string& text, types type,int tf_num, string title="Unknown"):text(text),type(type),title(title){
+            this->tokenization();
+            this->compute_tf(tf_num);
+        }
         void tokenization(set<string> stopwords);
         void tokenization();
         vector<string> create_ngrams(int n) const;

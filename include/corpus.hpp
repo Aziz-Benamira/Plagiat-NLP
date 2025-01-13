@@ -31,7 +31,7 @@ class Corpus {
     
 
     
-        map<string,double>  compute_tf_idf(Document& doc)const;
+        map<string,double>  compute_tf_idf(const Document& doc)const;
 
         
 

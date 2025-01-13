@@ -1,58 +1,46 @@
 #include "include/document.hpp"
 #include "include/corpus.hpp"
+#include "include/similarity_analyzer.hpp"
+#include "include/file_reader.hpp"
+#include "include/plagiarism_detector.hpp"
 #include <memory>
 // g++ main.cpp -I./include -o main src/*.cpp
 
-static double compute_cosine_similarity(map<string,double> tf_idf_1, map<string,double> tf_idf_2) { // APPROVED
-        double dot_product = 0.0, magnitude_doc1 = 0.0, magnitude_doc2 = 0.0;
-
-        for (const auto& ngram : tf_idf_1) {
-            if (tf_idf_2.find(ngram.first) != tf_idf_2.end()) { // if the ngram is common
-                dot_product += ngram.second * tf_idf_2.at(ngram.first);
-            }
-            magnitude_doc1 += ngram.second * ngram.second;
-        }
-
-        for (const auto& ngram : tf_idf_2) {
-            magnitude_doc2 += ngram.second * ngram.second;
-        }
-
-        if (magnitude_doc1 == 0 || magnitude_doc2 == 0) {
-            return 0.0;
-        }
-
-        return dot_product / (sqrt(magnitude_doc1) * sqrt(magnitude_doc2));
-    }
 int main(int argc, char* argv[]){
+    File_reader F(argv[2]);
+    cout<<F.content<<endl;
     set<string> stopwords = {"the", "is", "in", "and", "of", "to", "a", "it", "on", "for", "as", "at", "with", "by", "an", "be", "this", "that"};
-    auto  doc1= make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, "ML 1");
-    auto doc2 =make_shared<Document>("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, "ML 2");
-    auto doc3=make_shared<Document>("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, "ML 3");
-    auto doc4= make_shared<Document>("Aziz Loves Machine learning and find that adam is also passionate about it so they work together to build a project",ANGLAIS, "ML 4");
     int ngram = atoi(argv[1]);
+
+    auto  doc1= make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, ngram,"ML 1");
+    auto doc2 =make_shared<Document>("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, ngram,"ML 2");
+    auto doc3=make_shared<Document>("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS,ngram, "ML 3");
+    auto doc4= make_shared<Document>("Aziz Loves Machine learning and find that adam is also passionate about it so they work together to build a project",ANGLAIS,ngram, "ML 4");
+    
     cout<<"ngram : "<<ngram<<endl;
-    doc1->tokenization();
-    doc2->tokenization();
-    doc3->tokenization();
-    doc4->tokenization();
-    doc1->compute_tf(ngram);
-    doc2->compute_tf(ngram);
-    doc3->compute_tf(ngram);
-    doc4->compute_tf(ngram);
     Corpus DOCS;
     DOCS.add_document(doc2);
     DOCS.add_document(doc3);
     DOCS.add_document(doc4);
     DOCS.compute_df();
-    map<string,double> doc1_tfidf = DOCS.compute_tf_idf(*doc1);
-    
-    map<string,double> doc2_tfidf = DOCS.compute_tf_idf(*doc2);
-    for(auto terms: doc2_tfidf){
-        cout<<terms.first << ":" <<terms.second<<endl;
+    SimilarityAnalyzer Analyzer(DOCS);
+    PlagiarismDetector detector(Analyzer,5);
+    map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
+    for(auto couple:result){
+        cout<<couple.first->title<<": "<<couple.second<<endl;
     }
-    cout<<"FINAL SCORE "<<endl;
-    cout<<compute_cosine_similarity(doc1_tfidf, doc2_tfidf)<<endl;
-    cout<<"Check : " <<  compute_cosine_similarity(doc1_tfidf,doc1_tfidf);
+    // SimilarityAnalyzer analyzer(DOCS);
+    // cout<<"FINAL SCORE "<<endl;
+    // double cosine = analyzer.compute_similarity(*doc1,*doc4 , SimilarityAnalyzer::COSINE);
+    // double jaccard = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::JACCARD);
+    // double euclidean = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::EUCLIDEAN);
+    // double manhattan = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::MANHATTAN);
+
+    // cout << "Cosine Similarity: " << cosine << endl;
+    // cout << "Jaccard Similarity: " << jaccard << endl;
+    // cout << "Euclidean Distance: " << euclidean << endl;
+    // cout << "Manhattan Distance: " << manhattan << endl;
+    // cout<< "Final score "<<analyzer.compute_score(*doc1,*doc4)<<endl;
     return 0;
 
 }

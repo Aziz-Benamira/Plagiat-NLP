@@ -22,7 +22,7 @@ void Corpus::compute_df(){
 }
 
 
-map<string,double> Corpus::compute_tf_idf(Document& doc) const{
+map<string,double> Corpus::compute_tf_idf(const Document& doc) const{
     map<string,double> tf_idf;
     for(const auto& term_pair: doc.tf){
         int dff = 0;
@@ -30,7 +30,7 @@ map<string,double> Corpus::compute_tf_idf(Document& doc) const{
             dff== df.at(term_pair.first);
         }
         double idf = log10(Documents.size()/(1.0+dff));
-        tf_idf[term_pair.first] = doc.tf[term_pair.first] * idf;
+        tf_idf[term_pair.first] = doc.tf.at(term_pair.first) * idf;
     }
     return tf_idf;
 }

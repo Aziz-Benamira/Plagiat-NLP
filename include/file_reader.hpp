@@ -1,3 +1,5 @@
+#ifndef FILE_READER_H
+#define FILE_READER_H
 #include <iostream>
 #include <fstream>
 #include<string>
@@ -14,13 +16,13 @@ class File_reader{
         // Read from the text file
         ifstream MyReadFile(dir);
 
-        // Use a while loop together with the getline() function to read the file line by line
         while (getline(MyReadFile, myText)) {
         // Output the text from the file
             content += myText +" ";
         }
 
         // Close the file
-MyReadFile.close();
+        MyReadFile.close();
         }
 };
+#endif
