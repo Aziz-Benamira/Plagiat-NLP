@@ -21,6 +21,7 @@ public:
     enum Method {
         COSINE,
         JACCARD,
+        BHATTACHARYYA,
         EUCLIDEAN,
         MANHATTAN
     };
@@ -37,17 +38,22 @@ public:
             return compute_euclidean_similarity(doc1,doc2);
         case MANHATTAN:
             return compute_manhattan_distance(doc1,doc2);
+        case BHATTACHARYYA:
+            return compute_bhattacharyya_distance(doc1,doc2);
         default:
             return -1;
         }
     }
     double compute_score(const Document& doc1, const Document& doc2){
         double result = 0.0;
-        for (int method = COSINE; method <= MANHATTAN; ++method) {
+        // for (int method = COSINE; method <= MANHATTAN; ++method) {
+        for (int method = COSINE; method <= BHATTACHARYYA; ++method) {
             result +=compute_similarity(doc1, doc2, static_cast<Method>(method));
         }
-        return result/4; 
+        // return result/4;
+        return result/3; 
     }
+    
 private:
     double compute_cosine_similarity(const Document& doc1, const Document& doc2) { // APPROVED
         map<string,double> tf_idf_1 = LeCorpus.compute_tf_idf(doc1);
@@ -71,7 +77,19 @@ private:
 
         return dot_product / (sqrt(magnitude_doc1) * sqrt(magnitude_doc2));
     }
+    double compute_bhattacharyya_distance (const Document& doc1, const Document& doc2) { // APPROVED
+        map<string,double> tf_idf_1 = LeCorpus.compute_tf_idf(doc1);
+        map<string,double> tf_idf_2 = LeCorpus.compute_tf_idf(doc2);
+        double dot_product = 0.0, magnitude_doc1 = 0.0, magnitude_doc2 = 0.0;
+        double result=0.0;
 
+        for (const auto& ngram : tf_idf_1) {
+            if (tf_idf_2.find(ngram.first) != tf_idf_2.end()) { // if the ngram is common
+                result+=  sqrt(ngram.second * tf_idf_2.at(ngram.first));
+            }
+        }
+        return 1 +log10(result)/2.303;
+    }
     static double compute_jaccard_similarity(const Document& doc1, const Document& doc2) { // APPROVED
         std::set<std::string> ngrams1, ngrams2;
 

@@ -24,11 +24,12 @@ int main(int argc, char* argv[]){
     DOCS.add_document(doc4);
     DOCS.compute_df();
     SimilarityAnalyzer Analyzer(DOCS);
-    PlagiarismDetector detector(Analyzer,5);
+    PlagiarismDetector detector(Analyzer,ngram);
     map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
     for(auto couple:result){
         cout<<couple.first->title<<": "<<couple.second<<endl;
     }
+
     // SimilarityAnalyzer analyzer(DOCS);
     // cout<<"FINAL SCORE "<<endl;
     // double cosine = analyzer.compute_similarity(*doc1,*doc4 , SimilarityAnalyzer::COSINE);
