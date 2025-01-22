@@ -12,19 +12,30 @@ int main(int argc, char* argv[]){
     set<string> stopwords = {"the", "is", "in", "and", "of", "to", "a", "it", "on", "for", "as", "at", "with", "by", "an", "be", "this", "that"};
     int ngram = atoi(argv[1]);
 
-    auto  doc1= make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, ngram,"ML 1");
-    auto doc2 =make_shared<Document>("Machine learning and artificial intelligence are transforming data analysis. These technologies enable predictive modeling, improve decision-making processes, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, ngram,"ML 2");
-    auto doc3=make_shared<Document>("Machine learning and artificial intelligence have revolutionized data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS,ngram, "ML 3");
-    auto doc4= make_shared<Document>("Aziz Loves Machine learning and find that adam is also passionate about it so they work together to build a project",ANGLAIS,ngram, "ML 4");
-    
-    cout<<"ngram : "<<ngram<<endl;
+    auto doc1 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 1");
+    auto doc2 = make_shared<Document>("Machine learning is a subset of artificial intelligence that focuses on building systems that learn from data. It is widely used in applications like recommendation systems and fraud detection.", ANGLAIS, ngram, "ML 2");
+    auto doc3 = make_shared<Document>("Computer vision is a field of artificial intelligence that enables machines to interpret and understand visual data. It is used in applications like facial recognition and autonomous vehicles.", ANGLAIS, ngram, "ML 3");
+    auto doc4 = make_shared<Document>("Aziz is passionate about machine learning and enjoys working on projects that involve data analysis and predictive modeling.", ANGLAIS, ngram, "ML 4");
+    auto doc5 = make_shared<Document>("Innovation in technology is driving changes across various industries. From healthcare to finance, new tools and methods are being developed to solve complex problems.", ANGLAIS, ngram, "ML 5");
+    auto doc6 = make_shared<Document>("Data science is an interdisciplinary field that uses scientific methods to extract knowledge from data. It combines elements of statistics, machine learning, and domain expertise.", ANGLAIS, ngram, "ML 6");
+    auto doc7 = make_shared<Document>("Robotics is a branch of engineering that involves the design and construction of robots. These machines can perform tasks autonomously or with minimal human intervention.", ANGLAIS, ngram, "ML 7");
+
+    cout << "ngram : " << ngram << endl;
+
+    // Créer le corpus
     Corpus DOCS;
     DOCS.add_document(doc2);
     DOCS.add_document(doc3);
     DOCS.add_document(doc4);
+    DOCS.add_document(doc5);
+    DOCS.add_document(doc6);
+    DOCS.add_document(doc7);
     DOCS.compute_df();
+
+    // Créer le détecteur de plagiat
     SimilarityAnalyzer Analyzer(DOCS);
-    PlagiarismDetector detector(Analyzer,ngram);
+    PlagiarismDetector detector(Analyzer, ngram);
+
     // map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
     // for(auto couple:result){
     //     cout<<couple.first->title<<": "<<couple.second<<endl;

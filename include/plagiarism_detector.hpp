@@ -39,36 +39,54 @@ class PlagiarismDetector{
         }
 
 
-        std::map<std::string, int> get_plagiarized_3grams_with_intensity(Document& doc_to_test) { 
-  // Étape 1 : Extraire les 3-grams du document testé
-    auto test_3grams = doc_to_test.create_ngrams(3);
+        std::map<std::string, int> get_plagiarized_ngrams_with_intensity(Document& doc_to_test) {
+    std::map<std::string, int> ngram_intensity;
 
-    // Étape 2 : Initialiser la carte des 3-grams avec une intensité de 0
-    std::map<std::string, int> three_gram_intensity;
-    for (const auto& three_gram : test_3grams) {
-        three_gram_intensity[three_gram] = 0;
+    // Essayer d'abord avec n = 3
+    int n = 3;
+    doc_to_test.compute_tf(n);
+    for (auto& doc : Analyzer.LeCorpus.Documents) {
+        doc->compute_tf(n);
+    }
+    Analyzer.LeCorpus.compute_df();
+
+    // Vérifier s'il y a des correspondances avec n = 3
+    bool found_match = false;
+    for (const auto& doc : Analyzer.LeCorpus.Documents) {
+        for (const auto& ngram : doc_to_test.tf) {
+            if (doc->tf.find(ngram.first) != doc->tf.end()) {
+                found_match = true;
+                break;
+            }
+        }
+        if (found_match) break;
     }
 
-    // Étape 3 : Parcourir les documents du corpus
-    for (const auto& doc : Analyzer.LeCorpus.Documents) {
-        // Générer les 3-grams du document du corpus
-        auto corpus_3grams = doc->create_ngrams(3);
+    // Si aucune correspondance n'est trouvée avec n = 3, essayer avec n = 2
+    if (!found_match) {
+        n = 2;
+        doc_to_test.compute_tf(n);
+        for (auto& doc : Analyzer.LeCorpus.Documents) {
+            doc->compute_tf(n);
+        }
+        Analyzer.LeCorpus.compute_df();
+    }
 
-        // Mettre à jour l'intensité des 3-grams du document testé
-        for (const auto& three_gram : test_3grams) {
-            if (std::find(corpus_3grams.begin(), corpus_3grams.end(), three_gram) != corpus_3grams.end()) {
-                three_gram_intensity[three_gram]++;
+    // Calculer l'intensité des n-grams
+    for (const auto& doc : Analyzer.LeCorpus.Documents) {
+        for (const auto& ngram : doc_to_test.tf) {
+            if (doc->tf.find(ngram.first) != doc->tf.end()) {
+                ngram_intensity[ngram.first]++;
             }
         }
     }
 
-    // Étape 4 : Retourner la carte des 3-grams avec leur intensité
-    return three_gram_intensity;
+    return ngram_intensity;
 }
 
 std::map<std::string, int> get_plagiarized_words_with_intensity(Document& doc_to_test) {
     // Obtenir les 3-grams avec leur intensité
-    auto three_gram_intensity = get_plagiarized_3grams_with_intensity(doc_to_test);
+    auto three_gram_intensity = get_plagiarized_ngrams_with_intensity(doc_to_test);
 
     // Créer une carte pour stocker les mots uniques et leur intensité
     std::map<std::string, int> word_intensity;
