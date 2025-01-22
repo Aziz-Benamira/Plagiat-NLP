@@ -39,7 +39,7 @@ void Document::tokenization(){
     "by", "that", "this", "it", "from", "not", "or", "but", "so", "because", 
     "these", "those", "be", "been", "being", "have", "has", "had", "do", "does", 
     "did", "I", "you", "he", "she", "we", "they", "me", "him", "her", "us", "them", 
-    "my", "your", "his", "their"};
+    "my", "your", "his", "their", "are", "was", "were", "will", "would",};
     break;
     
     case PYTHON:
@@ -129,3 +129,28 @@ void Document::compute_tf(int n) {
        
     }
 
+std::string Document::highlight_plagiarism_in_processed_text(const std::map<std::string, int>& word_intensity) const {
+    std::string highlighted_text = text; // Utiliser le texte traité pour le highlight
+
+    // Parcourir les mots à highlight
+    for (const auto& [word, intensity] : word_intensity) {
+        size_t pos = highlighted_text.find(word);
+        while (pos != std::string::npos) {
+            // Choisir une couleur en fonction de l'intensité
+            std::string color_code;
+            if (intensity == 1) {
+                color_code = "\033[1;33m"; // Jaune pour une intensité faible
+            } else if (intensity == 2) {
+                color_code = "\033[1;31m"; // Rouge pour une intensité moyenne
+            } else {
+                color_code = "\033[1;35m"; // Magenta pour une intensité élevée
+            }
+
+            // Appliquer le highlight
+            highlighted_text.replace(pos, word.length(), color_code + word + "\033[0m");
+            pos = highlighted_text.find(word, pos + word.length() + color_code.length() + 4); // 4 est la longueur du code ANSI de reset
+        }
+    }
+
+    return highlighted_text;
+}

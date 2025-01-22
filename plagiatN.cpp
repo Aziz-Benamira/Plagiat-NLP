@@ -47,7 +47,7 @@ public:
     }
 
     // Function to create n-grams (bigram or trigram)
-    std::vector<std::string> create_ngrams(int n) const {
+    std::vector<std::string> create_ngrams(int n , bool with_stopwords = true ) const {
     std::vector<std::string> ngrams;
     std::istringstream stream(text);
     std::vector<std::string> words;

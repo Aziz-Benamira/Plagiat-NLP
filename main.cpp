@@ -25,10 +25,27 @@ int main(int argc, char* argv[]){
     DOCS.compute_df();
     SimilarityAnalyzer Analyzer(DOCS);
     PlagiarismDetector detector(Analyzer,ngram);
-    map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
-    for(auto couple:result){
-        cout<<couple.first->title<<": "<<couple.second<<endl;
+    // map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
+    // for(auto couple:result){
+    //     cout<<couple.first->title<<": "<<couple.second<<endl;
+    // }
+    auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc1);
+
+    // Afficher les résultats
+    cout << "Words from doc_to_test with intensity in corpus:\n";
+    for (const auto& [word, intensity] : word_intensity) {
+        cout << word << ": " << intensity << endl;
     }
+
+    // Highlight les parties plagiées dans le texte traité
+    std::string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
+    cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
+
+
+
+
+
+
 
     // SimilarityAnalyzer analyzer(DOCS);
     // cout<<"FINAL SCORE "<<endl;
