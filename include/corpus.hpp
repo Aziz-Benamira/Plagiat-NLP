@@ -24,7 +24,9 @@ class Corpus {
                 "the", "and", "is", "in", "at", "of", "a", "an", "on", "for",
                 "to", "with", "by", "that", "this", "it", "from"
                 
-            }):Documents(docs),stopwords(stopwords){};
+            }):Documents(docs),stopwords(stopwords){
+                compute_df();
+            };
         explicit Corpus(string FolderName){};
         void add_document(const std::shared_ptr<Document>& doc);
         void compute_df();

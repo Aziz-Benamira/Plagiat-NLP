@@ -77,10 +77,26 @@ private:
 
         return dot_product / (sqrt(magnitude_doc1) * sqrt(magnitude_doc2));
     }
+    map<string, double> apply_softmax(const map<string, double>& tf_idf) {
+        map<string, double> softmax_result;
+
+        // Step 1: Calculate the sum of exponentials of tf-idf values
+        double sum_exp = 0.0;
+        for (const auto& pair : tf_idf) {
+            sum_exp += exp(pair.second);
+        }
+
+        // Step 2: Apply the softmax formula (exp(tf-idf) / sum(exp(tf-idf)))
+        for (const auto& pair : tf_idf) {
+            softmax_result[pair.first] = exp(pair.second) / sum_exp;
+        }
+
+        return softmax_result;
+    }
     double compute_bhattacharyya_distance (const Document& doc1, const Document& doc2) { // APPROVED
-        map<string,double> tf_idf_1 = LeCorpus.compute_tf_idf(doc1);
-        map<string,double> tf_idf_2 = LeCorpus.compute_tf_idf(doc2);
-        double dot_product = 0.0, magnitude_doc1 = 0.0, magnitude_doc2 = 0.0;
+        map<string,double> tf_idf_1 = apply_softmax(LeCorpus.compute_tf_idf(doc1));
+        map<string,double> tf_idf_2 = apply_softmax(LeCorpus.compute_tf_idf(doc2));
+        double dot_product = 0.0;
         double result=0.0;
 
         for (const auto& ngram : tf_idf_1) {
@@ -88,7 +104,8 @@ private:
                 result+=  sqrt(ngram.second * tf_idf_2.at(ngram.first));
             }
         }
-        return 1 +log10(result)/2.303;
+        // cout <<doc1.title<< ": " <<doc1.title <<" : result:"<< log(result) << "score " << 1 +max(-1.0,log(result))<<endl;
+        return 1 +max(-1.0,log(result));
     }
     static double compute_jaccard_similarity(const Document& doc1, const Document& doc2) { // APPROVED
         std::set<std::string> ngrams1, ngrams2;

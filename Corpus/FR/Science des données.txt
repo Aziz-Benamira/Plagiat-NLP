@@ -1,0 +1,64 @@
+La science des données est un domaine interdisciplinaire qui utilise les mathématiques, les statistiques, le calcul scientifique, les méthodes scientifiques, 
+les process, les algorithmes et les systèmes informatiques automatisés pour extraire et extrapoler des connaissances à partir de grandes quantités de données brutes structurées ou non ,,.
+Elle est souvent associée aux données massives, à l'analyse des données, aux techniques d'apprentissage automatique comme le Machine Learning et le Deep Learning.
+
+Rôle de la science des données
+La science des données permet de produire des algorithmes et méthodes d’analyse de grandes masses de données afin d’en extraire des informations et de réaliser des modèles et prédictions utiles.
+Pour cela, elle se met en œuvre selon les étapes suivantes : 
+
+Bien comprendre et définir l'objectif et problème à résoudre
+Elaborer des stratégies d’analyse des données,
+Recueillir, explorer et analyser les données par la fouille de données et l'analyse exploratoire des données,
+Préparer les données : par le nettoyage et le formatage,
+Créer des modèles avec les données à l'aide de différentes méthodes et algorithmes tels:
+les modèles d'Apprentissage automatique,
+les modèles d'Apprentissage profond,
+Aider au déploiement et à l'exploitation des modèles et de leurs résultats:
+sous forme brute
+sous forme de visuels comme des tableaux de bord
+sous forme d'application ou d'outils d'aide à la décision.
+De plus, la science des données s’enrichit constamment grâce à l’évolution des outils et technologies, comme les plateformes de cloud computing, qui permettent de traiter des volumes de données toujours plus importants. Cette progression ouvre de nouvelles perspectives dans des domaines variés tels que la santé, la finance, l’environnement et bien d’autres secteurs où l’analyse des données joue un rôle clé.
+L'expert en science des données, aussi appelé data scientist, peut réaliser ces missions seul ou en équipe pour être plus efficace, avec la participation:
+
+d'un expert métier qui a les connaissances métier et terrain pour définir le problème a analyser et résoudre,
+d'un ingénieur de données qui recueille, et prépare les données et leur disponibilité,
+d'un architecte informatique qui supervise les processus et l’infrastructure sous-jacents,
+et d'un développeur d’application qui déploie les modèles ou résultats de l’analyse sous forme d'application.
+
+Histoire
+Le terme de "donnée" est défini depuis 1840 comme un outil de raisonnement et de démonstration. L'apparition et le développement des bases de données et d'internet entre la fin du 20ème siècle et le début du 21ème ont favorisé l'émergence des sciences de traitement de la donnée. La science des données répond ainsi à la complexité croissante et au volume en croissance rapide du nombre de données numériques disponibles dans le monde, d'où l'intérêt grandissant pour les "données massives".
+Par ailleurs, La croissance exponentielle des capacités de calcul et la facilitation de l'accessibilité aux technologies de l'information ont permis le développement d’algorithmes plus efficaces et plus complexes ainsi que la simplification de techniques statistiques, connues depuis longtemps mais dont le déploiement n'était pas pratique ou trop coûteux.
+L'essor de techniques d’apprentissage automatique et d’intelligence artificielle a également participé à la croissance de cette discipline et à son ouverture vers de nouveaux champs, surtout grâce à son importance économique pour augmenter la consommation et la productivité . Par exemple, l'analyse prédictive, le traitement automatique des langues ou la vision par ordinateur, en passant par l’analyse statistique pure de données fortement structurées à l’analyse de données semi-structurées (XML par exemple) pour notamment mettre « en correspondance des bases de données et de données textuelles ».
+
+Domaines d'utilisation
+Parmi les plus grands utilisateurs de la science des données figurent (par ordre alphabétique) :
+
+Compétences métier
+Distincte de l’analyse métier et de l’ingénierie des données, la science des données va plus loin que l’analyste de données, notamment par l'utilisation de l’apprentissage automatique. Un maître en science des données est quelqu'un qui peut utiliser des méthodes, outils et technologies adaptées au traitement des données pour extraire des observations utiles à partir de données confuses.
+Pour cela, il doit être rigoureux, mais curieux et créatif, capable de trouver les données les plus adéquates pour une question et avoir une pensée structurée lui permettant de décomposer et organiser les questions et les processus.
+Il doit savoir manipuler et nettoyer les données et les préparer dans un format adapté à l’analyse. Il doit aussi maitriser les sciences des données qui nécessitent une expertise pluridisciplinaire. Son expertise recouvre les domaines scientifiques, méthodologiques, statistiques (maitrise des statistiques descriptives ; moyennes, médianes, variance, déviation, distributions de probabilités, échantillonnage, statistiques inférentielles, etc.), des outils d'ingénierie logicielle du domaine (ex. SAS, R), de l'algorithmique de l'apprentissage automatique, de l'apprentissage profond. Pour déduire des tendances prospectives probables et de bons modèles prédictifs, il peut également s'appuyer sur des bibliothèques (ex. : TensorFlow, Keras, PyTorch). Évidemment, ces découvertes s'appuient autant sur les données du passé que du présent. Il doit maîtriser au moins un langage de programmation (Python, R, Java, Julia, Perl ou C/C++) et un langage de requête de base de données (SQL). Le scientifique de données doit aussi maîtriser les questions de régression et de classification, d'apprentissage supervisé ou non supervisé.  Il doit aussi avoir de solides compétences en droit des données et une maitrise des aspects éthiques et sociaux, notamment concernant la confidentialité, l'anonymisation, la sécurité des données sensibles (données personnelles et de santé notamment).
+La maîtrise de la plateforme Hadoop, d'outils de traitement (ex. Hive, Pig...), d'outils d'infonuagique (ex Amazon S3) et la gestion de données non structurées (ex. données issues des réseaux sociaux, de flux vidéo ou audio) est un avantage et peut être requise par certains employeurs. Des notions d'intelligence artificielle sont de plus en plus requises (réseaux de neurones artificiels, etc.). In fine, le scientifique de données doit idéalement aussi être pédagogique, notamment par la maîtrise de la visualisation de données, et il doit être en mesure de déployer les modèles d'apprentissage automatique qu'il a mis au point (c'est-à-dire les rendre utilisables par des non-spécialistes). En rendant les modèles utilisables par les non spécialistes, le scientifique de données crée un « produit de données » (Data product). Celui-ci peut être une application sur un portable ou une application web. Les utilisateurs de R développent généralement leurs produits de données sur Shiny.
+Selon Le Big Data 88 % des scientifiques de données ont au moins une maitrise (master) et 46 % un doctorat. Parmi ces scientifiques de données, 32 % proviennent du domaine des mathématiques et des statistiques, 19 % des sciences informatiques et 16 % d'écoles d’ingénieurs.
+Selon le classement des 25 ou 50 « meilleurs » métiers du monde fait aux États-Unis par le site de recherche d’emploi Glassdoor, celui de data scientist arrivait en tête, devant les « ingénieurs DevOps » et les « Data Technicians ».
+
+Évolutions attendues du métier
+Gartner Inc. estime que [réf. souhaitée]  plus de 40 % des tâches du scientifique des données seront rapidement automatisées (avant 2020)[réf. obsolète], ce qui devrait favoriser une augmentation de leur productivité, mais aussi l’apparition de « citoyens scientifiques de données » (citizen data scientists en anglais) et d’approches collaboratives (ex. Wikidata, Wikipédia).
+Des questions éthiques et de démocratie se posent avec les vols massifs de données personnelles ou les usages manipulateurs de données. Un exemple d'usage qui pose des questions éthiques et qui peut influencer la démocratie est celui du scandale de Facebook et Cambridge Analytica/AggregateIQ. Un usage douteux, voire illégal, de données massives d'utilisateurs de réseaux sociaux a été utilisé au profit de quelques candidats (ex. Donald Trump en contexte d’élections aux États-Unis) ou d’idéologies (ex. en faveur du parti du Brexit lors du référendum sur l’appartenance du Royaume-Uni à l’Union européenne).  Des conséquences peuvent s’ensuivre, notamment dans le contexte du Brexit où le Royaume-Uni a finalement quitté l’Union européenne.[réf. souhaitée]
+
+Salaires
+Selon Glassdoor, le salaire annuel d’un scientifique de données est en moyenne de 116 840 dollars et fin janvier[Quand ?] Glassdoor estimait à 1 736 le nombre d’offres d’emploi. Le salaire annuel moyen d’un scientifique de données américain serait de 110 000 dollars, tandis qu’en France il serait entre 45 000 et 50 000 euros[réf. nécessaire]. Malgré l’apparition de nombreuses formations, les employeurs peinent encore à trouver des profils assez qualifiés.
+Selon les plateformes de Freelance, le TJM (tarif journalier moyen) pour les "data Scientist" en freelancing se situe à 570 euros[réf. nécessaire] en moyenne pour les profils seniors et peut aller jusqu'à 1100 euros pour des projets d'envergure et complexes.
+
+Notes et références
+Voir aussi
+Bibliographie
+(en) William Cleveland, « Data Science : An Action Plan for Expanding the Technical Areas of the Field of Statistics », International Statistical Review / Revue internationale de statistique, vol. 69,‎ 2001, p. 21-26
+Serge Abiteboul, Sciences des données : De la logique du premier ordre à la Toile, Fayard, coll. « Collège de France », 2012 (lire en ligne)
+(en) Rachel Schutt et Cathy O'Neil, Doing Data Science : Straight Talk from the Frontline, O'Reilly Media, octobre 2013, 406 p. (ISBN 978-1-4493-5865-5)
+
+Articles connexes
+Liens externes
+Journal of Data Science
+CODATA Data Science Journal
+
+ Portail des données   Portail des probabilités et de la statistique   Portail de l’informatique

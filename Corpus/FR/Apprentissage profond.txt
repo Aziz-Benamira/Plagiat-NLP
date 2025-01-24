@@ -1,0 +1,88 @@
+L'apprentissage profond, ou apprentissage en profondeur (en anglais : deep learning) est un sous-domaine de l’intelligence artificielle qui utilise des réseaux neuronaux ayant de nombreuses couches pour résoudre des tâches complexes. Ces techniques ont permis des progrès importants et rapides dans les domaines de l'analyse du signal sonore ou visuel et notamment de la reconnaissance faciale, de la reconnaissance vocale, de la vision par ordinateur, du traitement automatisé du langage. Durant les années 2000, ces progrès ont suscité des investissements privés, universitaires et publics importants, notamment de la part des GAFAM (Google, Apple, Facebook, Amazon, Microsoft).
+
+Définition
+L'apprentissage automatique classique est généralement effectué sur des représentations des données obtenues par extraction de caractéristiques, cette dernière étant effectuée au moyen d'un algorithme. En apprentissage profond, cette extraction de caractéristiques résulte elle-même  d'un processus d'apprentissage : on parle donc d'apprentissage de représentations. En pratique, on apprend en fait une hiérarchie de représentations, souvent les couches cachées de réseaux de neurones artificiels, chacune étant définie à partir de représentations plus simples. Ces représentations étant apprises directement à partir des données, cela évite que les humains aient à expliciter la manière de les construire au moyen d'un algorithme. Si l'on représente la manière dont ces représentations sont construites les unes à partir des autres au moyen d'un graphe, celui-ci sera profond, avec de multiples couches, justifiant ainsi la qualification de « profond ».
+
+Description et contexte
+L’apprentissage profond fait partie d’une famille de méthodes d'apprentissage automatique fondées sur l’apprentissage de représentations de données. Une observation peut être représentée de différentes façons. Une image peut être représentée par exemple par un vecteur, une matrice ou un tenseur de données décrivant la scène observée, notamment en fonction :
+
+de l’intensité des pixels dont elle est constituée ;
+des contours de ce qu'elle représente ;
+des formes qu'elle comporte.
+Une des finalités des techniques d'apprentissage profond consiste à remplacer certaines tâches simples telles que des calculs mathématiques,[Information douteuse] encore relativement laborieux, par des modèles algorithmiques d’apprentissage supervisé et non supervisé (c’est-à-dire prenant ou non en compte des connaissances spécifiques du domaine étudié) ou encore par des techniques d’extraction hiérarchique[Quoi ?] des caractéristiques.
+Les recherches dans ce domaine s’efforcent de construire de meilleures représentations du réel et de créer des modèles capables d’apprendre ces représentations[pas clair] à partir de données brutes et non-travaillées en amont par l'homme, et ce à grande échelle. Certaines[Lesquelles ?] de ces représentations s’inspirent des dernières avancées en neuroscience. Il s'agit, donc pour résumer d'interprétations du traitement de l'information et des modèles de communication du système nerveux, à l'image de la façon dont le système nerveux établit des connexions en fonction des messages reçus[pas clair], de la réponse neuronale[Quoi ?] et du poids des connexions[Quoi ?] entre les neurones du cerveau.
+
+Les architectures d’apprentissage profond telles que les réseaux de neurones profonds, les réseaux neuronaux convolutifs « convolutional deep neural networks », et les réseaux de croyance profonde (en) ont plusieurs champs d’application :
+
+la vision par ordinateur (reconnaissance de formes) ;
+la reconnaissance automatique de la parole ;
+le traitement automatique du langage naturel ;
+la reconnaissance audio ;
+la bio-informatique,,.
+Dans ces deux derniers domaines, notamment, elles ont obtenu des résultats très prometteurs[réf. nécessaire].
+
+Historique
+Le concept d'apprentissage profond prend forme dans les années 2010, avec la convergence de quatre facteurs :
+
+Des réseaux de neurones artificiels multicouches (eux-mêmes issus entre autres du concept de perceptron, datant de la fin des années 1950) ;
+Des algorithmes d'analyse discriminante et apprenants (dont l'émergence remonte aux années 1980) ;
+Des machines dont la puissance de traitement permet de traiter des données massives ;
+Des bases de données suffisamment grandes, capables d'entraîner des systèmes de grandes tailles.
+En octobre 2015, le programme AlphaGo, à qui l'on a « appris » à jouer au jeu de go grâce à la méthode de l'apprentissage profond, bat le champion européen Fan Hui par cinq parties à zéro. En mars 2016, le même programme bat le champion du monde Lee Sedol par 4 parties à 1.
+En 2019, OpenAI a publié GPT-2, un modèle de fondation capable de générer du texte. Tout en exprimant leurs inquiétudes sur les détournements possibles de ce type de technologie, les chercheurs de l'association ont renoncé à partager la version complète.
+
+Domaines d'application
+L'apprentissage profond s'applique à divers secteurs des NTIC, notamment :
+
+la reconnaissance visuelle, par exemple la reconnaissance d'un panneau de signalisation par un robot ou une voiture autonome, ou la reconnaissance d'emplacements dans une image en combinant ses caractéristiques, comme un lit, une fenêtre et des affiches peuvent indiquer une chambre. Elle aide à prédire certaines propriétés (ex. : les propriétés d'un sol filmé par un robot) ;
+la reconnaissance ou la comparaison de formes ou d'objets hautement déformables ;
+l'analyse de mouvements et positions des doigts d'une main, ce qui peut être utile pour traduire les langues signées ;
+le positionnement automatique d'une caméra, etc. ;
+la télédétection (notamment en imagerie satellitaire).
+l'art numérique, l'histoire de l'art ; par exemple la création d'œuvres artistiques à partir d'une photo ;
+la reconnaissance vocale de voix humaine ou de signaux sonores ;
+la robotique ;
+la sécurité ;
+la pédagogie assistée par l'informatique ;
+l'intelligence artificielle en général ;
+des jeux de société complexes (échecs, go, shogi) ;
+la traduction automatique (moteurs tels que Google traduction, DeepL, Pons)[source secondaire nécessaire] ;
+l'analyse d'émotions révélées par un visage photographié ou filmé.
+Dans le système de santé, l'apprentissage profond peut aussi :
+
+poser, dans certains cas (à partir de l'imagerie médicale notamment), un diagnostic médical (ex. : reconnaissance automatique d'un cancer en imagerie médicale, mélanome notamment ; détection automatique de la maladie de Parkinson (par la voix) ; diagnostic d'une rétinopathie, de métastases de cancer du sein et d'autres problèmes biomédicaux, classer les arythmies cardiovasculaires, pronostics, et prédiction de mortalité hospitalière ainsi que de réadmissions aux urgences. L'apprentissage profond peut aussi améliorer le soin médical,. Une application du deep learning en santé publique est le projet Horus, un appareil portable utilisant la plate-forme NVidia Jetson, qui aide les mal-voyants ou les aveugles à s'orienter et à reconnaître des personnes ou des objets, en retranscrivant en audio une image captée par une caméra. Des liens entre l'apprentissage profond et la théorie de jeux ont été établis par Hamidou Tembine en utilisant notamment des jeux de type champ moyen ;
+pratiquer la bioinformatique, par exemple pour l'étude de l'ADN et des segments non codants du génome, ou encore la cytométrie.
+En physique, l'apprentissage profond est utilisé pour la recherche sur les particules exotiques.
+
+Réactions
+Sont pointés de possibles usages malveillants du deep learning. Il est devenu possible avec les deepfakes d'incruster le visage d'une personne sur une autre, à son insu, et de lui faire faire ou dire des choses qu'elle n'a pas faites (comme dans le film Running man de 1986), le deep learning recréant les mouvements du visage en rendant l'incrustation ressemblante. Ainsi, plusieurs actrices comme Gal Gadot, Emma Watson, Cara Delevingne, Emma Stone, Natalie Portman ou Scarlett Johansson se sont retrouvées avec leur visage incrusté sur celui d'une actrice pornographique, soulevant des craintes quant à la généralisation d'un tel usage, permettant à n'importe qui de nuire à la réputation d'une autre personne. Face à ce danger, plusieurs plates-formes telles que Pornhub, Twitter et Reddit ont réagi en interdisant la publication de telles vidéos, et l'utilisateur « deepfakes », créateur du logiciel éponyme permettant à tout usager de créer des fausses vidéos à caractère pornographique, a été banni de reddit et son fil dédié supprimé.
+
+Notes et références
+(en) Ian Goodfellow, Yoshua Bengio et Aaron Courville, Deep Learning, MIT Press, 2016 (ISBN 0262035618, lire en ligne) [détail des éditions]
+
+Voir aussi
+Comparaison de logiciels d'apprentissage profond
+
+Articles connexes
+Notions
+Logiciels
+Keras
+MATLAB
+PyTorch
+TensorFlow
+Theano (logiciel)
+
+Théoriciens
+Yoshua Bengio
+Geoffrey Hinton
+Yann LeCun
+François Chollet
+
+Liens externes
+L'apprentissage profond : une révolution en intelligence artificielle.
+
+Bibliographie
+(en) Ian Goodfellow, Yoshua Bengio et Aaron Courville, Deep Learning, MIT Press, 2016 (ISBN 0262035618, lire en ligne) [détail des éditions].
+(en) Y. Bengio, Learning Deep Architectures for AI, Now Publishers, 2009, p. 149, 195.
+
+ Portail de l’intelligence artificielle   Portail de l'informatique théorique   Portail des données
