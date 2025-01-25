@@ -22,6 +22,8 @@ void Document::tokenization(set<string> stopwords){
                 }
         }
 }
+
+
 void Document::tokenization(){
     set<string> stopwords;
     // Assign stopwords based on document type
@@ -170,11 +172,11 @@ std::string Document::highlight_plagiarism_in_processed_text(const std::map<std:
         // Remplacer toutes les occurrences du mot entier par la version highlightée
         std::string highlighted_word;
         if (intensity >= 4) {
-            highlighted_word = "\033[1;31m" + word + "\033[0m"; // Rouge pour une intensité élevée (4-grams)
+            highlighted_word = "<red>" + word + "</red>"; // Rouge pour une intensité élevée (4-grams)
         } else if (intensity == 3) {
-            highlighted_word = "\033[1;33m" + word + "\033[0m"; // Jaune pour une intensité moyenne (3-grams)
+            highlighted_word = "<yellow>" + word + "</yellow>"; // Jaune pour une intensité moyenne (3-grams)
         } else {
-            highlighted_word = "\033[1;35m" + word + "\033[0m"; // Magenta pour une intensité faible (2-grams)
+            highlighted_word = "<magenta>" + word + "</magenta>"; // Magenta pour une intensité faible (2-grams)
         }
 
         // Appliquer le highlight en utilisant une expression régulière

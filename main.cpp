@@ -4,13 +4,45 @@
 #include "include/file_reader.hpp"
 #include "include/plagiarism_detector.hpp"
 #include <memory>
+#include <fstream>
+
+// Define the toString function for the types enumeration
+std::string toString(types t) {
+    switch (t) {
+        case ANGLAIS: return "anglais";
+        case FRANCAIS: return "français";
+        case CPP: return "c++";
+        case PYTHON: return "python";
+        default: return "unknown";
+    }
+}
+
 // g++ main.cpp -I./include -o main src/*.cpp
 
-int main(int argc, char* argv[]){
+int main(int argc, char* argv[]) {
+    // -----------------------------
+    // Ouverture d'un fichier de sortie
+    // -----------------------------
+    std::ofstream output_file("output.txt", std::ios::out | std::ios::binary);
+    if (!output_file.is_open()) {
+        std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
+        return 1;
+    }
+
+    // Ajouter un BOM UTF-8 (optionnel)
+    output_file << "\xEF\xBB\xBF";
+
+    // Rediriger std::cout vers le fichier
+    std::cout.rdbuf(output_file.rdbuf());
+
+    // -----------------------------
+    // Initialisation des objets et des paramètres
+    // -----------------------------
     FileReader fileReader;
-    string test_file = argv[1];
-    string type = argv[2];
+    std::string test_file = argv[1];
+    std::string type = argv[2];
     types t;
+
     if (type == "anglais") {
         t = ANGLAIS;
     } else if (type == "français") {
@@ -22,41 +54,66 @@ int main(int argc, char* argv[]){
     } else {
         t = ANGLAIS;
     }
-    string corpus_path = argv[3];
+
+    
+    std::string corpus_path = argv[3];
     Corpus corpus;
     std::shared_ptr<Document> doc;
-    try{ // <== LE COURS ;)
+
+    try {
+        // Lecture du document
         doc = fileReader.readDocument(test_file, t);
-        cout << "Document loaded successfully with title: "<<doc->title<<".txt" << endl;
-        cout<<doc->text<<endl;
         corpus = fileReader.readCorpus(corpus_path);
-        cout << "Corpus loaded with " << corpus.Documents.size() << " documents!" << endl;
-        cout<< corpus.Documents.size()<<endl;
-    }catch (const exception& e) {
-        cerr << "Erreur: " << e.what() << endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Erreur : " << e.what() << std::endl;
+        return 1;
     }
 
+    // -----------------------------
+    // Génération du fichier de sortie
+    // -----------------------------
+    std::cout << "\n";
+    std::cout << "# Détecteur De Plagiat\n\n";
+    
+    std::cout << "### Langue du document à tester : " << toString(t) << "\n";
+    std::cout << "### Titre du document à tester : " << doc->title << "\n";
+    // std::cout << "- Voici un point important.\n";
+    // std::cout << "- Voici un autre point.\n\n";
+
+    // std::cout << "### Sous-sous-titre\n\n";
+    // std::cout << "Un autre paragraphe avec du contenu formaté.\n\n";
+
+    // Résultats de plagiat
     int ngram = 4;
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
-    map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc);
-    for(auto couple:result){
-        cout.precision(3);
-        cout<<couple.first->title<<": "<<couple.second*100<<"%"<<endl;
+
+    auto result = detector.check_plagiarism(*doc);
+    std::cout << "### Résultats de plagiat\n\n";
+    
+    for (const auto& couple : result) {
+        std::cout << "- Document : " << couple.first->title 
+                  << " (" << couple.second * 100 << "% de similitude)\n";
     }
-    map<std::string, int>  word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
 
+    auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
     std::string highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
-    cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
-    // auto doc1 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 1");
-    // auto doc2 = make_shared<Document>("Machine learning and artificial intelligence are transforming the way we analyze data. These technologies enable predictive analytics, improve decision-making, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 2");
-    // auto doc3 = make_shared<Document>("Artificial intelligence and machine learning are revolutionizing data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 3");
-    // auto doc4 = make_shared<Document>("Aziz is passionate about machine learning and enjoys working on projects that involve data analysis and predictive modeling.", ANGLAIS, ngram, "ML 4");
-    // auto doc5 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 5");
-    // auto doc6 = make_shared<Document>("Data science is an interdisciplinary field that uses scientific methods to extract knowledge from data. It combines elements of statistics, machine learning, and domain expertise.", ANGLAIS, ngram, "ML 6");
-    // auto doc7 = make_shared<Document>("Robotics is a branch of engineering that involves the design and construction of robots. These machines can perform tasks autonomously or with minimal human intervention.", ANGLAIS, ngram, "ML 7");
+    std::cout << "\n\n\n";
+    std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
+    std::cout << "<red>rouge</red>, pour une intensité élevée\n";
+    std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
+    std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
 
-    cout << "ngram : " << ngram << endl;
+    std::cout << "\n### Texte surligné\n\n";
+    std::cout << highlighted_text << "\n";
+
+    // -----------------------------
+    // Fermeture du fichier
+    // -----------------------------
+    output_file.close();
+    return 0;
+}
+
 
     // Créer le corpus
 
@@ -99,7 +156,13 @@ int main(int argc, char* argv[]){
     
 
 
-
+// auto doc1 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 1");
+    // auto doc2 = make_shared<Document>("Machine learning and artificial intelligence are transforming the way we analyze data. These technologies enable predictive analytics, improve decision-making, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 2");
+    // auto doc3 = make_shared<Document>("Artificial intelligence and machine learning are revolutionizing data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 3");
+    // auto doc4 = make_shared<Document>("Aziz is passionate about machine learning and enjoys working on projects that involve data analysis and predictive modeling.", ANGLAIS, ngram, "ML 4");
+    // auto doc5 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 5");
+    // auto doc6 = make_shared<Document>("Data science is an interdisciplinary field that uses scientific methods to extract knowledge from data. It combines elements of statistics, machine learning, and domain expertise.", ANGLAIS, ngram, "ML 6");
+    // auto doc7 = make_shared<Document>("Robotics is a branch of engineering that involves the design and construction of robots. These machines can perform tasks autonomously or with minimal human intervention.", ANGLAIS, ngram, "ML 7");
 
 
 
@@ -120,9 +183,7 @@ int main(int argc, char* argv[]){
     // Highlight les parties plagiées dans le texte traité
     // std::string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
     // cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
-    return 0;
-
-}
+    
 // inside docs
 // about:0.0367016
 // adam:0.0367016

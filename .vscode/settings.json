@@ -1,5 +1,6 @@
 {
   "files.associations": {
+    "*.embeddedhtml": "html",
     "iostream": "cpp",
     "ostream": "cpp",
     "array": "cpp",
@@ -77,6 +78,14 @@
     "codecvt": "cpp",
     "ratio": "cpp",
     "iomanip": "cpp",
-    "filesystem": "cpp"
+    "filesystem": "cpp",
+    "chrono": "cpp",
+    "forward_list": "cpp",
+    "list": "cpp",
+    "mutex": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp",
+    "condition_variable": "cpp",
+    "semaphore": "cpp"
   }
 }
