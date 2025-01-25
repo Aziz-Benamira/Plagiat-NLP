@@ -5,9 +5,9 @@
 #include "include/plagiarism_detector.hpp"
 #include <memory>
 #include <fstream>
-
+using namespace std;
 // Define the toString function for the types enumeration
-std::string toString(types t) {
+string toString(types t) {
     switch (t) {
         case ANGLAIS: return "anglais";
         case FRANCAIS: return "français";
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     // Initialize file reader and corpus
     FileReader fileReader;
     Corpus corpus;
-    std::shared_ptr<Document> doc;
+    shared_ptr<Document> doc;
 
     try {
         doc = fileReader.readDocument(test_file, t);
@@ -82,7 +82,7 @@ int main(int argc, char* argv[]) {
     auto result = detector.check_plagiarism(*doc);
     std::cout << "### Résultats de plagiat\n\n";
     for (const auto& couple : result) {
-        std::cout << "- Document : " << couple.first->title 
+        cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)\n";
     }
 
@@ -107,8 +107,8 @@ int main(int argc, char* argv[]) {
         std::cout << "\033[35mmagenta\033[0m, pour une intensité faible.\n\n";
     }
 
-    std::cout << "\n### Texte surligné\n\n";
-    std::cout << highlighted_text << "\n";
+    cout << "\n### Texte surligné\n\n";
+    cout << highlighted_text << "\n";
 
     // Close the file if needed
     if (output_mode == "file") {
@@ -185,7 +185,7 @@ int main(int argc, char* argv[]) {
     // cout<< "Final score "<<analyzer.compute_score(*doc1,*doc4)<<endl;
 
     // Highlight les parties plagiées dans le texte traité
-    // std::string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
+    // string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
     // cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
     
 // inside docs

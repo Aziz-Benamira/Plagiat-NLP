@@ -23,9 +23,11 @@ class PlagiarismDetector{
             map<shared_ptr<Document>,double> result;
             for(int ngram = 1;ngram<=ngram_range;ngram++){
                 // cout<<"NGRAM : "<<ngram<<endl;
-                Doc_to_check.compute_tf(ngram);
+                if (Doc_to_check.ngram !=ngram){
+                    Doc_to_check.compute_tf(ngram);
+                }
                 for(auto& doc: Analyzer.LeCorpus.Documents){
-                    doc->compute_tf(ngram);
+                    if(doc->ngram!=ngram)doc->compute_tf(ngram);
                 }
                 Analyzer.LeCorpus.compute_df();
                 for(auto& doc: Analyzer.LeCorpus.Documents){
