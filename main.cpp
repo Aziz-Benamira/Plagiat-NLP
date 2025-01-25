@@ -7,6 +7,7 @@
 #include <fstream>
 using namespace std;
 // Define the toString function for the types enumeration
+
 string toString(types t) {
     switch (t) {
         case ANGLAIS: return "anglais";
@@ -49,7 +50,7 @@ int main(int argc, char* argv[]) {
 
     try {
         doc = fileReader.readDocument(test_file, t);
-        corpus = fileReader.readCorpus(corpus_path);
+        corpus = fileReader.readCorpus(corpus_path,t);
     } catch (const std::exception& e) {
         std::cerr << "Erreur : " << e.what() << std::endl;
         return 1;
