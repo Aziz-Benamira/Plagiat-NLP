@@ -17,32 +17,19 @@ std::string toString(types t) {
     }
 }
 
-// g++ main.cpp -I./include -o main src/*.cpp
-
 int main(int argc, char* argv[]) {
-    // -----------------------------
-    // Ouverture d'un fichier de sortie
-    // -----------------------------
-    std::ofstream output_file("output.txt", std::ios::out | std::ios::binary);
-    if (!output_file.is_open()) {
-        std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
+    if (argc < 5) {
+        std::cerr << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> <output_mode>\n";
+        std::cerr << "Output mode: 'terminal' or 'file'\n";
         return 1;
     }
 
-    // Ajouter un BOM UTF-8 (optionnel)
-    output_file << "\xEF\xBB\xBF";
-
-    // Rediriger std::cout vers le fichier
-    std::cout.rdbuf(output_file.rdbuf());
-
-    // -----------------------------
-    // Initialisation des objets et des paramètres
-    // -----------------------------
-    FileReader fileReader;
     std::string test_file = argv[1];
     std::string type = argv[2];
-    types t;
+    std::string corpus_path = argv[3];
+    std::string output_mode = argv[4];
 
+    types t;
     if (type == "anglais") {
         t = ANGLAIS;
     } else if (type == "français") {
@@ -55,13 +42,12 @@ int main(int argc, char* argv[]) {
         t = ANGLAIS;
     }
 
-    
-    std::string corpus_path = argv[3];
+    // Initialize file reader and corpus
+    FileReader fileReader;
     Corpus corpus;
     std::shared_ptr<Document> doc;
 
     try {
-        // Lecture du document
         doc = fileReader.readDocument(test_file, t);
         corpus = fileReader.readCorpus(corpus_path);
     } catch (const std::exception& e) {
@@ -69,48 +55,66 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    // Redirect output to file if needed
+    std::ofstream output_file;
+    if (output_mode == "file") {
+        output_file.open("output.txt", std::ios::out | std::ios::binary);
+        if (!output_file.is_open()) {
+            std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
+            return 1;
+        }
+        output_file << "\xEF\xBB\xBF"; // UTF-8 BOM
+        std::cout.rdbuf(output_file.rdbuf());
+    }
+
     // -----------------------------
-    // Génération du fichier de sortie
+    // Generate output
     // -----------------------------
     std::cout << "\n";
     std::cout << "# Détecteur De Plagiat\n\n";
-    
     std::cout << "### Langue du document à tester : " << toString(t) << "\n";
     std::cout << "### Titre du document à tester : " << doc->title << "\n";
-    // std::cout << "- Voici un point important.\n";
-    // std::cout << "- Voici un autre point.\n\n";
 
-    // std::cout << "### Sous-sous-titre\n\n";
-    // std::cout << "Un autre paragraphe avec du contenu formaté.\n\n";
-
-    // Résultats de plagiat
     int ngram = 4;
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
 
     auto result = detector.check_plagiarism(*doc);
     std::cout << "### Résultats de plagiat\n\n";
-    
     for (const auto& couple : result) {
         std::cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)\n";
     }
 
     auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
-    std::string highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
+    std::string highlighted_text;
+
+    if (output_mode == "file") {
+        highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
+    } else {
+        highlighted_text = doc->highlight_plagiarism_in_terminal(word_intensity);
+    }
+
     std::cout << "\n\n\n";
     std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
-    std::cout << "<red>rouge</red>, pour une intensité élevée\n";
-    std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
-    std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
+    if (output_mode == "file") {
+        std::cout << "<red>rouge</red>, pour une intensité élevée\n";
+        std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
+        std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
+    } else {
+        std::cout << "\033[31mrouge\033[0m, pour une intensité élevée\n";
+        std::cout << "\033[33mdoré\033[0m, pour une intensité moyenne\n";
+        std::cout << "\033[35mmagenta\033[0m, pour une intensité faible.\n\n";
+    }
 
     std::cout << "\n### Texte surligné\n\n";
     std::cout << highlighted_text << "\n";
 
-    // -----------------------------
-    // Fermeture du fichier
-    // -----------------------------
-    output_file.close();
+    // Close the file if needed
+    if (output_mode == "file") {
+        output_file.close();
+    }
+
     return 0;
 }
 

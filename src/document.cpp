@@ -185,3 +185,35 @@ std::string Document::highlight_plagiarism_in_processed_text(const std::map<std:
 
     return highlighted_text;
 }
+
+#include "../include/document.hpp"
+
+// ... (autres fonctions existantes)
+
+std::string Document::highlight_plagiarism_in_terminal(const std::map<std::string, int>& word_intensity) const {
+    std::string highlighted_text = text; // Utiliser le texte traité pour le highlight
+
+    // Parcourir les mots à highlight
+    for (const auto& [word, intensity] : word_intensity) {
+        // Échapper les caractères spéciaux dans le mot
+        std::string escaped_word = escape_special_chars(word);
+
+        // Créer une expression régulière pour rechercher le mot entier
+        std::regex word_regex("\\b" + escaped_word + "\\b");
+
+        // Remplacer toutes les occurrences du mot entier par la version highlightée
+        std::string highlighted_word;
+        if (intensity >= 4) {
+            highlighted_word = "\033[31m" + word + "\033[0m"; // Rouge pour une intensité élevée (4-grams)
+        } else if (intensity == 3) {
+            highlighted_word = "\033[33m" + word + "\033[0m"; // Jaune pour une intensité moyenne (3-grams)
+        } else {
+            highlighted_word = "\033[35m" + word + "\033[0m"; // Magenta pour une intensité faible (2-grams)
+        }
+
+        // Appliquer le highlight en utilisant une expression régulière
+        highlighted_text = std::regex_replace(highlighted_text, word_regex, highlighted_word);
+    }
+
+    return highlighted_text;
+}
