@@ -14,6 +14,7 @@ class Document{
     public:
         string text;
         string title;
+        int ngram;
         types type;
         vector<string> tokens;
         set<string> unique_tokens;
@@ -23,9 +24,9 @@ class Document{
             this->compute_tf(1);
 
         }
-        Document(const std::string& text, int tf_num) : text(text) {
+        Document(const std::string& text, int ngram) : text(text) {
             this->tokenization();
-            this->compute_tf(tf_num);
+            this->compute_tf(ngram);
 
         }
         Document(const string& text, types type, string title="Unknown"):text(text),type(type),title(title){

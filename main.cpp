@@ -5,9 +5,9 @@
 #include "include/plagiarism_detector.hpp"
 #include <memory>
 #include <fstream>
-
+using namespace std;
 // Define the toString function for the types enumeration
-std::string toString(types t) {
+string toString(types t) {
     switch (t) {
         case ANGLAIS: return "anglais";
         case FRANCAIS: return "français";
@@ -18,29 +18,14 @@ std::string toString(types t) {
 }
 
 // g++ main.cpp -I./include -o main src/*.cpp
-
+// ./build/main ./test.cpp c++ ./Corpus/CPP
+// ./build/main ./test.txt anglais ./Corpus/EN
+// ./build/main ./test_fr.txt français ./Corpus/FR
 int main(int argc, char* argv[]) {
-    // -----------------------------
-    // Ouverture d'un fichier de sortie
-    // -----------------------------
-    std::ofstream output_file("output.txt", std::ios::out | std::ios::binary);
-    if (!output_file.is_open()) {
-        std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
-        return 1;
-    }
 
-    // Ajouter un BOM UTF-8 (optionnel)
-    output_file << "\xEF\xBB\xBF";
-
-    // Rediriger std::cout vers le fichier
-    std::cout.rdbuf(output_file.rdbuf());
-
-    // -----------------------------
-    // Initialisation des objets et des paramètres
-    // -----------------------------
     FileReader fileReader;
-    std::string test_file = argv[1];
-    std::string type = argv[2];
+    string test_file = argv[1];
+    string type = argv[2];
     types t;
 
     if (type == "anglais") {
@@ -56,56 +41,78 @@ int main(int argc, char* argv[]) {
     }
 
     
-    std::string corpus_path = argv[3];
+    string corpus_path = argv[3];
     Corpus corpus;
-    std::shared_ptr<Document> doc;
+    shared_ptr<Document> doc;
 
     try {
         // Lecture du document
-        doc = fileReader.readDocument(test_file, t);
-        corpus = fileReader.readCorpus(corpus_path);
-    } catch (const std::exception& e) {
-        std::cerr << "Erreur : " << e.what() << std::endl;
+        doc = fileReader.readDocument(test_file, t,1);
+        cout<<"Ouvert le document : '"<<doc->title<<"'"<<endl;
+        corpus = fileReader.readCorpus(corpus_path,1);
+        cout<<"Ouvert le corpus contenant : '"<<corpus.Documents.size()<<" documents"<<endl;
+    } catch (const exception& e) {
+        cerr << "Erreur : " << e.what() << endl;
         return 1;
     }
-
-    // -----------------------------
-    // Génération du fichier de sortie
-    // -----------------------------
-    std::cout << "\n";
-    std::cout << "# Détecteur De Plagiat\n\n";
-    
-    std::cout << "### Langue du document à tester : " << toString(t) << "\n";
-    std::cout << "### Titre du document à tester : " << doc->title << "\n";
-    // std::cout << "- Voici un point important.\n";
-    // std::cout << "- Voici un autre point.\n\n";
-
-    // std::cout << "### Sous-sous-titre\n\n";
-    // std::cout << "Un autre paragraphe avec du contenu formaté.\n\n";
-
     // Résultats de plagiat
     int ngram = 4;
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
 
     auto result = detector.check_plagiarism(*doc);
-    std::cout << "### Résultats de plagiat\n\n";
+    // -----------------------------
+    // Ouverture d'un fichier de sortie
+    // -----------------------------
+    
+    ofstream output_file("output.txt", ios::out | ios::binary);
+    if (!output_file.is_open()) {
+        cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << endl;
+        return 1;
+    }
+
+    // Ajouter un BOM UTF-8 (optionnel)
+    output_file << "\xEF\xBB\xBF";
+
+    // Rediriger cout vers le fichier
+    cout.rdbuf(output_file.rdbuf());
+
+    // -----------------------------
+    // Initialisation des objets et des paramètres
+    // -----------------------------
+    
+    // -----------------------------
+    // Génération du fichier de sortie
+    // -----------------------------
+    cout << "\n";
+    cout << "# Détecteur De Plagiat\n\n";
+    
+    cout << "### Langue du document à tester : " << toString(t) << "\n";
+    cout << "### Titre du document à tester : " << doc->title << "\n";
+    // cout << "- Voici un point important.\n";
+    // cout << "- Voici un autre point.\n\n";
+
+    // cout << "### Sous-sous-titre\n\n";
+    // cout << "Un autre paragraphe avec du contenu formaté.\n\n";
+
+    
+    cout << "### Résultats de plagiat\n\n";
     
     for (const auto& couple : result) {
-        std::cout << "- Document : " << couple.first->title 
+        cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)\n";
     }
 
     auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
-    std::string highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
-    std::cout << "\n\n\n";
-    std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
-    std::cout << "<red>rouge</red>, pour une intensité élevée\n";
-    std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
-    std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
+    string highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
+    cout << "\n\n\n";
+    cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
+    cout << "<red>rouge</red>, pour une intensité élevée\n";
+    cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
+    cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
 
-    std::cout << "\n### Texte surligné\n\n";
-    std::cout << highlighted_text << "\n";
+    cout << "\n### Texte surligné\n\n";
+    cout << highlighted_text << "\n";
 
     // -----------------------------
     // Fermeture du fichier
@@ -181,7 +188,7 @@ int main(int argc, char* argv[]) {
     // cout<< "Final score "<<analyzer.compute_score(*doc1,*doc4)<<endl;
 
     // Highlight les parties plagiées dans le texte traité
-    // std::string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
+    // string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
     // cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
     
 // inside docs

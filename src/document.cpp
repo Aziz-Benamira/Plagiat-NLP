@@ -134,7 +134,7 @@ void Document::compute_tf(vector<string>& ngrams){
 }
 
 void Document::compute_tf(int n) {
-        
+        ngram=n;
         tf.clear();
         vector<string> ngrams = create_ngrams(n);
 

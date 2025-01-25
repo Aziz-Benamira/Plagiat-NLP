@@ -15,16 +15,11 @@ using namespace std;
 class Corpus {
     public :
         vector<shared_ptr<Document>> Documents;
-        set<string> stopwords;
         map<string, int> df; //  document frequency 
         set<string> tokens_;
         int num_gram ;
         Corpus(){};
-        Corpus(vector<shared_ptr<Document>>docs,set<string> stopwords= {
-                "the", "and", "is", "in", "at", "of", "a", "an", "on", "for",
-                "to", "with", "by", "that", "this", "it", "from"
-                
-            }):Documents(docs),stopwords(stopwords){
+        Corpus(vector<shared_ptr<Document>>docs, int ngram):Documents(docs),num_gram(ngram){
                 compute_df();
             };
         explicit Corpus(string FolderName){};
