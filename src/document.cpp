@@ -123,6 +123,7 @@ void Document::tokenization(){
                 text = regex_replace(text, regex(R"([\.,!?\-;:\"\(\)\[\]«»])"), " ");
                 text = regex_replace(text, regex("[\r\n']"), " ");
                 text = regex_replace(text, regex("\\s{2,}"), " ");
+                std::regex caracteres_speciaux(R"([^\x20-\x7E\n])");
                 if(type==FRANCAIS){
                     text = regex_replace(text, regex("é|è|ê|ë|É"), "e");   
                     text = regex_replace(text, regex("à|â|ä"), "a");
@@ -131,6 +132,8 @@ void Document::tokenization(){
                     text = regex_replace(text, regex("ù|û|ü"), "u");
                     text = regex_replace(text, regex("ÿ"), "y");
                     text = regex_replace(text, regex("ç"), "c");
+                    text = std::regex_replace(text, caracteres_speciaux, " ");
+
                     // text= re.sub(r'[\x80-\xFF]', '', text);
 
                 }
