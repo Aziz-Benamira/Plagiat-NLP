@@ -120,7 +120,9 @@ void Document::tokenization(){
                 // transform(stopwords.begin(), stopwords.end() ,stopwords.begin() , ::tolower);
                 
                 // suppression des ponctuations
-                text = regex_replace(text, regex(R"([\.,!?\-';:\"'\(\)\[\]\r\n«»'])"), "");
+                text = regex_replace(text, regex(R"([\.,!?\-;:\"\(\)\[\]«»])"), " ");
+                text = regex_replace(text, regex("[\r\n']"), " ");
+                text = regex_replace(text, regex("\\s{2,}"), " ");
                 if(type==FRANCAIS){
                     text = regex_replace(text, regex("é|è|ê|ë|É"), "e");   
                     text = regex_replace(text, regex("à|â|ä"), "a");
@@ -129,6 +131,8 @@ void Document::tokenization(){
                     text = regex_replace(text, regex("ù|û|ü"), "u");
                     text = regex_replace(text, regex("ÿ"), "y");
                     text = regex_replace(text, regex("ç"), "c");
+                    // text= re.sub(r'[\x80-\xFF]', '', text);
+
                 }
                 
                 // 

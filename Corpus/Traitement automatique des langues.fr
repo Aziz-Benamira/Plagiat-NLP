@@ -1,100 +1,100 @@
-Le traitement automatique des langues (TAL ou TALN), en anglais natural language processing ou NLP, est un domaine multidisciplinaire impliquant la linguistique, l'informatique et l'intelligence artificielle, qui vise à créer des outils de traitement du langage naturel pour diverses applications. Il ne doit pas être confondu avec la linguistique informatique, qui vise à comprendre les langues au moyen d'outils informatiques.
-Le TALN est sorti des laboratoires de recherche pour être progressivement mis en œuvre dans des applications informatiques nécessitant l'intégration du langage humain à la machine. Aussi le TALN est-il parfois appelé ingénierie linguistique.
+Le traitement automatique des langues (TAL ou TALN), en anglais natural language processing ou NLP, est un domaine multidisciplinaire impliquant la linguistique, l'informatique et l'intelligence artificielle, qui vise a creer des outils de traitement du langage naturel pour diverses applications. Il ne doit pas etre confondu avec la linguistique informatique, qui vise a comprendre les langues au moyen d'outils informatiques.
+Le TALN est sorti des laboratoires de recherche pour etre progressivement mis en uvre dans des applications informatiques necessitant l'integration du langage humain a la machine. Aussi le TALN est-il parfois appele ingenierie linguistique.
 
 Histoire
-Années 1950-1960
-Les premiers travaux en traitement automatique du langage naturel commencent dans les années 1950, principalement aux États-Unis où le contexte politique, lié à la guerre froide, est propice au développement de la thématique de la traduction automatique.
-Les premières applications informatiques sont liées au traitement automatique des conversations. En 1950, dans son article fondateur de l'intelligence artificielle, « Computing machinery and intelligence », Alan Turing expose une méthode d'évaluation qui sera appelée par la suite « test de Turing » ou « critère de Turing ». Ce test mesure le degré d'intelligence d'une machine, à partir de la capacité d'un programme conversationnel à se faire passer pour un être humain : dans un échange de messages écrits, un sujet humain doit déterminer si son interlocuteur est une machine ou non. La base employée est cependant fragile pour évaluer l'intelligence artificielle, car l'impression d'un unique utilisateur dépend de trop de facteurs liés au milieu ambiant pour être érigée en règle.
-En 1954, l'expérience Georgetown-IBM, réalisée conjointement par l'université de Georgetown et par la société IBM, comporte la traduction complètement automatique, en anglais, de plus de soixante phrases russes romanisées relatives aux domaines de la politique, du droit, des mathématiques et de la science. Les auteurs prétendent que dans un délai de trois à cinq ans, la traduction automatique ne sera plus un problème. Il apparaît cependant que les énoncés en russe ont été choisis avec soin et que nombre des opérations effectuées pour la démonstration ont été adaptées à des mots et des phrases particuliers. De plus, il n'y a pas d'analyse relationnelle ou syntaxique permettant d'identifier la structure des phrases. La méthode employée est une méthode essentiellement lexicographique reposant sur un dictionnaire où un mot donné est relié à des règles et des démarches spécifiques.
-Les notions introduites par Turing permirent à Joseph Weizenbaum de mettre au point, de 1964 à 1966, le premier automate conversationnel à tromper un être humain quant à sa nature. Simulant un psychothérapeute rogérien, l'automate, du nom d'ELIZA, bien que n'employant presque aucune information sur la pensée ou l'émotion humaine, parvient parfois à établir une interaction étonnamment similaire à l'interaction humaine. Ainsi, quand le « patient » dépasse les faibles capacités de la base de connaissances, ELIZA peut fournir une réponse générique, comme « Pourquoi dites-vous avoir mal à la tête ? » en réponse à « J'ai mal à la tête ».
-À la fin des années 1960, Terry Winograd, un chercheur du MIT, met au point un programme en langage naturel du nom de SHRDLU (prononcer « chreudeul »), qui permet à son utilisateur de converser avec un ordinateur pour gérer un « monde de cubes de construction » (a blocks world) s'affichant sur un des premiers écrans. C’est le premier programme qui sache comprendre et exécuter des ordres complexes en langage naturel. Mais les seules opérations qu'il peut faire, c’est de prendre des cubes, les déplacer, les rassembler ou les disperser. Il ne pourra jamais comprendre tout ce que les humains peuvent faire avec des objets physiques.
-Les progrès réels sont donc décevants. Le rapport ALPAC (en) de 1966 constate qu'en dix ans de recherches les buts n'ont pas été atteints. Cette prise de conscience de l'extrême complexité des langues a considérablement réduit l'ambition des travaux de recherche.
+Annees 1950-1960
+Les premiers travaux en traitement automatique du langage naturel commencent dans les annees 1950, principalement aux Etats-Unis ou le contexte politique, lie a la guerre froide, est propice au developpement de la thematique de la traduction automatique.
+Les premieres applications informatiques sont liees au traitement automatique des conversations. En 1950, dans son article fondateur de l'intelligence artificielle,  Computing machinery and intelligence , Alan Turing expose une methode d'evaluation qui sera appelee par la suite  test de Turing  ou  critere de Turing . Ce test mesure le degre d'intelligence d'une machine, a partir de la capacite d'un programme conversationnel a se faire passer pour un etre humain : dans un echange de messages ecrits, un sujet humain doit determiner si son interlocuteur est une machine ou non. La base employee est cependant fragile pour evaluer l'intelligence artificielle, car l'impression d'un unique utilisateur depend de trop de facteurs lies au milieu ambiant pour etre erigee en regle.
+En 1954, l'experience Georgetown-IBM, realisee conjointement par l'universite de Georgetown et par la societe IBM, comporte la traduction completement automatique, en anglais, de plus de soixante phrases russes romanisees relatives aux domaines de la politique, du droit, des mathematiques et de la science. Les auteurs pretendent que dans un delai de trois a cinq ans, la traduction automatique ne sera plus un probleme. Il apparait cependant que les enonces en russe ont ete choisis avec soin et que nombre des operations effectuees pour la demonstration ont ete adaptees a des mots et des phrases particuliers. De plus, il n'y a pas d'analyse relationnelle ou syntaxique permettant d'identifier la structure des phrases. La methode employee est une methode essentiellement lexicographique reposant sur un dictionnaire ou un mot donne est relie a des regles et des demarches specifiques.
+Les notions introduites par Turing permirent a Joseph Weizenbaum de mettre au point, de 1964 a 1966, le premier automate conversationnel a tromper un etre humain quant a sa nature. Simulant un psychotherapeute rogerien, l'automate, du nom d'ELIZA, bien que n'employant presque aucune information sur la pensee ou l'emotion humaine, parvient parfois a etablir une interaction etonnamment similaire a l'interaction humaine. Ainsi, quand le  patient  depasse les faibles capacites de la base de connaissances, ELIZA peut fournir une reponse generique, comme  Pourquoi dites-vous avoir mal a la tete ?  en reponse a  J'ai mal a la tete .
+A la fin des annees 1960, Terry Winograd, un chercheur du MIT, met au point un programme en langage naturel du nom de SHRDLU (prononcer  chreudeul ), qui permet a son utilisateur de converser avec un ordinateur pour gerer un  monde de cubes de construction  (a blocks world) s'affichant sur un des premiers ecrans. Cest le premier programme qui sache comprendre et executer des ordres complexes en langage naturel. Mais les seules operations qu'il peut faire, cest de prendre des cubes, les deplacer, les rassembler ou les disperser. Il ne pourra jamais comprendre tout ce que les humains peuvent faire avec des objets physiques.
+Les progres reels sont donc decevants. Le rapport ALPAC (en) de 1966 constate qu'en dix ans de recherches les buts n'ont pas ete atteints. Cette prise de conscience de l'extreme complexite des langues a considerablement reduit l'ambition des travaux de recherche.
 
-Années 1970-1980
-Pendant les années 1970 beaucoup de programmeurs ont commencé à écrire des « ontologies conceptuelles », dont le but était de structurer l'information en données compréhensibles par l'ordinateur. C'est le cas de MARGIE (Schank, 1975), SAM (Cullingford, 1978), PAM (Wilensky, 1978), TaleSpin (Meehan, 1976), SCRUPULE (Lehnert, 1977), Politics (Carbonell, 1979), Plot Units (Lehnert, 1981).
+Annees 1970-1980
+Pendant les annees 1970 beaucoup de programmeurs ont commence a ecrire des  ontologies conceptuelles , dont le but etait de structurer l'information en donnees comprehensibles par l'ordinateur. C'est le cas de MARGIE (Schank, 1975), SAM (Cullingford, 1978), PAM (Wilensky, 1978), TaleSpin (Meehan, 1976), SCRUPULE (Lehnert, 1977), Politics (Carbonell, 1979), Plot Units (Lehnert, 1981).
 
-Années 1990-2000
-Depuis les années 2010
-En janvier 2018, des modèles d'intelligence artificielle développés par Microsoft et Alibaba réussissent chacun de leur côté à battre les humains dans un test de lecture et de compréhension de l’université Stanford. Le traitement automatique du langage naturel imite la compréhension humaine des mots et des phrases et permet maintenant aux modèles d'apprentissage automatique de traiter de grandes quantités d'informations avant de fournir des réponses précises aux questions qui leur sont posées.
-En novembre 2018, Google lance BERT, un modèle de langage.
-En mai 2020, OpenAI, une société fondée par Elon Musk et Sam Altman, annonce le lancement de GPT-3, un modèle de langage à 175 milliards de paramètres diffusé comme fork d'une API commerciale.
+Annees 1990-2000
+Depuis les annees 2010
+En janvier 2018, des modeles d'intelligence artificielle developpes par Microsoft et Alibaba reussissent chacun de leur cote a battre les humains dans un test de lecture et de comprehension de luniversite Stanford. Le traitement automatique du langage naturel imite la comprehension humaine des mots et des phrases et permet maintenant aux modeles d'apprentissage automatique de traiter de grandes quantites d'informations avant de fournir des reponses precises aux questions qui leur sont posees.
+En novembre 2018, Google lance BERT, un modele de langage.
+En mai 2020, OpenAI, une societe fondee par Elon Musk et Sam Altman, annonce le lancement de GPT-3, un modele de langage a 175 milliards de parametres diffuse comme fork d'une API commerciale.
 
 TALN statistique
-Les utilisations statistiques du traitement automatique du langage naturel reposent sur des méthodes stochastiques, probabilistes ou simplement statistiques pour résoudre certaines difficultés discutées ci-dessus, particulièrement celles qui surviennent du fait que les phrases très longues sont fortement ambiguës une fois traitées avec des grammaires réalistes, autorisant des milliers ou des millions d'analyses possibles. Les méthodes de désambiguïsation comportent souvent l'utilisation de corpus et d'outils de formalisation comme les modèles de Markov. Le TALN statistique comporte toutes les approches quantitatives du traitement linguistique automatisé, y compris la modélisation, la théorie de l'information, et l'algèbre linéaire. La technologie pour le TALN statistique vient principalement de l'apprentissage automatique et de l'exploration de données, lesquels impliquent l'apprentissage à partir des données venant de l'intelligence artificielle.
+Les utilisations statistiques du traitement automatique du langage naturel reposent sur des methodes stochastiques, probabilistes ou simplement statistiques pour resoudre certaines difficultes discutees ci-dessus, particulierement celles qui surviennent du fait que les phrases tres longues sont fortement ambigues une fois traitees avec des grammaires realistes, autorisant des milliers ou des millions d'analyses possibles. Les methodes de desambiguisation comportent souvent l'utilisation de corpus et d'outils de formalisation comme les modeles de Markov. Le TALN statistique comporte toutes les approches quantitatives du traitement linguistique automatise, y compris la modelisation, la theorie de l'information, et l'algebre lineaire. La technologie pour le TALN statistique vient principalement de l'apprentissage automatique et de l'exploration de donnees, lesquels impliquent l'apprentissage a partir des donnees venant de l'intelligence artificielle.
 
 Champs de recherche et applications
-Le champ du traitement automatique du langage naturel couvre de très nombreuses disciplines de recherche qui peuvent mettre en œuvre des compétences aussi diverses que les mathématiques appliquées ou le traitement du signal.
+Le champ du traitement automatique du langage naturel couvre de tres nombreuses disciplines de recherche qui peuvent mettre en uvre des competences aussi diverses que les mathematiques appliquees ou le traitement du signal.
 
 Syntaxe
-Lemmatisation : Regroupement des mots d'une même famille dans un texte, afin de réduire ces mots à leur forme canonique (le lemme), comme petit, petite, petits, et petites. Certaines conjugaisons peuvent rendre cette tâche complexe pour des ordinateurs, comme retrouver la forme canonique «avoir» depuis «eussions eu». En revanche, « des avions » et « nous avions » n'ont pas le même lemme.
-Morphologie : Regroupement de différents mots à travers[pas clair] leur parties, comme les suffixes, préfixes, radicaux. Par exemple, enneigement peut se décomposer en « en- + neige + -ment ».
-Étiquetage morpho-syntaxique : Assigne chaque mot d'un texte à sa catégorie grammaticale. Par exemple, le mot ferme peut être un verbe dans « il ferme la porte », un nom dans « il va à la ferme », un adjectif dans « un ton ferme » et un adverbe dans « trois ans de prison ferme ».
-Analyse syntaxique : Étiquetage morpho-syntaxique de chacun des mots d'un texte, comme dans un arbre syntaxique. Certaines phrases ambiguës peuvent être interprétées de plusieurs manières différentes, comme « je regarde l'homme avec les jumelles », qui peut signifier « je regarde l'homme en utilisant des jumelles », ou « je regarde l'homme qui a des jumelles », ou « je regarde l'homme qui est accompagné de sœurs jumelles ».
-Délimitation de la phrase : Séparation des phrases d'un texte. À l'écrit, la ponctuation ou la casse permet en général de séparer les phrases, mais des complications peuvent être causées par les abréviations utilisant un point, ou les citations comportant des ponctuations à l'intérieur d'une phrase, etc.
-Racinisation : Regroupement des mots ayant une racine commune et appartenant au même champ lexical. Par exemple, pêche, pêcher, pêcheur ont la même racine, mais ni la pêche (le fruit), ni le péché, ne font partie du même champ lexical.
-Séparation des mots : Dans la langue parlée, les phrases ne sont qu'une chaîne de phonèmes, où l'espace typographique n'est pas prononcé. Par exemple, la phrase /ɛ̃bɔnapaʁtəmɑ̃ʃo/ peut être comprise identiquement comme « un bon appartement chaud » et « un Bonaparte manchot ».
+Lemmatisation : Regroupement des mots d'une meme famille dans un texte, afin de reduire ces mots a leur forme canonique (le lemme), comme petit, petite, petits, et petites. Certaines conjugaisons peuvent rendre cette tache complexe pour des ordinateurs, comme retrouver la forme canonique avoir depuis eussions eu. En revanche,  des avions  et  nous avions  n'ont pas le meme lemme.
+Morphologie : Regroupement de differents mots a travers[pas clair] leur parties, comme les suffixes, prefixes, radicaux. Par exemple, enneigement peut se decomposer en  en- + neige + -ment .
+Etiquetage morpho-syntaxique : Assigne chaque mot d'un texte a sa categorie grammaticale. Par exemple, le mot ferme peut etre un verbe dans  il ferme la porte , un nom dans  il va a la ferme , un adjectif dans  un ton ferme  et un adverbe dans  trois ans de prison ferme .
+Analyse syntaxique : Etiquetage morpho-syntaxique de chacun des mots d'un texte, comme dans un arbre syntaxique. Certaines phrases ambigues peuvent etre interpretees de plusieurs manieres differentes, comme  je regarde l'homme avec les jumelles , qui peut signifier  je regarde l'homme en utilisant des jumelles , ou  je regarde l'homme qui a des jumelles , ou  je regarde l'homme qui est accompagne de surs jumelles .
+Delimitation de la phrase : Separation des phrases d'un texte. A l'ecrit, la ponctuation ou la casse permet en general de separer les phrases, mais des complications peuvent etre causees par les abreviations utilisant un point, ou les citations comportant des ponctuations a l'interieur d'une phrase, etc.
+Racinisation : Regroupement des mots ayant une racine commune et appartenant au meme champ lexical. Par exemple, peche, pecher, pecheur ont la meme racine, mais ni la peche (le fruit), ni le peche, ne font partie du meme champ lexical.
+Separation des mots : Dans la langue parlee, les phrases ne sont qu'une chaine de phonemes, ou l'espace typographique n'est pas prononce. Par exemple, la phrase /bnapatmo/ peut etre comprise identiquement comme  un bon appartement chaud  et  un Bonaparte manchot .
 
-Sémantique (et génération)
-Traduction automatique : Il s'agit de l'un des problèmes les plus complexes, dit IA-complet, qui nécessite de nombreuses connaissances, non seulement linguistiques, mais aussi concernant le monde. Il s'agit de la première application de recherche, active dès les années 1950.
-Génération automatique de textes : Écriture de textes syntaxiquement et sémantiquement corrects, pour produire par exemple des bulletins météo ou des rapports automatisés.
-Résumé automatique de texte, reformulation et paraphrasage : Extraction du contenu pertinent d'un texte, détection des informations les plus importantes, des redondances, afin de générer un texte cohérent humainement crédible.
-Désambiguïsation lexicale : Problème encore non résolu, consistant à déterminer le sens d'un mot dans une phrase, lorsqu'il peut avoir plusieurs sens possibles, selon le contexte général.
-Correction orthographique : Outre une comparaison aux mots du dictionnaire et une recherche approximative afin de proposer des corrections, il existe les correcteurs grammaticaux qui utilisent la sémantique et le contexte afin de corriger les homophonies.
-Agents conversationnels, et systèmes de questions-réponses : Combinaison d'une étape de compréhension du langage puis une étape de génération de texte.
-Détection de coréférences et résolution d'anaphores : Détection de la liaison entre plusieurs mots d'une phrase faisant référence à un même sujet.
+Semantique (et generation)
+Traduction automatique : Il s'agit de l'un des problemes les plus complexes, dit IA-complet, qui necessite de nombreuses connaissances, non seulement linguistiques, mais aussi concernant le monde. Il s'agit de la premiere application de recherche, active des les annees 1950.
+Generation automatique de textes : Ecriture de textes syntaxiquement et semantiquement corrects, pour produire par exemple des bulletins meteo ou des rapports automatises.
+Resume automatique de texte, reformulation et paraphrasage : Extraction du contenu pertinent d'un texte, detection des informations les plus importantes, des redondances, afin de generer un texte coherent humainement credible.
+Desambiguisation lexicale : Probleme encore non resolu, consistant a determiner le sens d'un mot dans une phrase, lorsqu'il peut avoir plusieurs sens possibles, selon le contexte general.
+Correction orthographique : Outre une comparaison aux mots du dictionnaire et une recherche approximative afin de proposer des corrections, il existe les correcteurs grammaticaux qui utilisent la semantique et le contexte afin de corriger les homophonies.
+Agents conversationnels, et systemes de questions-reponses : Combinaison d'une etape de comprehension du langage puis une etape de generation de texte.
+Detection de coreferences et resolution d'anaphores : Detection de la liaison entre plusieurs mots d'une phrase faisant reference a un meme sujet.
 
 Traitement du signal (parole et graphie)
-Reconnaissance de l'écriture manuscrite, reconnaissance optique de caractères et lecture automatique de document : Système d'analyse et de traitement des images, couplés à des règles linguistiques permettant d'évaluer la probabilité d'apparition des lettres et mots décodés.
-Reconnaissance automatique de la parole : Analyse acoustique, association entre segments élémentaires sonore et des éléments lexicaux, puis correspondance des motifs obtenus avec des mots courant, ou des suites de mots apparaissant fréquemment.
-Synthèse vocale : Une translation vers l'alphabet phonétique est la plus souvent utilisée, mais la catégorie grammaticale est aussi à prendre en compte ; par exemple, il faut reconnaître le second -ent comme muet dans l'exemple « Les présidents président ». Les mots dont la prononciation est irrégulière doivent être stockés. De plus, l'intonation et la prosodie sont également à prendre en compte afin d'obtenir un effet naturel.
-Traitement de la parole : Regroupe les deux catégories ci-dessus.
-Détection des langues et des dialectes : tant à partir de textes qu'à partir d'énoncés parlés.
+Reconnaissance de l'ecriture manuscrite, reconnaissance optique de caracteres et lecture automatique de document : Systeme d'analyse et de traitement des images, couples a des regles linguistiques permettant d'evaluer la probabilite d'apparition des lettres et mots decodes.
+Reconnaissance automatique de la parole : Analyse acoustique, association entre segments elementaires sonore et des elements lexicaux, puis correspondance des motifs obtenus avec des mots courant, ou des suites de mots apparaissant frequemment.
+Synthese vocale : Une translation vers l'alphabet phonetique est la plus souvent utilisee, mais la categorie grammaticale est aussi a prendre en compte ; par exemple, il faut reconnaitre le second -ent comme muet dans l'exemple  Les presidents president . Les mots dont la prononciation est irreguliere doivent etre stockes. De plus, l'intonation et la prosodie sont egalement a prendre en compte afin d'obtenir un effet naturel.
+Traitement de la parole : Regroupe les deux categories ci-dessus.
+Detection des langues et des dialectes : tant a partir de textes qu'a partir d'enonces parles.
 
 Extraction d'informations
-Fouille de textes : Recherche d'informations spécifiques dans un corpus de documents donnés, qui utilise l'indexation de contenu.
-Recherche d'information : Sous-domaine de la fouille de texte ; l'application la plus connue concerne les moteurs de recherche, qui passent également par l'analyse des méta-données et des liens entre les pages elles-mêmes.
-Reconnaissance d'entités nommées : Détermination dans un texte des noms propres, tels que des personnes ou des endroits, ainsi que les quantités, valeurs, ou dates.
-Similarité de textes : Vise à donner une valeur de similarité entre deux ensemble textuels.
-Comparaison de texte (ou de fichiers) : Donne les différences entre deux ensemble textuels.
-Classification et catégorisation de documents : Activité qui consiste à classer de façon automatique des ressources documentaires, généralement en provenance d'un corpus.
-Systèmes de tutorat intelligents : Utilisés notamment pour l'enseignement des langues
-Analyse de sentiment : Vise à extraire le ressenti d'un texte (généralement positif ou négatif) en fonction des mots et du type de langage utilisé, d'indices typographiques ou de la personne qui l'a écrit.
-Recommandation automatique de documents : Consiste à extraire l'information importante d'une base de documents afin de les relier en « séries », afin de proposer ses éléments aux personnes intéressées par d'autres éléments de cette série.
+Fouille de textes : Recherche d'informations specifiques dans un corpus de documents donnes, qui utilise l'indexation de contenu.
+Recherche d'information : Sous-domaine de la fouille de texte ; l'application la plus connue concerne les moteurs de recherche, qui passent egalement par l'analyse des meta-donnees et des liens entre les pages elles-memes.
+Reconnaissance d'entites nommees : Determination dans un texte des noms propres, tels que des personnes ou des endroits, ainsi que les quantites, valeurs, ou dates.
+Similarite de textes : Vise a donner une valeur de similarite entre deux ensemble textuels.
+Comparaison de texte (ou de fichiers) : Donne les differences entre deux ensemble textuels.
+Classification et categorisation de documents : Activite qui consiste a classer de facon automatique des ressources documentaires, generalement en provenance d'un corpus.
+Systemes de tutorat intelligents : Utilises notamment pour l'enseignement des langues
+Analyse de sentiment : Vise a extraire le ressenti d'un texte (generalement positif ou negatif) en fonction des mots et du type de langage utilise, d'indices typographiques ou de la personne qui l'a ecrit.
+Recommandation automatique de documents : Consiste a extraire l'information importante d'une base de documents afin de les relier en  series , afin de proposer ses elements aux personnes interessees par d'autres elements de cette serie.
 
-Bibliométrie
-La bibliométrie est l'utilisation du traitement automatique des langues sur des publications scientifiques.
+Bibliometrie
+La bibliometrie est l'utilisation du traitement automatique des langues sur des publications scientifiques.
 
-Étude bibliométrique du traitement automatique des langues
-La première étude d'envergure a été réalisée en 2013, à l'occasion de l'anniversaire de l'Association for Computational Linguistics (ACL), avec un atelier intitulé Rediscovering 50 Years of Discoveries in Natural Language Processing (« retour sur 50 années de découvertes en matière de traitement du langage naturel »).
-La même année, a eu lieu l'opération Natural language processing for natural language processing (NLP4NLP), portant sur l'application des outils de traitement automatique du langage naturel aux archives du traitement automatique du langage naturel des années 1960 à nos jours. Il s'agissait de déterminer automatiquement quels étaient les inventeurs des termes techniques que nous utilisons actuellement.
-Un autre champ d'étude est la détermination des copier-coller éventuels que les chercheurs du traitement automatique des langues effectuent quand ils écrivent un article scientifique.
-Une synthèse complète des travaux NLP4NLP a été publiée en 2019 sous forme d'un double numéro de la revue Frontiers in Research Metrics and Analytics afin de décrire quantitativement de multiples aspects comme la proportion des femmes (par rapport aux hommes), le nombre de co-auteurs, l'évolution des sujets d'études, etc.,.
+Etude bibliometrique du traitement automatique des langues
+La premiere etude d'envergure a ete realisee en 2013, a l'occasion de l'anniversaire de l'Association for Computational Linguistics (ACL), avec un atelier intitule Rediscovering 50 Years of Discoveries in Natural Language Processing ( retour sur 50 annees de decouvertes en matiere de traitement du langage naturel ).
+La meme annee, a eu lieu l'operation Natural language processing for natural language processing (NLP4NLP), portant sur l'application des outils de traitement automatique du langage naturel aux archives du traitement automatique du langage naturel des annees 1960 a nos jours. Il s'agissait de determiner automatiquement quels etaient les inventeurs des termes techniques que nous utilisons actuellement.
+Un autre champ d'etude est la determination des copier-coller eventuels que les chercheurs du traitement automatique des langues effectuent quand ils ecrivent un article scientifique.
+Une synthese complete des travaux NLP4NLP a ete publiee en 2019 sous forme d'un double numero de la revue Frontiers in Research Metrics and Analytics afin de decrire quantitativement de multiples aspects comme la proportion des femmes (par rapport aux hommes), le nombre de co-auteurs, l'evolution des sujets d'etudes, etc.,.
 
 Voir aussi
 Bibliographie
-(en) Dan Jurafsky, Speech and Language Processing, Stanford, Pearson (maison d'édition), 2008, 320 p. (ISBN 9780131873216)
-François-Régis Chaumartin, Le traitement automatique des langues : comprendre les textes grâce à l'intelligence artificielle, Paris, Dunod, coll. « InfoPro », 2020, 320 p. (ISBN 978-2-100-80188-6)
-Marcel Cori, Le traitement automatique des langues en question: des machines qui comprennent le français?, Paris, Éditions Cassini, 2020, 248p.  (ISBN 978-2-84225-255-7)
-Claude Muller, Jean Royauté et Max Silberztein, INTEX : Pour la linguistique et le traitement automatique des langues, Besançon, Presses universitaires de Franche-Comté, 2004, 366 p. (ISBN 978-2-84867-824-5 et 978-2-84867-062-1, ISSN 2967-8080, DOI 10.4000/BOOKS.PUFC.29912, lire en ligne).
+(en) Dan Jurafsky, Speech and Language Processing, Stanford, Pearson (maison d'edition), 2008, 320 p. (ISBN 9780131873216)
+Francois-Regis Chaumartin, Le traitement automatique des langues : comprendre les textes grace a l'intelligence artificielle, Paris, Dunod, coll.  InfoPro , 2020, 320 p. (ISBN 978-2-100-80188-6)
+Marcel Cori, Le traitement automatique des langues en question: des machines qui comprennent le francais?, Paris, Editions Cassini, 2020, 248p.  (ISBN 978-2-84225-255-7)
+Claude Muller, Jean Royaute et Max Silberztein, INTEX : Pour la linguistique et le traitement automatique des langues, Besancon, Presses universitaires de Franche-Comte, 2004, 366 p. (ISBN 978-2-84867-824-5 et 978-2-84867-062-1, ISSN 2967-8080, DOI 10.4000/BOOKS.PUFC.29912, lire en ligne).
 
 Articles connexes
 Linguistique informatique
-Compréhension du langage naturel
+Comprehension du langage naturel
 Lexical Markup Framework (LMF), travaux de normalisation ISO des lexiques du traitement automatique des langues
 Modular Audio Recognition Framework (MARF)
-Association pour le traitement automatique des langues (ATALA) : société savante de référence pour la francophonie
+Association pour le traitement automatique des langues (ATALA) : societe savante de reference pour la francophonie
 LREC
-LRE Map, base de données des ressources utilisées dans le traitement automatique des langues
+LRE Map, base de donnees des ressources utilisees dans le traitement automatique des langues
 Gensim
 SpaCy
 Natural Language Toolkit
-Conférences TALN depuis 1994 en France
-BERT (modèle de langage)
+Conferences TALN depuis 1994 en France
+BERT (modele de langage)
 Stanford Question Answering Dataset
 
 Liens externes
-Ressource relative à la santé : Medical Subject Headings
+Ressource relative a la sante : Medical Subject Headings
 
-Références
+References
 
- Portail de l’informatique   Portail de la linguistique   Portail de l’intelligence artificielle
+ Portail de linformatique   Portail de la linguistique   Portail de lintelligence artificielle
