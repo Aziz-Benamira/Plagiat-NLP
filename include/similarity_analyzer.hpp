@@ -48,7 +48,15 @@ public:
         double result = 0.0;
         // for (int method = COSINE; method <= MANHATTAN; ++method) {
         for (int method = COSINE; method <= BHATTACHARYYA; ++method) {
-            result +=compute_similarity(doc1, doc2, static_cast<Method>(method));
+            double temp = compute_similarity(doc1, doc2, static_cast<Method>(method));
+            if(doc2.title == "Intelligence artificielle"){
+                cout<<"ngram : "<<doc1.ngram<<endl;
+                cout<<doc1.title<<" : "<<doc2.title<<" : "<<temp<<endl;
+                cout<<method<<" : "<< temp<<endl;
+            }
+            
+            
+            result += temp;
         }
         // return result/4;
         return result/3; 
@@ -59,17 +67,26 @@ private:
         map<string,double> tf_idf_1 = LeCorpus.compute_tf_idf(doc1);
         map<string,double> tf_idf_2 = LeCorpus.compute_tf_idf(doc2);
         double dot_product = 0.0, magnitude_doc1 = 0.0, magnitude_doc2 = 0.0;
-
+        map<string, double> filtered_tf_idf_2;
+        for (const auto& pair : tf_idf_2) {
+            if (tf_idf_1.find(pair.first) != tf_idf_1.end()) {
+                filtered_tf_idf_2[pair.first] = pair.second;
+            }
+        }
+        tf_idf_2 = apply_softmax(filtered_tf_idf_2);
+        tf_idf_1 = apply_softmax(tf_idf_1);
         for (const auto& ngram : tf_idf_1) {
             if (tf_idf_2.find(ngram.first) != tf_idf_2.end()) { // if the ngram is common
                 dot_product += ngram.second * tf_idf_2.at(ngram.first);
+                magnitude_doc2 += tf_idf_2.at(ngram.first) * tf_idf_2.at(ngram.first);
             }
             magnitude_doc1 += ngram.second * ngram.second;
+            
         }
 
-        for (const auto& ngram : tf_idf_2) {
-            magnitude_doc2 += ngram.second * ngram.second;
-        }
+        // for (const auto& ngram : tf_idf_2) {
+        //     magnitude_doc2 += ngram.second * ngram.second;
+        // }
 
         if (magnitude_doc1 == 0 || magnitude_doc2 == 0) {
             return 0.0;
@@ -95,7 +112,16 @@ private:
     }
     double compute_bhattacharyya_distance (const Document& doc1, const Document& doc2) { // APPROVED
         map<string,double> tf_idf_1 = apply_softmax(LeCorpus.compute_tf_idf(doc1));
-        map<string,double> tf_idf_2 = apply_softmax(LeCorpus.compute_tf_idf(doc2));
+
+        map<string,double> tf_idf_2= LeCorpus.compute_tf_idf(doc2) ;
+        // Make a copy of tf_idf_2 containing only elements that are in tf_idf_1
+        map<string, double> filtered_tf_idf_2;
+        for (const auto& pair : tf_idf_2) {
+            if (tf_idf_1.find(pair.first) != tf_idf_1.end()) {
+                filtered_tf_idf_2[pair.first] = pair.second;
+            }
+        }
+        tf_idf_2 = apply_softmax(filtered_tf_idf_2);
         double dot_product = 0.0;
         double result=0.0;
 
@@ -120,10 +146,11 @@ private:
         std::set<std::string> intersection, union_set;
         std::set_intersection(ngrams1.begin(), ngrams1.end(), ngrams2.begin(), ngrams2.end(),
                               std::inserter(intersection, intersection.begin()));
-        std::set_union(ngrams1.begin(), ngrams1.end(), ngrams2.begin(), ngrams2.end(),
-                       std::inserter(union_set, union_set.begin()));
+        // std::set_union(ngrams1.begin(), ngrams1.end(), ngrams2.begin(), ngrams2.end(),
+                    //    std::inserter(union_set, union_set.begin()));
 
-        return (double)intersection.size() / union_set.size();
+        // return (double)intersection.size() / union_set.size();
+        return (double)intersection.size() / ngrams1.size();
     }
     
     double compute_euclidean_similarity(const Document& doc1, const Document& doc2) {

@@ -80,18 +80,26 @@ int main(int argc, char* argv[]) {
     PlagiarismDetector detector(analyzer, ngram);
 
     auto result = detector.check_plagiarism(*doc);
+    // Trie descendant
     std::vector<std::pair<std::shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
 std::sort(sortedResult.begin(), sortedResult.end(),
           [](const auto& a, const auto& b) {
               return a.second > b.second;
           });
+
     std::cout << "### Résultats de plagiat\n\n";
     for (const auto& couple : sortedResult) {
         cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)\n";
     }
 
-    auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
+    std::vector<std::shared_ptr<Document>> top_documents;
+    for (const auto& [doc, score] : sortedResult) {
+        top_documents.push_back(doc);
+        if (top_documents.size() >= 5) break; // Limiter à 5 documents
+    }
+
+    auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc,top_documents);
     std::string highlighted_text;
 
     if (argc==5) {

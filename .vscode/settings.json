@@ -92,6 +92,7 @@
     "csignal": "cpp",
     "cstdarg": "cpp",
     "ranges": "cpp",
-    "valarray": "cpp"
+    "valarray": "cpp",
+    "xhash": "cpp"
   }
 }

@@ -42,22 +42,18 @@ class PlagiarismDetector{
         }
 
 
-      std::map<std::string, int> get_plagiarized_ngrams_with_intensity(Document& doc_to_test) {
+      std::map<std::string, int> get_plagiarized_ngrams_with_intensity(Document& doc_to_test , vector<std::shared_ptr<Document>> top_documents) {
     std::map<std::string, int> ngram_intensity;
 
     // Obtenir les 5 premiers documents avec les scores de similarité les plus élevés
-    auto similarity_scores = check_plagiarism(doc_to_test);
-    std::vector<std::shared_ptr<Document>> top_documents;
-    for (const auto& [doc, score] : similarity_scores) {
-        top_documents.push_back(doc);
-        if (top_documents.size() >= 5) break; // Limiter à 5 documents
-    }
-
+    
     // Essayer d'abord avec n = 4
     int n = 4;
     doc_to_test.compute_tf(n);
     for (auto& doc : top_documents) {
+        if(doc->ngram!=n){
         doc->compute_tf(n);
+        }
     }
     Analyzer.LeCorpus.compute_df();
 
@@ -118,18 +114,18 @@ class PlagiarismDetector{
 }
 
 
-std::map<std::string, int> get_plagiarized_words_with_intensity(Document& doc_to_test) {
+std::map<std::string, int> get_plagiarized_words_with_intensity(Document& doc_to_test,vector<std::shared_ptr<Document>> top_documents) {
     // Obtenir les 3-grams avec leur intensité
-    auto three_gram_intensity = get_plagiarized_ngrams_with_intensity(doc_to_test);
+    auto gram_intensity = get_plagiarized_ngrams_with_intensity(doc_to_test,top_documents);
 
     // Créer une carte pour stocker les mots uniques et leur intensité
     std::map<std::string, int> word_intensity;
 
     // Parcourir les 3-grams plagiés
-    for (const auto& [three_gram, intensity] : three_gram_intensity) {
+    for (const auto& [gram, intensity] : gram_intensity) {
         if (intensity > 0) { // Seulement les 3-grams qui apparaissent dans le corpus
             // Découper le 3-gram en mots individuels
-            std::istringstream stream(three_gram);
+            std::istringstream stream(gram);
             std::string word;
             while (stream >> word) {
                 word_intensity[word] += intensity; // Mettre à jour l'intensité du mot

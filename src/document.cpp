@@ -36,7 +36,7 @@ void Document::tokenization(){
     // "lui", "leur", "nous", "vous", "je", "tu", "moi", "toi", "que", "qui", "quoi"};
         stopwords={
     // Articles & contractions
-    "le", "la", "les", "un", "une", "des", "du", "de", "d'", "au", "aux", "à",
+    "le", "la", "les", "un", "une", "des", "du", "de", "d'", "au", "aux", "à","l",
     
     // Pronouns
     "je", "tu", "il", "elle", "nous", "vous", "ils", "elles", "me", "te", "se",
@@ -84,28 +84,20 @@ void Document::tokenization(){
 
     case CPP:
         stopwords = {
-    "asm", "auto", "bool", "break", "case", "catch", "char", "class", "const", "constexpr", 
-    "continue", "default", "delete", "do", "double", "dynamic_cast", "else", "enum", "explicit", 
-    "export", "extern", "false", "float", "for", "friend", "goto", "if", "inline", "int", "long", 
-    "mutable", "namespace", "new", "noexcept", "not", "not_eq", "nullptr", "operator", "or", 
-    "or_eq", "private", "protected", "public", "register", "reinterpret_cast", "return", "short", 
-    "signed", "sizeof", "static", "static_assert", "static_cast", "struct", "switch", "template", 
-    "this", "throw", "true", "try", "typedef", "typeid", "typename", "union", "unsigned", "using", 
-    "virtual", "void", "volatile", "wchar_t", "while",
-    
-    "iostream", "vector", "string", "map", "set", "list", "queue", "stack", "algorithm", "typeinfo", 
-    "ostream", "cin", "cout", "cerr", "clogs", "istream", "pair", "iterator", "null", "auto", "nullptr", 
-    "endl", "begin", "end", "size", "push_back", "pop_back", "front", "back", "insert", "erase", "find", 
-    "lower_bound", "upper_bound", "sort", "reverse",
-    
-    "main",  "printf", "scanf", "cin", "cout", "main()",
-    
-    "if", "else", "switch", "case", "break", "continue", "return", "for", "while", "do", "try", "catch",
-    
-    "int", "char", "bool", "float", "double", "long", "short", "unsigned", "void", "string", "const", "auto",
-    
-    "#include", "#define", "#include <iostream>", "#include <vector>", "#ifdef", "#endif", "#pragma"
-};
+        // Most common C++ keywords that typically don't indicate plagiarism
+        "if", "else", "for", "while", "return", "break", "continue",
+        "void", "int", "char", "bool", "float", "double", "string",
+        "class", "struct", "public", "private", "protected",
+        
+        // Common includes and preprocessor directives
+        "#include", "#define", "main", "using", "namespace",
+        
+        // Common standard library elements
+        "std", "cout", "cin", "endl",
+        
+        // Common operators and symbols
+        "nullptr", "true", "false"
+    };
     break;
         default:
             stopwords = {
@@ -120,10 +112,11 @@ void Document::tokenization(){
                 // transform(stopwords.begin(), stopwords.end() ,stopwords.begin() , ::tolower);
                 
                 // suppression des ponctuations
-                text = regex_replace(text, regex(R"([\.,!?\-;:\"\(\)\[\]«»])"), " ");
-                text = regex_replace(text, regex("[\r\n']"), " ");
-                text = regex_replace(text, regex("\\s{2,}"), " ");
-                std::regex caracteres_speciaux(R"([^\x20-\x7E\n])");
+                text = regex_replace(text, regex("[\r\n'.()\\[\\]]"), " ");
+                text = regex_replace(text, regex(R"([\,!?\-;:\"«»])"), "");
+                
+                
+                std::regex caracteres_speciaux(R"([^[:print:]\n])");
                 if(type==FRANCAIS){
                     text = regex_replace(text, regex("é|è|ê|ë|É"), "e");   
                     text = regex_replace(text, regex("à|â|ä"), "a");
@@ -137,7 +130,7 @@ void Document::tokenization(){
                     // text= re.sub(r'[\x80-\xFF]', '', text);
 
                 }
-                
+                text = regex_replace(text, regex("\\s{2,}"), " ");
                 // 
                 tokens.clear();
                 std::istringstream stream(text);
