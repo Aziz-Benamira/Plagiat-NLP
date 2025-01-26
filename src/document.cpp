@@ -120,15 +120,15 @@ void Document::tokenization(){
                 // transform(stopwords.begin(), stopwords.end() ,stopwords.begin() , ::tolower);
                 
                 // suppression des ponctuations
-                text = regex_replace(text, regex(R"([\.,!?\-’;:\"'\(\)\[\]])"), " ");
+                text = regex_replace(text, regex(R"([\.,!?\-';:\"'\(\)\[\]\r\n«»’])"), " ");
                 if(type==FRANCAIS){
-                    text = regex_replace(text, regex("[éèêë]"), "e");   
-                    text = regex_replace(text, regex("[àâä]"), "a");
-                    text = regex_replace(text, regex("[ìîï]"), "i");
-                    text = regex_replace(text, regex("[òôö]"), "o");
-                    text = regex_replace(text, regex("[ùûü]"), "u");
-                    text = regex_replace(text, regex("[ÿ]"), "y");
-                    text = regex_replace(text, regex("[ç]"), "c");
+                    text = regex_replace(text, regex("é|è|ê|ë"), "e");   
+                    text = regex_replace(text, regex("à|â|ä"), "a");
+                    text = regex_replace(text, regex("ì|î|ï"), "i");
+                    text = regex_replace(text, regex("ò|ô|ö"), "o");
+                    text = regex_replace(text, regex("ù|û|ü"), "u");
+                    text = regex_replace(text, regex("ÿ"), "y");
+                    text = regex_replace(text, regex("ç"), "c");
                 }
                 
                 // 

@@ -8,3 +8,15 @@ Les compétences nécessaires pour être un bon scientifique de données vont au
 
 Droits des robots
 En 2017, le Parlement européen a demandé à une commission d'étudier la possibilité qu'un robot doté d'une intelligence artificielle puisse être considéré comme une personne juridique,. Advenant un dommage causé à un tiers par une intelligence artificielle, celle-ci pourrait être condamnée à réparer ce dommage. Il serait envisageable de conférer une personnalité électronique à tout robot prenant des décisions autonomes ou interagissant de manière indépendante avec des tiers, au même titre qu'une personne morale et physique.
+
+
+Liens externes
+« IA militaire : drones de guerre », La Science, CQFD, France Culture, 25 juin 2024.
+« Intelligence artificielle », publications en ligne, Interstices, INRIA.
+(en) European Association for Artificial Intelligence (EurAI) (Association européenne pour l'intelligence artificielle)
+Association française pour l'intelligence artificielle (AfIA).
+GdrIA, groupement de recherche du CNRS sur les aspects formels et algorithmiques de l'intelligence artificielle.
+Dossier sur l'Intelligence artificielle, savoirs.ens.fr (conférences), École normale supérieure.
+Sébastien Konieczny, « L'intelligence artificielle, menace ou avancée ? », Huffington Post, 9 mars 2016
+« Intelligence artificielle : en mon âme et conscience », La Science, CQFD, France Culture, 1er juin 2023.
+William Audureau, « Tout comprendre à l’intelligence artificielle, cette technologie source de nombreux malentendus », sur Les Décodeurs, Le Monde, 20 avril 2024
