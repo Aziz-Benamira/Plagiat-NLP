@@ -63,15 +63,13 @@ private:
         for (const auto& ngram : tf_idf_1) {
             if (tf_idf_2.find(ngram.first) != tf_idf_2.end()) { // if the ngram is common
                 dot_product += ngram.second * tf_idf_2.at(ngram.first);
-                magnitude_doc2 += tf_idf_2.at(ngram.first)*tf_idf_2.at(ngram.first);
             }
             magnitude_doc1 += ngram.second * ngram.second;
-            
         }
 
-        // for (const auto& ngram : tf_idf_2) {
-        //     magnitude_doc2 += ngram.second * ngram.second;
-        // }
+        for (const auto& ngram : tf_idf_2) {
+            magnitude_doc2 += ngram.second * ngram.second;
+        }
 
         if (magnitude_doc1 == 0 || magnitude_doc2 == 0) {
             return 0.0;

@@ -494,7 +494,7 @@ Jean-Paul Haton, Marie-Christine Haton, L'Intelligence Artificielle, Paris, Que 
 
 Aspects prospectifs
 Étude : CGET (2019) Intelligence artificielle – État de l'art et perspectives pour la France ; 21 février 2019. URL:https://cget.gouv.fr/ressources/publications/intelligence-artificielle-etat-de-l-art-et-perspectives-pour-la-france  (ISBN 978-2-11-152634-1)  (ISSN 2491-0058).
-« Jusqu'où ira l'intelligence artificielle ? », Pour la science, hors-série no 115,‎ mai-juin 2022, p. 4-119.
+« Jusqu'où ira l'intelligence artificielle ? », Pour la science, hors-série no 115, mai-juin 2022, p. 4-119.
 
 Aspects philosophiques
 Marie David et Cédric Sauviat, Intelligence artificielle, la nouvelle barbarie, Éditions du Rocher, 2019, 313 p.
@@ -509,13 +509,13 @@ Nick Bostrom, Superintelligence : Paths, Dangers, Strategies, 2014, 328 p. (ISBN
 Aspects économiques
 (en) Daron Acemoğlu « Equality Debate: Power and Progress, with Daron Acemoglu » (8 novembre 2023)  (lire en ligne )— World Inequality Lab,  (visioconférence, 6 novembre 2023).
 (en) Daron Acemoğlu et Simon Johnson, Power and Progress : Our Thousand-Year Struggle Over Technology and Prosperity, Basic Books, 2023, 560 p. (ISBN 978-1399804462).
-(en) Daron Acemoğlu, « The Simple Macroeconomics of AI », Economic Policy, Massachusetts Institute of Technology,‎ 5 avril 2024 (lire en ligne  [PDF]).
+(en) Daron Acemoğlu, « The Simple Macroeconomics of AI », Economic Policy, Massachusetts Institute of Technology 5 avril 2024 (lire en ligne  [PDF]).
 Abhijit Banerjee et Esther Duflo (trad. Christophe Jacquet), chap. 7 « Le piano mécanique », dans Économie utile pour des temps difficiles, Éditions du Seuil, 2020.
-(en) Joseph Briggs et Devesh Kodnani, « The Potentially Large Effects of Artificial Intelligence on Economic Growth », Global Economics Analyst, Goldman Sachs,‎ 26 mars 2023 (lire en ligne ).
+(en) Joseph Briggs et Devesh Kodnani, « The Potentially Large Effects of Artificial Intelligence on Economic Growth », Global Economics Analyst, Goldman Sachs, 26 mars 2023 (lire en ligne ).
 (en) Mauro Cazzaniga, Florence Jaumotte, Longji Li, Giovanni Melina, Augustus Panton, Carlo Pizzinelli, Emma Rockall et Marina Tavares, « Gen-AI: Artificial Intelligence and the Future of Work »  [PDF], sur Fonds monétaire international, 14 janvier 2024.
 (en) Michael Chui, James Manyika et Mehdi Miremadi, « Four fundamentals of workplace automation » , sur McKinsey, 1er novembre 2015.
-Kristalina Georgieva, « L’IA transformera l’économie mondiale. Faisons en sorte que l’humanité y soit gagnante », Fonds monétaire international,‎ 14 janvier 2024 (lire en ligne ).
-(en) Joel Mokyr, « Secular stagnation? Not in your life », VoxEU Column, Centre for Economic Policy Research,‎ 11 août 2014 (lire en ligne ).
+Kristalina Georgieva, « L’IA transformera l’économie mondiale. Faisons en sorte que l’humanité y soit gagnante », Fonds monétaire international, 14 janvier 2024 (lire en ligne ).
+(en) Joel Mokyr, « Secular stagnation? Not in your life », VoxEU Column, Centre for Economic Policy Research, 11 août 2014 (lire en ligne ).
 
 Fondements cognitifs, psychologiques et biologiques
 Hervé Chaudet et Liliane Pellegrin, Intelligence artificielle et psychologie cognitive, Paris, Éditions Dunod, 1998, 179 p. (ISBN 2-10-002989-4).

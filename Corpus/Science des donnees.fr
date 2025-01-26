@@ -52,7 +52,7 @@ Selon les plateformes de Freelance, le TJM (tarif journalier moyen) pour les "da
 Notes et références
 Voir aussi
 Bibliographie
-(en) William Cleveland, « Data Science : An Action Plan for Expanding the Technical Areas of the Field of Statistics », International Statistical Review / Revue internationale de statistique, vol. 69,‎ 2001, p. 21-26
+(en) William Cleveland, « Data Science : An Action Plan for Expanding the Technical Areas of the Field of Statistics », International Statistical Review / Revue internationale de statistique, vol. 69,2001, p. 21-26
 Serge Abiteboul, Sciences des données : De la logique du premier ordre à la Toile, Fayard, coll. « Collège de France », 2012 (lire en ligne)
 (en) Rachel Schutt et Cathy O'Neil, Doing Data Science : Straight Talk from the Frontline, O'Reilly Media, octobre 2013, 406 p. (ISBN 978-1-4493-5865-5)
 

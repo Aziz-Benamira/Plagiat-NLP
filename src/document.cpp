@@ -29,11 +29,41 @@ void Document::tokenization(){
     // Assign stopwords based on document type
     switch (type) {
         case FRANCAIS:
-            stopwords = {
-    "et", "ou", "mais", "donc", "car", "en", "de", "la", "le", "les", "un", "une", 
-    "à", "au", "aux", "du", "des", "par", "pour", "sur", "avec", "sans", "ne", "pas", 
-    "ce", "cette", "ces", "dans", "tout", "tous", "il", "elle", "ils", "elles", 
-    "lui", "leur", "nous", "vous", "je", "tu", "moi", "toi", "que", "qui", "quoi"};
+    //         stopwords = {
+    // "et", "ou", "mais", "donc", "car", "en", "de", "la", "le", "les", "un", "une", 
+    // "à", "au", "aux", "du", "des", "par", "pour", "sur", "avec", "sans", "ne", "pas", 
+    // "ce", "cette", "ces", "dans", "tout", "tous", "il", "elle", "ils", "elles", 
+    // "lui", "leur", "nous", "vous", "je", "tu", "moi", "toi", "que", "qui", "quoi"};
+        stopwords={
+    // Articles & contractions
+    "le", "la", "les", "un", "une", "des", "du", "de", "d'", "au", "aux", "à",
+    
+    // Pronouns
+    "je", "tu", "il", "elle", "nous", "vous", "ils", "elles", "me", "te", "se",
+    "lui", "leur", "y", "en", "ce", "cet", "cette", "ces", "celui", "celle",
+    
+    // Prepositions
+    "dans", "par", "pour", "sur", "vers", "avec", "sans", "sous", "chez", "entre",
+    "depuis", "pendant", "durant", "hors", "contre", "malgré",
+    
+    // Conjunctions
+    "mais", "ou", "et", "donc", "or", "ni", "car", "que", "quand", "comme", "si",
+    "lorsque", "puisque", "quoique",
+    
+    // Common verbs (conjugated forms)
+    "est", "sont", "a", "ont", "étais", "était", "fut", "sera", "ai", "as", "avons",
+    "avez", "ayant", "eu",
+    
+    // Negations
+    "ne", "pas", "plus", "jamais", "rien", "aucun", "aucune",
+    
+    // Adverbs
+    "très", "trop", "peu", "ici", "là", "ainsi", "alors", "après", "avant",
+    "aujourd'hui", "demain", "hier", "toujours", "soudain",
+    
+    // Quantifiers
+    "tout", "tous", "toute", "toutes", "chaque", "plusieurs", "certains", "quelques"
+};
     break;
 
     case ANGLAIS:
@@ -68,14 +98,9 @@ void Document::tokenization(){
     "endl", "begin", "end", "size", "push_back", "pop_back", "front", "back", "insert", "erase", "find", 
     "lower_bound", "upper_bound", "sort", "reverse",
     
-    "main", "print", "printf", "scanf", "cin", "cout", "main()",
-    
-    "int", "i", "j", "x", "y", "z", "temp", "result", "count", "sum", "total", "arr", "array", "data",
+    "main",  "printf", "scanf", "cin", "cout", "main()",
     
     "if", "else", "switch", "case", "break", "continue", "return", "for", "while", "do", "try", "catch",
-    
-    "+", "-", "*", "/", "%", "=", "==", "!=", "<", ">", "<=", ">=", "&&", "||", "!", "++", "--", "&=", "|=", 
-    "^=", "~",
     
     "int", "char", "bool", "float", "double", "long", "short", "unsigned", "void", "string", "const", "auto",
     
@@ -95,7 +120,16 @@ void Document::tokenization(){
                 // transform(stopwords.begin(), stopwords.end() ,stopwords.begin() , ::tolower);
                 
                 // suppression des ponctuations
-                text = regex_replace(text, regex(R"([\.,!?\-;:\"'\(\)\[\]])"), " ");
+                text = regex_replace(text, regex(R"([\.,!?\-’;:\"'\(\)\[\]])"), " ");
+                if(type==FRANCAIS){
+                    text = regex_replace(text, regex("[éèêë]"), "e");   
+                    text = regex_replace(text, regex("[àâä]"), "a");
+                    text = regex_replace(text, regex("[ìîï]"), "i");
+                    text = regex_replace(text, regex("[òôö]"), "o");
+                    text = regex_replace(text, regex("[ùûü]"), "u");
+                    text = regex_replace(text, regex("[ÿ]"), "y");
+                    text = regex_replace(text, regex("[ç]"), "c");
+                }
                 
                 // 
                 tokens.clear();

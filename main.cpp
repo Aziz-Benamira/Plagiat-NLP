@@ -11,7 +11,7 @@ using namespace std;
 string toString(types t) {
     switch (t) {
         case ANGLAIS: return "anglais";
-        case FRANCAIS: return "français";
+        case FRANCAIS: return "fr";
         case CPP: return "c++";
         case PYTHON: return "python";
         default: return "unknown";
@@ -19,21 +19,19 @@ string toString(types t) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) {
-        std::cerr << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> <output_mode>\n";
-        std::cerr << "Output mode: 'terminal' or 'file'\n";
-        return 1;
-    }
+    cout.precision(3);
+    cout << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> (<output_path>/terminal par defaut)\n";
 
     std::string test_file = argv[1];
     std::string type = argv[2];
+    cout<<"type : "<<type<<endl;
     std::string corpus_path = argv[3];
-    std::string output_mode = argv[4];
+    std::string output_path;
 
     types t;
     if (type == "anglais") {
         t = ANGLAIS;
-    } else if (type == "français") {
+    } else if (type == "fr") {
         t = FRANCAIS;
     } else if (type == "c++") {
         t = CPP;
@@ -58,8 +56,9 @@ int main(int argc, char* argv[]) {
 
     // Redirect output to file if needed
     std::ofstream output_file;
-    if (output_mode == "file") {
-        output_file.open("output.txt", std::ios::out | std::ios::binary);
+    if (argc==5) {
+        output_path= argv[4];
+        output_file.open(output_path, std::ios::out | std::ios::binary);
         if (!output_file.is_open()) {
             std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
             return 1;
@@ -81,8 +80,13 @@ int main(int argc, char* argv[]) {
     PlagiarismDetector detector(analyzer, ngram);
 
     auto result = detector.check_plagiarism(*doc);
+    std::vector<std::pair<std::shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
+std::sort(sortedResult.begin(), sortedResult.end(),
+          [](const auto& a, const auto& b) {
+              return a.second > b.second;
+          });
     std::cout << "### Résultats de plagiat\n\n";
-    for (const auto& couple : result) {
+    for (const auto& couple : sortedResult) {
         cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)\n";
     }
@@ -90,7 +94,7 @@ int main(int argc, char* argv[]) {
     auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc);
     std::string highlighted_text;
 
-    if (output_mode == "file") {
+    if (argc==5) {
         highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
     } else {
         highlighted_text = doc->highlight_plagiarism_in_terminal(word_intensity);
@@ -98,21 +102,21 @@ int main(int argc, char* argv[]) {
 
     std::cout << "\n\n\n";
     std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
-    if (output_mode == "file") {
+    if (argc==5) {
         std::cout << "<red>rouge</red>, pour une intensité élevée\n";
         std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
         std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
     } else {
-        std::cout << "\033[31mrouge\033[0m, pour une intensité élevée\n";
-        std::cout << "\033[33mdoré\033[0m, pour une intensité moyenne\n";
-        std::cout << "\033[35mmagenta\033[0m, pour une intensité faible.\n\n";
+        std::cout << "\033[31mrouge\033[0m, pour une intensite elevee\n";
+        std::cout << "\033[33mdore\033[0m, pour une intensite moyenne\n";
+        std::cout << "\033[35mmagenta\033[0m, pour une intensite faible.\n\n";
     }
 
     cout << "\n### Texte surligné\n\n";
     cout << highlighted_text << "\n";
 
     // Close the file if needed
-    if (output_mode == "file") {
+    if (argc==5) {
         output_file.close();
     }
 

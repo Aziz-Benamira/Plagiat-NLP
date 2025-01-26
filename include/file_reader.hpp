@@ -9,15 +9,10 @@
 #include <set>
 #include "document.hpp"
 #include "corpus.hpp"
-
+#include <codecvt>
+#include <locale>
 using namespace std;
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <memory>
-#include <filesystem>
-#include <set>
+
 
 using namespace std;
 namespace fs = std::filesystem;

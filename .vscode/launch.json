@@ -9,7 +9,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/build/main.exe",
-      "args": ["../test.cpp", "../Corpus/CPP"],
+      "args": ["../test_fr.txt", "fr", "../Corpus"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}/build",
       "environment": [],
