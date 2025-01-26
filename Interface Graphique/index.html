@@ -12,12 +12,23 @@
       <h1>Détecteur de Plagiat</h1>
 
       <!-- Zone de saisie de texte -->
-      <!-- <textarea id="textInput" placeholder="Collez votre texte ici..."></textarea> -->
+      <textarea
+        id="textInput"
+        placeholder="Collez votre texte ici..."
+      ></textarea>
 
       <!-- Bouton pour uploader un fichier -->
       <div class="file-upload">
         <input type="file" id="fileInput" accept=".txt" />
         <label for="fileInput">Choisir un fichier</label>
+      </div>
+      <div class="type-options">
+        <select id="typeselect">
+          <option value="anglais">Anglais</option>
+          <option value="fr">Français</option>
+          <option value="cpp">C++</option>
+          <option value="python">Python</option>
+        </select>
       </div>
 
       <!-- Bouton pour lancer la détection de plagiat -->
@@ -30,7 +41,7 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="interface.js"></script>
     <!-- Lien vers votre fichier JavaScript -->
   </body>
 </html>
