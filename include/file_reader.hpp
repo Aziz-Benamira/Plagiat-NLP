@@ -43,6 +43,8 @@ public:
 
             // Extract file name as title
             std::string title = fs::path(filePath).filename().string();
+            // Extract file name without extension
+            title = fs::path(filePath).stem().string();
 
             // Return a Document object
             return std::make_shared<Document>(content, type, ngram, title);

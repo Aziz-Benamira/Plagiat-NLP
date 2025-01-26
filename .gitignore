@@ -41,3 +41,4 @@ Makefile
 # Other
 *.user
 *.DS_Store
+output.txt
