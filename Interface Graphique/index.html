@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Détecteur de Plagiat</title>
     <link rel="stylesheet" href="styles.css" />
-    <!-- Lien vers votre fichier CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+      integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.esm.js"
+      integrity="sha512-oa6kn7l/guSfv94d8YmJLcn/s3Km4mm/t4RqFqyorSMXkKlg6pFM6HmLXsJvOP/Cl/dv/N5xW7zuaA+paSc55Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
+
   <body>
     <div class="container">
       <h1>Détecteur de Plagiat</h1>
@@ -26,7 +40,7 @@
         <select id="typeselect">
           <option value="anglais">Anglais</option>
           <option value="fr">Français</option>
-          <option value="cpp">C++</option>
+          <option value="c++">C++</option>
           <option value="python">Python</option>
         </select>
       </div>
@@ -37,11 +51,26 @@
       <!-- Zone d'affichage des résultats -->
       <div id="result">
         <h2>Résultat :</h2>
+        <h3><span id="documentTitle"></span></h3>
+        <div>Type de document : <span id="documentType"></span></div>
+        <table>
+          <thead>
+            <tr>
+              <th>Document</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="scoreTable"></tbody>
+        </table>
+        <p id="documentText"></p>
+        <p>Score final : <span id="finalScore"></span></p>
         <div id="highlightedText"></div>
       </div>
+      <div id="pdf"></div>
     </div>
 
     <script src="interface.js"></script>
+
     <!-- Lien vers votre fichier JavaScript -->
   </body>
 </html>

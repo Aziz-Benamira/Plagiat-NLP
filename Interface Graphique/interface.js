@@ -1,5 +1,8 @@
 // script.js
-
+let titleDoc = document.getElementById("documentTitle");
+let typeDoc = document.getElementById("documentType");
+let table = document.getElementById("scoreTable");
+let finalScore = document.getElementById("finalScore");
 document.getElementById("detectButton").addEventListener("click", async () => {
   const textInput = document.getElementById("textInput").value;
   const fileInput = document.getElementById("fileInput").files[0];
@@ -18,26 +21,38 @@ document.getElementById("detectButton").addEventListener("click", async () => {
     alert("Veuillez saisir du texte ou uploader un fichier.");
     return;
   }
-  console.log(content);
-  console.log(selectedType);
-  console.log(fileName);
-  //   Envoyer le contenu au backend pour détection de plagiat
-  //   const response = await fetch("http://localhost:8080/detect_plagiarism", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       text: content,
-  //       type: selectedType,
-  //       title: fileName,
-  //     }),
-  //   });
 
-  //   const result = await response.json();
+  // Envoyer le contenu au backend pour détection de plagiat
+  let request = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      text: content,
+      type: selectedType,
+    }),
+  };
+  console.log(request);
+  const response = await fetch(
+    "http://localhost:8080/detect_plagiarism",
+    request
+  );
 
-  //   // Afficher le texte surligné
-  //   displayHighlightedText(result.highlightedText);
+  const result = await response.json();
+  console.log(result);
+  titleDoc.textContent = fileName || "";
+  typeDoc.textContent = selectedType || "";
+  table.innerHTML = "";
+  (result.scores || []).forEach(([name, score]) => {
+    const row = table.insertRow();
+    row.insertCell().textContent = name;
+    row.insertCell().textContent = `${(score * 100).toFixed(2)}%`;
+  });
+  finalScore.textContent = `${(result.final_score * 100).toFixed(2)}%`;
+
+  // Afficher le texte surligné
+  displayHighlightedText(result.highlighted_text);
 });
 
 // Fonction pour lire un fichier texte
@@ -64,3 +79,23 @@ function displayHighlightedText(highlightedText) {
       '<span class="highlight-magenta">$1</span>'
     );
 }
+
+const exportButton = document.createElement("button");
+exportButton.id = "exportPdfButton";
+exportButton.textContent = "Export Pdf";
+
+document.getElementById("pdf").appendChild(exportButton);
+
+exportButton.addEventListener("click", () => {
+  const { jsPDF } = window.jspdf;
+  const pdf = new jsPDF("p", "pt", "a4");
+  const content = document.getElementById("result");
+  pdf.html(content, {
+    callback: (doc) => {
+      doc.save("rapport.pdf");
+    },
+    x: 10,
+    y: 10,
+    html2canvas: { scale: 0.55 },
+  });
+});

@@ -49,11 +49,11 @@ public:
         // for (int method = COSINE; method <= MANHATTAN; ++method) {
         for (int method = COSINE; method <= BHATTACHARYYA; ++method) {
             double temp = compute_similarity(doc1, doc2, static_cast<Method>(method));
-            if(doc2.title == "Intelligence artificielle"){
-                cout<<"ngram : "<<doc1.ngram<<endl;
-                cout<<doc1.title<<" : "<<doc2.title<<" : "<<temp<<endl;
-                cout<<method<<" : "<< temp<<endl;
-            }
+            // if(doc2.title == "Intelligence artificielle"){
+            //     cout<<"ngram : "<<doc1.ngram<<endl;
+            //     cout<<doc1.title<<" : "<<doc2.title<<" : "<<temp<<endl;
+            //     cout<<method<<" : "<< temp<<endl;
+            // }
             
             
             result += temp;

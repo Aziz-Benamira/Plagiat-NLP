@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
 
     try {
         doc = fileReader.readDocument(test_file, t);
-        corpus = fileReader.readCorpus(corpus_path,t);
+        corpus = fileReader.readCorpus(corpus_path,1);
     } catch (const std::exception& e) {
         std::cerr << "Erreur : " << e.what() << std::endl;
         return 1;
