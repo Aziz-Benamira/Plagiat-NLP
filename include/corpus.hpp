@@ -25,16 +25,6 @@ class Corpus {
         explicit Corpus(string FolderName){};
         void add_document(const std::shared_ptr<Document>& doc);
         void compute_df();
-    
-
-    
         map<string,double>  compute_tf_idf(const Document& doc)const;
-
-        
-
-
-
-
-
 };
 #endif

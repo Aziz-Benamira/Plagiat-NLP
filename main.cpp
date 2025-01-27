@@ -20,13 +20,18 @@ string toString(types t) {
 
 int main(int argc, char* argv[]) {
     cout.precision(3);
-    cout << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> (<output_path>/terminal par defaut)\n";
+    int ngram = 4;
+    if(argc<4){
+        cout << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> (<output_path>/terminal par defaut)\n";
+        return -1;
+    }
+    
 
-    std::string test_file = argv[1];
-    std::string type = argv[2];
+    string test_file = argv[1];
+    string type = argv[2];
     cout<<"type : "<<type<<endl;
-    std::string corpus_path = argv[3];
-    std::string output_path;
+    string corpus_path = argv[3];
+    string output_path;
 
     types t;
     if (type == "anglais") {
@@ -47,53 +52,54 @@ int main(int argc, char* argv[]) {
     shared_ptr<Document> doc;
 
     try {
-        doc = fileReader.readDocument(test_file, t);
-        corpus = fileReader.readCorpus(corpus_path,1);
-    } catch (const std::exception& e) {
-        std::cerr << "Erreur : " << e.what() << std::endl;
+        
+        doc = fileReader.readDocument(test_file, t,ngram);
+        cout<<doc->titre<<" est lu"<<endl;
+        corpus = fileReader.readCorpus(corpus_path,ngram);
+    } catch (const exception& e) {
+        cerr << "Erreur : " << e.what() << endl;
         return 1;
     }
-
+    // corpus.compute_df();
     // Redirect output to file if needed
-    std::ofstream output_file;
+    ofstream output_file;
     if (argc==5) {
         output_path= argv[4];
-        output_file.open(output_path, std::ios::out | std::ios::binary);
+        output_file.open(output_path, ios::out | ios::binary);
         if (!output_file.is_open()) {
-            std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
+            cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << endl;
             return 1;
         }
         output_file << "\xEF\xBB\xBF"; // UTF-8 BOM
-        std::cout.rdbuf(output_file.rdbuf());
+        cout.rdbuf(output_file.rdbuf());
     }
-
+    
     // -----------------------------
     // Generate output
     // -----------------------------
-    std::cout << "\n";
-    std::cout << "# Détecteur De Plagiat\n\n";
-    std::cout << "### Langue du document à tester : " << toString(t) << "\n";
-    std::cout << "### Titre du document à tester : " << doc->title << "\n";
-
-    int ngram = 3;
+    cout << "# Detecteur De Plagiat\n\n";
+    cout << "### Langue du document a tester : " << toString(t) << endl;
+    cout << "### Titre du document a tester : " << doc->titre << endl;
+    
+    
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
 
     auto result = detector.check_plagiarism(*doc);
     // Trie descendant
-    std::vector<std::pair<std::shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
-std::sort(sortedResult.begin(), sortedResult.end(),
+    vector<pair<shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
+sort(sortedResult.begin(), sortedResult.end(),
           [](const auto& a, const auto& b) {
               return a.second > b.second;
           });
 
-    std::cout << "### Résultats de plagiat\n\n";
+    cout << "### Resultats de plagiat"<<endl;;
     for (const auto& couple : sortedResult) {
-        cout << "- Document : " << couple.first->title 
-                  << " (" << couple.second * 100 << "% de similitude)\n";
+        cout << "- Document : " << couple.first->titre 
+                  << " (" << couple.second * 100 << "% de similitude)"<<endl;
     }
 
-    std::vector<std::shared_ptr<Document>> top_documents;
+    vector<shared_ptr<Document>> top_documents;
     for (const auto& [doc, score] : sortedResult) {
         top_documents.push_back(doc);
         if (top_documents.size() >= 5) break; // Limiter à 5 documents
@@ -101,7 +107,7 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     map<string, int> gram_intensity;
     double final_score = detector.get_final_score(*doc, top_documents,gram_intensity);
     auto word_intensity = detector.get_plagiarized_words_with_intensity(gram_intensity);
-    std::string highlighted_text;
+    string highlighted_text;
 
     if (argc==5) {
         highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
@@ -109,20 +115,19 @@ std::sort(sortedResult.begin(), sortedResult.end(),
         highlighted_text = doc->highlight_plagiarism_in_terminal(word_intensity);
     }
 
-    std::cout << "\n\n\n";
-    std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
+    cout << "### Ceci est le schma des couleurs utilis pour surligner les mots plagis :\n";
     if (argc==5) {
-        std::cout << "<red>rouge</red>, pour une intensité élevée\n";
-        std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
-        std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
+        cout << "<red>rouge</red>, pour une intensit eleve"<<endl;
+        cout << "<yellow>dor</yellow>, pour une intensit moyenne"<<endl;
+        cout << "<magenta>magenta</magenta>, pour une intensit faible"<<endl;
     } else {
-        std::cout << "\033[31mrouge\033[0m, pour une intensite elevee\n";
-        std::cout << "\033[33mdore\033[0m, pour une intensite moyenne\n";
-        std::cout << "\033[35mmagenta\033[0m, pour une intensite faible.\n\n";
+        cout << "\033[31mrouge\033[0m, pour une intensite elevee"<<endl;
+        cout << "\033[33mdore\033[0m, pour une intensite moyenne"<<endl;
+        cout << "\033[35mmagenta\033[0m, pour une intensite faible."<<endl;
     }
 
-    cout << "\n### Texte surligné\n\n";
-    cout << highlighted_text << "\n";
+    cout << "\n### Texte surligne"<<endl;
+    cout << highlighted_text << endl;
     cout <<"Score final de plagiat : "<< final_score*100<<"%"<<endl;
     // Close the file if needed
     if (argc==5) {
@@ -133,7 +138,7 @@ std::sort(sortedResult.begin(), sortedResult.end(),
 }
 
 
-    // Créer le corpus
+    // Crer le corpus
 
     // Corpus DOCS;
     // DOCS.add_document(doc2);
@@ -148,7 +153,7 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     // DOCS.compute_df();
     // auto test = DOCS.compute_tf_idf(*doc1);
     // auto test1 = DOCS.compute_tf_idf(*doc4);
-    // Créer le détecteur de plagiat
+    // Crer le dtecteur de plagiat
     // SimilarityAnalyzer analyzer(DOCS);
     // PlagiarismDetector detector(analyzer, ngram);
     // double resultt = 0.0;
@@ -161,11 +166,11 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     
     // map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
     // for(auto couple:result){
-    //     cout<<couple.first->title<<": "<<couple.second<<endl;
+    //     cout<<couple.first->titre<<": "<<couple.second<<endl;
     // }
     // auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc1);
 
-    // // Afficher les résultats
+    // // Afficher les rsultats
     // cout << "Words from doc_to_test with intensity in corpus:\n";
     // for (const auto& [word, intensity] : word_intensity) {
     //     cout << word << ": " << intensity << endl;
@@ -198,7 +203,7 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     // cout << "Manhattan Distance: " << manhattan << endl;
     // cout<< "Final score "<<analyzer.compute_score(*doc1,*doc4)<<endl;
 
-    // Highlight les parties plagiées dans le texte traité
+    // Highlight les parties plagies dans le texte trait
     // string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
     // cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
     

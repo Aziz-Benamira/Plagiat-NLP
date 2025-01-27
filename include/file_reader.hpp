@@ -36,7 +36,7 @@ public:
             std::string content = contentStream.str();
 
             // Debug: Log file size
-            std::cerr << "File: " << filePath << ", Size: " << content.size() << " bytes" << std::endl;
+            // std::cerr << "File: " << filePath << ", Size: " << content.size() << " bytes" << std::endl;
 
             // Sanitize content
             // content = sanitizeContent(content);
@@ -79,7 +79,7 @@ public:
                 try {
                     // Attempt to read the file and add it to the document list
                     documents.push_back(readDocument(entry.path().string(), fileType, ngram));
-                    cout<<documents[documents.size()-1]->tf.size()<<endl;
+                    // cout<<documents[documents.size()-1]->tf.size()<<endl;
                 } catch (const std::exception& e) {
                     std::cerr << "Error reading file: " << entry.path() << " - " << e.what() << std::endl;
                 }
@@ -87,6 +87,7 @@ public:
         }
 
         // Create and return a Corpus object
+        cout<<documents.size()<<" document pour corpus lu."<<endl;
         return Corpus(documents, ngram);
     }
 
