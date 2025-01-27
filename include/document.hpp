@@ -51,6 +51,7 @@ class Document{
         }
             return os;
         }
+        
         std::string highlight_plagiarism_in_processed_text(const std::map<std::string, int>& word_intensity) const;
         std::string highlight_plagiarism_in_terminal(const std::map<std::string, int>& word_intensity) const ;
         int get_ngram() const { return ngram; }

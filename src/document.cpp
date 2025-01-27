@@ -1,5 +1,5 @@
 #include "../include/document.hpp"
-
+#include <sstream>
 
 void Document::tokenization(set<string> stopwords){
             // miniscule
@@ -202,6 +202,7 @@ std::string escape_special_chars(const std::string& word) {
     }
     return escaped_word;
 }
+
 
 std::string Document::highlight_plagiarism_in_processed_text(const std::map<std::string, int>& word_intensity) const {
     std::string highlighted_text = text; // Utiliser le texte traité pour le highlight
