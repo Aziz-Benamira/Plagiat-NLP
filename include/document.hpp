@@ -13,29 +13,13 @@ enum types {FRANCAIS, ANGLAIS, PYTHON, CPP};
 class Document{
     public:
         string text;
-        string title;
-        int ngram;
         types type;
+        string title;
         vector<string> tokens;
-        set<string> unique_tokens;
         map<string,double> tf; // la frequence de chaque token
-        explicit Document(const std::string& text) : text(text) {
-            this->tokenization();
-            this->compute_tf(1);
-
-        }
-        Document(const std::string& text, int ngram) : text(text) {
-            this->tokenization();
-            this->compute_tf(ngram);
-
-        }
-        Document(const string& text, types type, string title="Unknown"):text(text),type(type),title(title){
-            this->tokenization();
-            this->compute_tf(1);
-        }
-        Document(const string& text, types type,int tf_num, string title="Unknown"):text(text),type(type),title(title){
-            this->tokenization();
-            this->compute_tf(tf_num);
+        explicit Document(const std::string& text, types type = types::ANGLAIS, int ngram = 1, const std::string& title = "Unknown"): text(text), type(type), title(title), ngram(ngram) {
+            tokenization();
+            compute_tf(ngram);
         }
         void tokenization(set<string> stopwords);
         void tokenization();
@@ -69,7 +53,9 @@ class Document{
         }
         std::string highlight_plagiarism_in_processed_text(const std::map<std::string, int>& word_intensity) const;
         std::string highlight_plagiarism_in_terminal(const std::map<std::string, int>& word_intensity) const ;
-   
+        int get_ngram() const { return ngram; }
+    private: 
+        int ngram;
 };
 
 

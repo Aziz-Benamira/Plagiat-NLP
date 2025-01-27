@@ -1,0 +1,1535 @@
+En intelligence artificielle, plus precisement en apprentissage automatique, le perceptron multicouche (multilayer perceptron MLP en anglais) est un type de reseau neuronal artificiel organise en plusieurs couches. Un perceptron multicouche possede au moins trois couches : une couche d'entree, au moins une couche cachee, et une couche de sortie. Chaque couche est constituee d'un nombre (potentiellement different) de neurones. L'information circule de la couche d'entree vers la couche de sortie uniquement : il s'agit donc d'un reseau a propagation directe (feedforward).  Les neurones de la derniere couche sont les sorties du systeme global.
+Le perceptron a ete invente en 1957 par Frank Rosenblatt au Cornell Aeronautical Laboratory,. Dans cette premiere version le perceptron etait alors mono-couche et n'avait qu'une seule sortie a laquelle toutes les entrees etaient connectees.
+
+Applications
+Structure
+Les premiers perceptrons etaient constitues d'une unique couche. On pouvait calculer le OU logique avec un perceptron. Par contre, les premiers perceptrons n'etaient pas capables de resoudre des problemes non lineaires comme le OU exclusif (XOR). Cette limitation fut supprimee au travers de la retropropagation du gradient de l'erreur dans les systemes multicouches, propose par Paul Werbos (en) en 1974 et mis au point douze annees plus tard, en 1986 par David Rumelhart (en).
+Dans le perceptron multicouche a retropropagation, les neurones d'une couche sont relies a la totalite des neurones des couches adjacentes. Ces liaisons sont soumises a un coefficient alterant l'effet de l'information sur le neurone de destination. Ainsi, le poids de chacune de ces liaisons est l'element clef du fonctionnement du reseau : la mise en place d'un perceptron multicouche pour resoudre un probleme passe donc par la determination des meilleurs poids applicables a chacune des connexions inter-neuronales. Ici, cette determination s'effectue au travers d'un algorithme de retropropagation.
+Les sorties de chaque neurone de cette couche sont envoyees a la couche suivante, appelee couche cachee, ou elles sont combinees et transformees par des fonctions d'activation non lineaires. Cette couche cachee peut avoir un nombre quelconque de neurones, et peut etre composee de plusieurs sous-couches si necessaire.
+
+Exemple : MLP qui calcule le OU exclusif
+La figure a droite montre un perceptron multi-couche qui calcule le OU exclusif (XOR). C'est un reseau a trois couches. La couche d'entree possede deux neurones : 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  
+ et 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  
+. La couche cachee possede 3 neurones. La derniere couche est la couche de sortie et possede un neurone de sortie.
+
+Algorithme de propagation
+Expliquons le passage des valeurs d'une couche avec 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  
+ valeurs a la couche suivante avec 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  
+ valeurs. On note 
+  
+    
+      
+        x
+        =
+        (
+        
+          x
+          
+            1
+          
+        
+        ,
+        
+        ,
+        
+          x
+          
+            n
+          
+        
+        )
+      
+    
+    {\displaystyle x=(x_{1},\dots ,x_{n})}
+  
+ l'entree, c'est-a-dire le vecteur de taille 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  
+ des valeurs prises a une certaine couche. On note 
+  
+    
+      
+        y
+        =
+        (
+        
+          y
+          
+            1
+          
+        
+        ,
+        
+        ,
+        
+          y
+          
+            m
+          
+        
+        )
+      
+    
+    {\displaystyle y=(y_{1},\dots ,y_{m})}
+  
+ le vecteur de taille 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  
+ des valeurs prises a la couche suivante. 
+On note 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+  
+ la matrice des poids des connections entre deux couches successives. Cette matrice est de taille 
+  
+    
+      
+        m
+        
+        n
+      
+    
+    {\displaystyle m\times n}
+  
+, avec 
+  
+    
+      
+        m
+      
+    
+    {\displaystyle m}
+  
+ lignes et 
+  
+    
+      
+        n
+      
+    
+    {\displaystyle n}
+  
+ colonnes. A a la ligne 
+  
+    
+      
+        i
+      
+    
+    {\displaystyle i}
+  
+, colonne 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  
+, on trouve le poids 
+  
+    
+      
+        
+          w
+          
+            i
+            j
+          
+        
+      
+    
+    {\displaystyle w_{ij}}
+  
+ entre l'entree 
+  
+    
+      
+        
+          x
+          
+            j
+          
+        
+      
+    
+    {\displaystyle x_{j}}
+  
+ et la sortie 
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+      
+    
+    {\displaystyle y_{i}}
+  
+. On note 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  
+ le vecteur des biais ajoutes aux moyennes ponderes des entrees de chaque couches : 
+
+  
+    
+      
+        W
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    w
+                    
+                      11
+                    
+                  
+                
+                
+                  
+                
+                
+                  
+                    w
+                    
+                      1
+                      n
+                    
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  
+                
+                
+                  
+                
+              
+              
+                
+                  
+                    w
+                    
+                      m
+                      1
+                    
+                  
+                
+                
+                  
+                
+                
+                  
+                    w
+                    
+                      m
+                      n
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        
+           et 
+        
+        B
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    b
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                
+              
+              
+                
+                  
+                    b
+                    
+                      m
+                    
+                  
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle W={\begin{pmatrix}w_{11}&\cdots &w_{1n}\\\vdots &\ddots &\vdots \\w_{m1}&\cdots &w_{mn}\end{pmatrix}}{\text{ et }}B={\begin{pmatrix}b_{1}\\\vdots \\b_{m}\end{pmatrix}}}
+  
+
+L'entree 
+  
+    
+      
+        x
+      
+    
+    {\displaystyle x}
+  
+ est propage a la couche suivante en faisant la moyenne pondere par les poids de 
+  
+    
+      
+        W
+      
+    
+    {\displaystyle W}
+  
+ a laquelle on ajoute les biais 
+  
+    
+      
+        B
+      
+    
+    {\displaystyle B}
+  
+. Autrement la sortie 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  
+ est donnee par la formule :
+  
+    
+      
+        y
+        =
+        
+        (
+        W
+        x
+        +
+        B
+        )
+      
+    
+    {\displaystyle y=\sigma (Wx+B)}
+  
+ou 
+  
+    
+      
+        
+      
+    
+    {\displaystyle \sigma }
+  
+ est une fonction d'activation, comme par exemple la fonction sigmoide, ou la fonction ReLU. Autrement dit, la valeur dans le 
+  
+    
+      
+        j
+      
+    
+    {\displaystyle j}
+  
+-eme neurone de la couche suivante vaut :
+
+  
+    
+      
+        
+          y
+          
+            i
+          
+        
+        =
+        
+        (
+        
+          
+          
+            j
+            =
+            1
+          
+          
+            n
+          
+        
+        
+          w
+          
+            i
+            j
+          
+        
+        
+          x
+          
+            j
+          
+        
+        +
+        
+          b
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle y_{i}=\sigma (\sum _{j=1}^{n}w_{ij}x_{j}+b_{i})}
+
+Apprentissage
+Calcul de l'erreur
+En connaissant la valeur attendue 
+  
+    
+      
+        
+          e
+          
+            i
+          
+        
+      
+    
+    {\textstyle e_{i}}
+  
+ a la sortie d'un perceptron pour des entrees donnees, on peut calculer l'ecart avec la prediction grace a une fonction objectif 
+  
+    
+      
+        C
+      
+    
+    {\displaystyle \operatorname {C} }
+  
+, le plus souvent l'erreur quadratique moyenne (abregee 
+  
+    
+      
+        MSE
+      
+    
+    {\displaystyle \operatorname {MSE} }
+  
+), telle que :
+
+  
+    
+      
+        MSE
+        
+        (
+        
+          e
+          
+            i
+          
+        
+        ,
+        
+          y
+          
+            i
+          
+        
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          
+            (
+            
+              
+                y
+                
+                  i
+                
+              
+              
+              
+                e
+                
+                  i
+                
+              
+            
+            )
+          
+          
+            2
+          
+        
+      
+    
+    {\displaystyle \operatorname {MSE} (e_{i},y_{i})={\frac {1}{n}}\sum _{i=0}^{n}\left(y_{i}-e_{i}\right)^{2}}
+  
+ ;
+Cette fonction n'est pas lineaire, et sa derivee est plus grande si la prediction est eloignee de la valeur attendue, permettant ainsi un apprentissage plus rapide. Au contraire, l'erreur moyenne absolue (
+  
+    
+      
+        MAE
+      
+    
+    {\displaystyle \operatorname {MAE} }
+  
+) a une derivee constante, et donc un taux d'apprentissage qui ne varie pas :
+
+  
+    
+      
+        MAE
+        
+        (
+        
+          e
+          
+            i
+          
+        
+        ,
+        
+          y
+          
+            i
+          
+        
+        )
+        =
+        
+          
+            1
+            n
+          
+        
+        
+          
+          
+            i
+            =
+            0
+          
+          
+            n
+          
+        
+        
+          |
+          
+            
+              y
+              
+                i
+              
+            
+            
+            
+              e
+              
+                i
+              
+            
+          
+          |
+        
+      
+    
+    {\displaystyle \operatorname {MAE} (e_{i},y_{i})={\frac {1}{n}}\sum _{i=0}^{n}\left|y_{i}-e_{i}\right|}
+  
+ ;
+En minimisant ces fonctions objectif, les predictions gagnent en precision.
+
+Calcul du gradient
+Durant la phase d'apprentissage, apres avoir calcule les erreurs du reseau de neurones, il est necessaire de les corriger afin d'ameliorer ses performances. Pour minimiser ces erreurs  et donc la fonction objectif , l'algorithme du gradient est le plus souvent utilise. Le gradient 
+  
+    
+      
+        
+      
+    
+    {\displaystyle \nabla }
+  
+ est calcule afin de connaitre la variation de la fonction objectif par rapport aux parametres 
+  
+    
+      
+        
+      
+    
+    {\displaystyle \theta }
+  
+. Il permet ensuite de modifier ces parametres proportionnellement a leur impact sur la precision de la prediction, dans le but d'atteindre apres plusieurs iterations le minimum global de la fonction objectif.
+La modification des parametres 
+  
+    
+      
+        
+      
+    
+    {\displaystyle \theta }
+  
+ a un instant 
+  
+    
+      
+        t
+      
+    
+    {\displaystyle t}
+  
+ se fait tel que :
+
+  
+    
+      
+        
+          
+          
+            t
+            +
+            1
+          
+        
+        =
+        
+          
+          
+            t
+          
+        
+        
+        
+        
+        C
+        ,
+      
+    
+    {\displaystyle \theta _{t+1}=\theta _{t}-\alpha \nabla C,}
+  
+
+avec 
+  
+    
+      
+        
+      
+    
+    {\textstyle \alpha }
+  
+ un scalaire, le taux d'apprentissage, et 
+  
+    
+      
+        
+        C
+      
+    
+    {\textstyle \nabla C}
+  
+ le gradient de la fonction objectif. L'algorithme du gradient permet donc de trouver les parametres 
+  
+    
+      
+        
+      
+    
+    {\displaystyle \theta }
+  
+ du reseau tel que la somme des erreurs faites par les predictions sur des donnees d'entrainement 
+  
+    
+      
+        X
+      
+    
+    {\displaystyle X}
+  
+ soit la plus faible possible, c'est-a-dire que :
+
+  
+    
+      
+        
+          C
+          
+            X
+          
+        
+        (
+        
+        )
+        =
+        
+          min
+          
+            
+          
+        
+        
+          C
+          
+            X
+          
+        
+        (
+        
+        )
+        .
+      
+    
+    {\displaystyle C_{X}(\theta )=\min _{\theta }C_{X}(\theta ).}
+  
+
+Le gradient se calcule avec la derivee partielle de la fonction objectif par rapport a chacun des parametres. Lorsqu'il y a plusieurs parametres a optimiser, il est exprime comme un vecteur, parfois note 
+  
+    
+      
+        
+          
+            
+              
+              
+            
+          
+        
+      
+    
+    {\textstyle {\vec {\nabla }}}
+  
+, puis ajoute au vecteur 
+  
+    
+      
+        
+      
+    
+    {\textstyle \theta }
+  
+ des parametres, apres avoir ete multiplie par le taux d'apprentissage. Le gradient indique la direction vers le maximum de la fonction objectif, et son oppose mene donc vers le minimum,. Son expression est donc :
+
+  
+    
+      
+        
+        
+          C
+          
+            X
+          
+        
+        (
+        
+        )
+        =
+        
+          
+            
+              (
+              
+                
+                  
+                    
+                      
+                        
+                          
+                            
+                            C
+                          
+                          
+                            
+                            
+                              
+                              
+                                1
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        
+                          
+                            
+                            C
+                          
+                          
+                            
+                            
+                              
+                              
+                                2
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                      
+                        
+                          
+                            
+                            C
+                          
+                          
+                            
+                            
+                              
+                              
+                                3
+                              
+                            
+                          
+                        
+                      
+                    
+                  
+                  
+                    
+                  
+                
+              
+              )
+            
+          
+          
+            T
+          
+        
+      
+    
+    {\displaystyle \nabla C_{X}(\theta )={\begin{pmatrix}{\dfrac {\partial C}{\partial \theta _{1}}}&{\dfrac {\partial C}{\partial \theta _{2}}}&{\dfrac {\partial C}{\partial \theta _{3}}}&\cdots \end{pmatrix}}^{T}}
+  
+
+Soit 
+  
+    
+      
+        
+          
+          
+            i
+          
+        
+      
+    
+    {\textstyle \nabla _{i}}
+  
+ le gradient sur un perceptron de la couche 
+  
+    
+      
+        k
+      
+    
+    {\textstyle k}
+  
+, alors l'ensemble des gradients de cette couche peuvent etre stockes et manipules dans une matrice jacobienne 
+  
+    
+      
+        
+          J
+          
+            k
+          
+        
+      
+    
+    {\textstyle J_{k}}
+  
+, c'est-a-dire une matrice contenant les derivees partielles de la fonction objectif vectorielle sur toute la couche , avec :
+
+  
+    
+      
+        
+          J
+          
+            k
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    
+                    
+                      1
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                    
+                      2
+                    
+                  
+                
+              
+              
+                
+                  
+                    
+                    
+                      3
+                    
+                  
+                
+              
+              
+                
+                  
+                
+              
+              
+                
+                  
+                    
+                    
+                      m
+                    
+                  
+                
+              
+            
+            )
+          
+        
+        =
+        
+          
+            (
+            
+              
+                
+                  
+                    
+                      
+                        
+                          
+                          C
+                        
+                        
+                          
+                          
+                            
+                            
+                              1
+                              ,
+                              1
+                            
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          
+                          C
+                        
+                        
+                          
+                          
+                            
+                            
+                              1
+                              ,
+                              n
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+              
+                
+                  
+                
+                
+                  
+                
+                
+                  
+                
+              
+              
+                
+                  
+                    
+                      
+                        
+                          
+                          C
+                        
+                        
+                          
+                          
+                            
+                            
+                              m
+                              ,
+                              1
+                            
+                          
+                        
+                      
+                    
+                  
+                
+                
+                  
+                
+                
+                  
+                    
+                      
+                        
+                          
+                          C
+                        
+                        
+                          
+                          
+                            
+                            
+                              m
+                              ,
+                              n
+                            
+                          
+                        
+                      
+                    
+                  
+                
+              
+            
+            )
+          
+        
+      
+    
+    {\displaystyle J_{k}={\begin{pmatrix}\nabla _{1}\\\nabla _{2}\\\nabla _{3}\\\vdots \\\nabla _{m}\end{pmatrix}}={\begin{pmatrix}{\dfrac {\partial C}{\partial \theta _{1,1}}}&\cdots &{\dfrac {\partial C}{\partial \theta _{1,n}}}\\\vdots &\ddots &\vdots \\{\dfrac {\partial C}{\partial \theta _{m,1}}}&\cdots &{\dfrac {\partial C}{\partial \theta _{m,n}}}\end{pmatrix}}}
+  
+
+  
+    
+      
+        
+        C
+        =
+        
+          
+            
+              
+              C
+            
+            
+              
+              
+                
+                
+                  i
+                  j
+                
+              
+            
+          
+        
+      
+    
+    {\displaystyle \nabla C={\frac {\partial C}{\partial \theta _{ij}}}}
+  
+ ;
+En utilisant le theoreme de derivation des fonctions composees, la variation de la fonction objectif par rapport a l'un des poids est :
+
+  
+    
+      
+        
+        C
+        =
+        
+          
+            
+              
+              C
+            
+            
+              
+              w
+            
+          
+        
+        =
+        
+          
+            
+              
+              o
+            
+            
+              
+              w
+            
+          
+        
+        
+          
+            
+              
+              y
+            
+            
+              
+              o
+            
+          
+        
+        
+          
+            
+              
+              C
+            
+            
+              
+              y
+            
+          
+        
+      
+    
+    {\displaystyle \nabla C={\frac {\partial C}{\partial w}}={\frac {\partial o}{\partial w}}{\frac {\partial y}{\partial o}}{\frac {\partial C}{\partial y}}}
+  
+ ;
+Avec 
+  
+    
+      
+        
+        y
+        
+          /
+        
+        
+        o
+      
+    
+    {\displaystyle \partial y/\partial o}
+  
+ la derivee partielle de la fonction d'activation, et 
+  
+    
+      
+        
+        C
+        
+          /
+        
+        
+        y
+      
+    
+    {\displaystyle \partial C/\partial y}
+  
+ la derivee partielle de la fonction objectif par rapport a la prediction finale 
+  
+    
+      
+        y
+      
+    
+    {\displaystyle y}
+  
+. En developpant et en utilisant la regle de derivation des sommes 
+  
+    
+      
+        
+          
+            d
+            
+              d
+              x
+            
+          
+        
+        
+          
+          
+            i
+          
+        
+        
+          x
+          
+            i
+          
+        
+        =
+        
+          
+          
+            i
+          
+        
+        
+          
+            d
+            
+              d
+              x
+            
+          
+        
+        
+          x
+          
+            i
+          
+        
+      
+    
+    {\displaystyle {\frac {d}{dx}}\sum _{i}x_{i}=\sum _{i}{\frac {d}{dx}}x_{i}}
+  
+ :
+
+  
+    
+      
+        
+          
+            
+              
+              C
+            
+            
+              
+              
+                y
+                
+                  i
+                
+              
+            
+          
+        
+        =
+        
+          
+            
+            
+              
+              
+                y
+                
+                  i
+                
+              
+            
+          
+        
+        
+          (
+          
+            
+              
+                1
+                n
+              
+            
+            
+              
+              
+                i
+                =
+                0
+              
+              
+                n
+              
+            
+            (
+            
+              y
+              
+                i
+              
+            
+            
+            
+              e
+              
+                i
+              
+            
+            
+              )
+              
+                2
+              
+            
+          
+          )
+        
+        =
+        2
+        (
+        
+          y
+          
+            i
+          
+        
+        
+        
+          e
+          
+            i
+          
+        
+        )
+      
+    
+    {\displaystyle {\frac {\partial C}{\partial y_{i}}}={\frac {\partial }{\partial y_{i}}}\left({\frac {1}{n}}\sum _{i=0}^{n}(y_{i}-e_{i})^{2}\right)=2(y_{i}-e_{i})}
+  
+ ;
+
+  
+    
+      
+        
+          
+            
+              
+              y
+            
+            
+              
+              o
+            
+          
+        
+        =
+        y
+        (
+        1
+        
+        y
+        )
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial o}}=y(1-y)}
+  
+, si la fonction sigmoide sert d'activation, ou 
+  
+    
+      
+        
+          
+            
+              
+              y
+            
+            
+              
+              o
+            
+          
+        
+        =
+        1
+        
+        
+          y
+          
+            2
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial y}{\partial o}}=1-y^{2}}
+  
+ pour la tangente hyperbolique ;
+
+  
+    
+      
+        
+          
+            
+              
+              o
+            
+            
+              
+              w
+            
+          
+        
+        =
+        
+          y
+          
+            i
+            
+            1
+          
+        
+      
+    
+    {\displaystyle {\frac {\partial o}{\partial w}}=y_{i-1}}
+  
+ ;
+L'apprentissage s'arrete lorsque les parametres convergent vers des valeurs, et que la derivee de la fonction objectif vaut 0.
+
+Algorithme de retropropagation
+Presentation d'un motif d'entrainement au reseau.
+Comparaison de la sortie du reseau avec la sortie ciblee.
+Calcul de l'erreur en sortie de chacun des neurones du reseau.
+Calcul, pour chacun des neurones, de la valeur de sortie qui aurait ete correcte.
+Definition de l'augmentation ou de la diminution necessaire pour obtenir cette valeur (erreur locale).
+Ajustement du poids de chaque connexion vers l'erreur locale la plus faible.
+Attribution d'un blame a tous les neurones precedents.
+Recommencer a partir de l'etape 4, sur les neurones precedents en utilisant le blame comme erreur.
+
+Voir aussi
+Connexionnisme
+Neurone formel
+Perceptron
+Reseau de neurones artificiels
+Theoreme d'approximation universelle
+
+Notes et references
+Bibliographie
+Marc Parizeau, Reseaux de Neurones (Le perceptron multicouche et son algorithme de retropropagation des erreurs), Universite Laval, Laval, 2004, 272 p.
+Fabien Tschirhart (dir. Alain Lioret), Reseaux de neurones formels appliques a l'Intelligence Artificielle et au jeu, ESGI (memoire de master de recherche en multimedia et animation numerique), Paris, 2009, 121 p. [memoire en ligne (page consultee le 8 novembre 2010)]
+
+ Portail des probabilites et de la statistique   Portail de l'informatique theorique

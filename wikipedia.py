@@ -54,11 +54,9 @@ def fetch_wikipedia_articles(titles, output_folder):
 if __name__ == "__main__":
     # List of Wikipedia article titles
     article_titles = [
-        "Intelligence artificielle",
-        "Traitement automatique des langues",
-        "Apprentissage automatique",
-        "Apprentissage profond",
-        "Science des données"
+        "France",
+        "Tunisie",
+        "Perceptron multicouche"
     ]
 
     # Folder to save the articles

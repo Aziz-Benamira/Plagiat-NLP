@@ -1,0 +1,17 @@
+Definition of Machine Learning:
+"L'apprentissage automatique, (en anglais : machine learning, litt. apprentissage machine, ), apprentissage artificiel ou apprentissage statistique est un champ d'étude de l'intelligence artificielle qui se fonde sur des approches mathématiques et statistiques pour donner aux ordinateurs la capacité d'apprendre à partir de données, c'est-à-dire d'améliorer leurs performances à résoudre des tâches sans être explicitement programmés pour chacune."
+
+Phases of Machine Learning:
+"L'apprentissage automatique comporte généralement deux phases. La première consiste à estimer un modèle à partir de données, appelées observations, qui sont disponibles et en nombre fini, lors de la phase de conception du système. [...] La seconde phase est la mise en production : le modèle étant déterminé, de nouvelles données peuvent alors être soumises afin d'obtenir le résultat correspondant à la tâche souhaitée."
+
+Types of Learning:
+"Selon le type de données utilisées pour l'apprentissage, on distingue : l'apprentissage supervisé : l'algorithme apprend à partir de données étiquetées [...] ; l'apprentissage non supervisé : l'algorithme apprend à partir de données non étiquetées [...] ; l'apprentissage semi-supervisé : il tire parti d'une grande quantité de données non étiquetées pour améliorer la performance du modèle [...] ; l'apprentissage auto-supervisé : c'est une forme d'apprentissage non supervisé, où le modèle génère ses propres étiquettes à partir des données brutes."
+
+Historical Context:
+"La concrétisation de cette idée est principalement due à Alan Turing [...] avec son article sur 'L'ordinateur et l'intelligence' en 1950, dans lequel il développe, entre autres, le test de Turing. [...] Arthur Samuel, informaticien américain pionnier dans le secteur de l'intelligence artificielle, est le premier à faire usage de l'expression machine learning (en français, apprentissage automatique) en 1959."
+
+Applications:
+"L'apprentissage automatique est utilisé dans un large spectre d'applications pour doter des ordinateurs ou des machines de capacité d'analyser des données d'entrée comme : perception de leur environnement (vision, reconnaissance de formes tels des visages, schémas, segmentation d'image, langages naturels, caractères dactylographiés ou manuscrits) [...] ; aide aux diagnostics, médical notamment, bio-informatique, chémoinformatique [...] ; détection de fraudes à la carte de crédit, cybersécurité, analyse financière, dont analyse du marché boursier."
+
+Steps in a Machine Learning Project:
+"L'apprentissage automatique ne se résume pas à un ensemble d'algorithmes, mais suit une succession d'étapes : définir le problème à résoudre [...] ; acquérir des données [...] ; analyser et explorer les données [...] ; préparer et nettoyer les données [...] ; ingénierie ou extraction de caractéristiques [...] ; choisir ou construire un modèle d'apprentissage [...] ; entraîner, évaluer et optimiser [...] ; déployer [...] ; expliquer."

@@ -10,8 +10,6 @@ void Corpus::add_document(const std::shared_ptr<Document>& doc){
 }
 
 void Corpus::compute_df(){
-    int N = Documents.size();
-    int nb=0;
     df.clear();
     for(const auto& doc: Documents){
         // TODO : à changer utiliser les ngram de TF des docs

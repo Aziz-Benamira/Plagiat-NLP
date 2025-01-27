@@ -18,7 +18,6 @@ void Document::tokenization(set<string> stopwords){
             while (stream >> word) {
                 if (stopwords.find(word) == stopwords.end()) {
                     tokens.push_back(word);
-                    unique_tokens.insert(word);
                 }
         }
 }
@@ -140,7 +139,6 @@ void Document::tokenization(){
                 while (stream >> word) {
                     if (stopwords.find(word) == stopwords.end()) {
                         tokens.push_back(word);
-                        unique_tokens.insert(word);
                     }
             }
     
@@ -168,18 +166,31 @@ void Document::compute_tf(vector<string>& ngrams){
 }
 
 void Document::compute_tf(int n) {
-        ngram=n;
-        tf.clear();
-        vector<string> ngrams = create_ngrams(n);
+    ngram = n;
+    tf.clear();
+    vector<string> ngrams = create_ngrams(n);
 
-        for (const auto& ngram : ngrams) {
-            tf[ngram]++;
-        }
-        for (const auto& ngram : tf) {
-            tf[ngram.first]/= tokens.size();
-        }
-       
+    for (const auto& ngram : ngrams) {
+        tf[ngram]++;
     }
+    for (auto& ngram : tf) {
+        ngram.second /= tokens.size();
+    }
+
+    // Keep only the top 100 ngrams
+    // vector<pair<string, double>> sorted_tf(tf.begin(), tf.end());
+    // std::sort(sorted_tf.begin(), sorted_tf.end(),
+    //           [](const pair<string, double>& a, const pair<string, double>& b) {
+    //               return a.second > b.second;
+    //           });
+    // if (sorted_tf.size() >= 100) {
+    //     sorted_tf.resize(100);
+    // }
+    // tf.clear();
+    // for (const auto& pair : sorted_tf) {
+    //     tf[pair.first] = pair.second;
+    // }
+}
 
 std::string escape_special_chars(const std::string& word) {
     std::string escaped_word;
@@ -220,9 +231,6 @@ std::string Document::highlight_plagiarism_in_processed_text(const std::map<std:
     return highlighted_text;
 }
 
-#include "../include/document.hpp"
-
-// ... (autres fonctions existantes)
 
 std::string Document::highlight_plagiarism_in_terminal(const std::map<std::string, int>& word_intensity) const {
     std::string highlighted_text = text; // Utiliser le texte traité pour le highlight

@@ -79,6 +79,7 @@ public:
                 try {
                     // Attempt to read the file and add it to the document list
                     documents.push_back(readDocument(entry.path().string(), fileType, ngram));
+                    cout<<documents[documents.size()-1]->tf.size()<<endl;
                 } catch (const std::exception& e) {
                     std::cerr << "Error reading file: " << entry.path() << " - " << e.what() << std::endl;
                 }

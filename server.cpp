@@ -53,7 +53,7 @@ int main() {
                 t = ANGLAIS;
             }
         doc = make_shared<Document>(request_json["text"],t);
-        int ngram = 4;
+        int ngram = 3;
         SimilarityAnalyzer analyzer(corpus);
         PlagiarismDetector detector(analyzer, ngram);
         auto result = detector.check_plagiarism(*doc);
@@ -78,14 +78,17 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     for (const auto& [doc, score] : sortedResult) {
         top_documents.push_back(doc);
         if (top_documents.size() >= 5) break; // Limiter à 5 documents
-    }
-        auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc,top_documents);
+    }   
+        map<string,int> gram_intensity;
+        double final_score = detector.get_final_score(*doc,top_documents,gram_intensity);
+        auto word_intensity = detector.get_plagiarized_words_with_intensity(gram_intensity);
     std::string highlighted_text;
+    
         highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
         // Generate and send JSON response
         nlohmann::json response_json;  
         response_json["scores"]= sortedResult_string;
-        response_json["final_score"] = 0.87;
+        response_json["final_score"] = final_score;
         response_json["highlighted_text"] = highlighted_text;
 
 

@@ -33,7 +33,7 @@
 
       <!-- Bouton pour uploader un fichier -->
       <div class="file-upload">
-        <input type="file" id="fileInput" accept=".txt" />
+        <input type="file" id="fileInput" accept=".txt, .py, .cpp" />
         <label for="fileInput">Choisir un fichier</label>
       </div>
       <div class="type-options">
@@ -53,15 +53,17 @@
         <h2>Résultat :</h2>
         <h3><span id="documentTitle"></span></h3>
         <div>Type de document : <span id="documentType"></span></div>
-        <table>
-          <thead>
-            <tr>
-              <th>Document</th>
-              <th>Score</th>
-            </tr>
-          </thead>
-          <tbody id="scoreTable"></tbody>
-        </table>
+        <div id="table">
+          <table>
+            <thead>
+              <tr>
+                <th>Document</th>
+                <th>Score</th>
+              </tr>
+            </thead>
+            <tbody id="scoreTable"></tbody>
+          </table>
+        </div>
         <p id="documentText"></p>
         <p>Score final : <span id="finalScore"></span></p>
         <div id="highlightedText"></div>

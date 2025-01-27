@@ -161,3 +161,25 @@ button:hover {
   font-weight: bold;
   color: #c0392b;
 }
+#table {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead {
+  position: sticky;
+  top: 0;
+  background-color: #f4f4f9;
+}

@@ -75,7 +75,7 @@ int main(int argc, char* argv[]) {
     std::cout << "### Langue du document à tester : " << toString(t) << "\n";
     std::cout << "### Titre du document à tester : " << doc->title << "\n";
 
-    int ngram = 4;
+    int ngram = 3;
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
 
@@ -98,8 +98,9 @@ std::sort(sortedResult.begin(), sortedResult.end(),
         top_documents.push_back(doc);
         if (top_documents.size() >= 5) break; // Limiter à 5 documents
     }
-
-    auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc,top_documents);
+    map<string, int> gram_intensity;
+    double final_score = detector.get_final_score(*doc, top_documents,gram_intensity);
+    auto word_intensity = detector.get_plagiarized_words_with_intensity(gram_intensity);
     std::string highlighted_text;
 
     if (argc==5) {
@@ -122,7 +123,7 @@ std::sort(sortedResult.begin(), sortedResult.end(),
 
     cout << "\n### Texte surligné\n\n";
     cout << highlighted_text << "\n";
-
+    cout <<"Score final de plagiat : "<< final_score*100<<"%"<<endl;
     // Close the file if needed
     if (argc==5) {
         output_file.close();

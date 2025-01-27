@@ -122,7 +122,6 @@ private:
             }
         }
         tf_idf_2 = apply_softmax(filtered_tf_idf_2);
-        double dot_product = 0.0;
         double result=0.0;
 
         for (const auto& ngram : tf_idf_1) {

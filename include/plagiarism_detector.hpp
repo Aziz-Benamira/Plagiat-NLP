@@ -6,22 +6,25 @@ using namespace std;
 class PlagiarismDetector{
     public:
         SimilarityAnalyzer Analyzer;
-        int ngram_range;
-        explicit PlagiarismDetector(SimilarityAnalyzer leanalyseur, int ngram_range=4): Analyzer(leanalyseur),ngram_range(ngram_range){
+        int min_ngram;
+        int max_ngram;
+        explicit PlagiarismDetector(SimilarityAnalyzer leanalyseur, int ngram_range=4): Analyzer(leanalyseur),min_ngram(ngram_range),max_ngram(ngram_range){
     
         };
 
-        explicit PlagiarismDetector(Corpus Lecorpus,int ngram_range=4) : Analyzer(Lecorpus),ngram_range(ngram_range) {
+        explicit PlagiarismDetector(Corpus Lecorpus,int ngram_range=3) : Analyzer(Lecorpus),min_ngram(ngram_range),max_ngram(ngram_range) {
         };
-        
+        PlagiarismDetector(Corpus Lecorpus,int min_ngram, int max_ngram) : Analyzer(Lecorpus),min_ngram(min_ngram),max_ngram(max_ngram) {
+        };
         map<shared_ptr<Document>,double>check_plagiarism(Document& Doc_to_check){
             double max_score = 0;
-            for(int i=1;i<=ngram_range;i++){
+            int ngram_range = max_ngram;
+            for(int i=min_ngram;i<=max_ngram;i++){
                 max_score+= 1.0/(ngram_range-i+1);
         
             }
             map<shared_ptr<Document>,double> result;
-            for(int ngram = 1;ngram<=ngram_range;ngram++){
+            for(int ngram = min_ngram;ngram<=max_ngram;ngram++){
                 // cout<<"NGRAM : "<<ngram<<endl;
                 Doc_to_check.compute_tf(ngram);
                 for(auto& doc: Analyzer.LeCorpus.Documents){
@@ -40,83 +43,67 @@ class PlagiarismDetector{
             
             return result;
         }
-
-
-      std::map<std::string, int> get_plagiarized_ngrams_with_intensity(Document& doc_to_test , vector<std::shared_ptr<Document>> top_documents) {
-    std::map<std::string, int> ngram_intensity;
-
-    // Obtenir les 5 premiers documents avec les scores de similarité les plus élevés
+   double get_final_score(Document& doc_to_test,vector<std::shared_ptr<Document>> top_documents,std::map<string, int>& ngram_intensity,int n = 3) {
     
-    // Essayer d'abord avec n = 4
-    int n = 4;
-    doc_to_test.compute_tf(n);
-    for (auto& doc : top_documents) {
-        if(doc->ngram!=n){
-        doc->compute_tf(n);
-        }
+    // Get n-grams from test document once
+    std::vector<std::string> test_ngrams;
+    if(doc_to_test.get_ngram()!=n){
+        test_ngrams = doc_to_test.create_ngrams(n);
+    }else{
+        test_ngrams.reserve(doc_to_test.tf.size());
+        for (const auto& [key, value] : doc_to_test.tf) {
+            test_ngrams.emplace_back(key);
     }
-    Analyzer.LeCorpus.compute_df();
+    }
+    
+    
+    if (test_ngrams.empty() || top_documents.empty()) {
+        return 0.0;
+    }
 
-    // Vérifier s'il y a des correspondances avec n = 4
-    bool found_match = false;
+    // First loop through documents to avoid repeated ngram creation
     for (const auto& doc : top_documents) {
-        for (const auto& ngram : doc_to_test.tf) {
-            if (doc->tf.find(ngram.first) != doc->tf.end()) {
-                found_match = true;
-                break;
+        vector<string> compare_ngrams;
+        if(doc->get_ngram()!=n){
+            compare_ngrams=doc->create_ngrams(n);
+        }else{
+            compare_ngrams.reserve(doc->tf.size());
+            for (const auto& [key, value] : doc->tf) {
+                compare_ngrams.emplace_back(key);
             }
         }
-        if (found_match) break;
-    }
-
-    // Si aucune correspondance n'est trouvée avec n = 4, essayer avec n = 3
-    if (!found_match) {
-        n = 3;
-        doc_to_test.compute_tf(n);
-        for (auto& doc : top_documents) {
-            doc->compute_tf(n);
-        }
-        Analyzer.LeCorpus.compute_df();
-
-        // Vérifier s'il y a des correspondances avec n = 3
-        found_match = false;
-        for (const auto& doc : top_documents) {
-            for (const auto& ngram : doc_to_test.tf) {
-                if (doc->tf.find(ngram.first) != doc->tf.end()) {
-                    found_match = true;
-                    break;
+        
+        // Compare each test ngram against current document's ngrams
+        for (const auto& test_ngram : test_ngrams) {
+            for (const auto& compare_ngram : compare_ngrams) {
+                // Character similarity check
+                int matches = 0;
+                int total_length = test_ngram.length();
+                
+                for (size_t i = 0; i < test_ngram.length() && i < compare_ngram.length(); ++i) {
+                    if (tolower(test_ngram[i]) == tolower(compare_ngram[i])) {
+                        matches++;
+                    }
+                }
+                
+                double similarity = total_length > 0 ? 
+                    static_cast<double>(matches) / total_length : 0.0;
+                
+                if (similarity > 0.9) {  // 90% threshold
+                    ngram_intensity[test_ngram]++;
+                    break; // Move to next test_ngram once match is found
                 }
             }
-            if (found_match) break;
         }
     }
 
-    // Si aucune correspondance n'est trouvée avec n = 3, essayer avec n = 2
-    if (!found_match) {
-        n = 2;
-        doc_to_test.compute_tf(n);
-        for (auto& doc : top_documents) {
-            doc->compute_tf(n);
-        }
-        Analyzer.LeCorpus.compute_df();
-    }
-
-    // Calculer l'intensité des n-grams
-    for (const auto& doc : top_documents) {
-        for (const auto& ngram : doc_to_test.tf) {
-            if (doc->tf.find(ngram.first) != doc->tf.end()) {
-                ngram_intensity[ngram.first]++;
-            }
-        }
-    }
-
-    return ngram_intensity;
+    return (static_cast<double>(ngram_intensity.size()) / test_ngrams.size());
 }
 
 
-std::map<std::string, int> get_plagiarized_words_with_intensity(Document& doc_to_test,vector<std::shared_ptr<Document>> top_documents) {
+std::map<std::string, int> get_plagiarized_words_with_intensity(map<string,int> gram_intensity) {
     // Obtenir les 3-grams avec leur intensité
-    auto gram_intensity = get_plagiarized_ngrams_with_intensity(doc_to_test,top_documents);
+    // auto gram_intensity = get_plagiarized_ngrams_with_intensity(doc_to_test,top_documents);
 
     // Créer une carte pour stocker les mots uniques et leur intensité
     std::map<std::string, int> word_intensity;
