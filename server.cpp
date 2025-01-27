@@ -91,21 +91,6 @@ std::sort(sortedResult.begin(), sortedResult.end(),
         response_json["final_score"] = final_score;
         response_json["highlighted_text"] = highlighted_text;
 
-        // Nombre total de mots dans le document
-        std::istringstream text_stream(doc->text);
-        int total_words_count = std::distance(std::istream_iterator<std::string>(text_stream), std::istream_iterator<std::string>());
-        // Nombre de mots plagiés uniques
-        size_t plagiarized_words = word_intensity.size();
-        cout<<"plagiarized words : "<<plagiarized_words<<endl;
-
-        // Calcul du pourcentage de plagiat
-        double final_score = 0.0;
-        if (total_words_count > 0) {
-            final_score = (static_cast<double>(plagiarized_words) / total_words_count) * 100.0;
-        }
-        // Ajouter le final_score à la réponse JSON
-        response_json["final_score"] = final_score;
-
         res.set_header("Access-Control-Allow-Origin", "*");
         res.set_content(response_json.dump(), "application/json");
     });
