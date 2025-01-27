@@ -23,7 +23,7 @@ int main() {
     shared_ptr<Document> doc;
 
     httplib::Server server;
-
+    server.set_mount_point("/", "./interface Graphique");
     // Handle CORS preflight requests to work security bla bla bla
     server.Options("/detect_plagiarism", [&](const httplib::Request &req, httplib::Response &res) {
         res.set_header("Access-Control-Allow-Origin", "*");
@@ -53,7 +53,7 @@ int main() {
                 t = ANGLAIS;
             }
         doc = make_shared<Document>(request_json["text"],t);
-        int ngram = 3;
+        int ngram = 4;
         SimilarityAnalyzer analyzer(corpus);
         PlagiarismDetector detector(analyzer, ngram);
         auto result = detector.check_plagiarism(*doc);
@@ -94,7 +94,8 @@ std::sort(sortedResult.begin(), sortedResult.end(),
         res.set_header("Access-Control-Allow-Origin", "*");
         res.set_content(response_json.dump(), "application/json");
     });
-
+    cout<<"server prêt"<<endl;
+    cout<<"lien : "<< "http://localhost:8080/"<<endl;
     server.listen("0.0.0.0", 8080);
     return 0;
 }
