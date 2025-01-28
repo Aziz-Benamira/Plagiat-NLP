@@ -1,4 +1,3 @@
-```markdown
 # Détecteur de Plagiat
 
 Ce projet est un outil de détection de plagiat qui permet de comparer un document donné avec un corpus de référence pour identifier les similitudes et les éventuels cas de plagiat. Il supporte plusieurs langues (français, anglais) et formats de code (C++, Python).
@@ -40,10 +39,13 @@ Le projet est organisé comme suit :
 ![Exemple de Sortie en Ligne de Commande](doc/Résultat_terminal.jpg)
 
 ### Application web
-
+---
 ![Exemple de Sortie via l'API HTTP](doc/interface_de_commande.jpg)
+---
 ![Exemple de Sortie via l'API HTTP](doc/Interface_Résultat_des_scores.jpg)
+---
 ![Exemple de Sortie via l'API HTTP](doc/interface_texte_souligné.jpg)
+---
 
 
 ## Utilisation
