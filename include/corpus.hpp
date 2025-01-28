@@ -31,6 +31,8 @@ class Corpus {
 
         // Constructeur explicite pour charger un corpus à partir d'un dossier
         explicit Corpus(string FolderName){};
+        
+        // Méthodes pour itérer sur les documents
         auto begin() { return Documents.begin(); }
         auto end() { return Documents.end(); }
         auto begin() const { return Documents.begin(); }

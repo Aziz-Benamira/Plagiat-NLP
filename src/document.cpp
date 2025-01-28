@@ -168,7 +168,7 @@ void Document::compute_tf(vector<string>& ngrams) {
 // Description : Calcule la fréquence des termes (TF) pour les n-grammes de taille donnée.
 // Paramètres :
 //   - n : la taille des n-grammes à utiliser pour le calcul de la fréquence.
-void Document::compute_tf(int n) {
+void Document::compute_tf(int n, int top_ngram) {
     ngram = n;
     tf.clear();
     vector<string> ngrams = create_ngrams(n);
@@ -178,6 +178,20 @@ void Document::compute_tf(int n) {
     }
     for (auto& ngram : tf) {
         ngram.second /= tokens.size();
+    }
+    if(ngram!=-1){
+        vector<pair<string, double>> sorted_tf(tf.begin(), tf.end());
+    std::sort(sorted_tf.begin(), sorted_tf.end(),
+              [](const pair<string, double>& a, const pair<string, double>& b) {
+                  return a.second > b.second;
+              });
+    if (sorted_tf.size() >= top_ngram) {
+        sorted_tf.resize(top_ngram);
+    }
+    tf.clear();
+    for (const auto& pair : sorted_tf) {
+        tf[pair.first] = pair.second;
+    }
     }
 }
 

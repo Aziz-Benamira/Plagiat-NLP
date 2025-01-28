@@ -72,14 +72,9 @@ public:
     double get_final_score(Document& doc_to_test, vector<std::shared_ptr<Document>> top_documents, std::map<string, int>& ngram_intensity, int n = 3) {
         // Récupère les n-grams du document à tester
         std::vector<std::string> test_ngrams;
-        if (doc_to_test.get_ngram() != n) {
-            test_ngrams = doc_to_test.create_ngrams(n);
-        } else {
-            test_ngrams.reserve(doc_to_test.tf.size());
-            for (const auto& [key, value] : doc_to_test.tf) {
-                test_ngrams.emplace_back(key);
-            }
-        }
+        
+        test_ngrams = doc_to_test.create_ngrams(n);
+        
 
         if (test_ngrams.empty() || top_documents.empty()) {
             return 0.0;
@@ -88,14 +83,9 @@ public:
         // Compare les n-grams du document à tester avec ceux des autres documents
         for (const auto& doc : top_documents) {
             vector<string> compare_ngrams;
-            if (doc->get_ngram() != n) {
-                compare_ngrams = doc->create_ngrams(n);
-            } else {
-                compare_ngrams.reserve(doc->tf.size());
-                for (const auto& [key, value] : doc->tf) {
-                    compare_ngrams.emplace_back(key);
-                }
-            }
+            
+            compare_ngrams = doc->create_ngrams(n);
+            
 
             // Vérifie la similarité entre les n-grams
             for (const auto& test_ngram : test_ngrams) {

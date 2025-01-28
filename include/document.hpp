@@ -42,7 +42,7 @@ class Document {
         void compute_tf(vector<string>& ngrams);
 
         // Calcule la fréquence des termes (TF) pour un n-gramme donné
-        void compute_tf(int n);
+        void compute_tf(int n,int top_ngram=500);
 
         // Surcharge de l'opérateur << pour afficher les informations du document
         friend ostream& operator<<(ostream& os, const Document& doc) {

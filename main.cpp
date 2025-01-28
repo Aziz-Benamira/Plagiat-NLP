@@ -120,7 +120,7 @@ sort(sortedResult.begin(), sortedResult.end(),
     }
 
     cout << endl;
-    cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :" << end;
+    cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :" << endl;
     if (argc==5) {
         cout << "<red>rouge</red>, pour une intensité élevée" << endl;
         cout << "<yellow>doré</yellow>, pour une intensité moyenne" << endl;

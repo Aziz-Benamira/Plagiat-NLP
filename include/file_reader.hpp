@@ -37,7 +37,7 @@ public:
             std::string content = contentStream.str();
 
             // Debug : Affiche la taille du fichier
-            std::cerr << "Fichier : " << filePath << ", Taille : " << content.size() << " octets" << std::endl;
+            // std::cerr << "Fichier : " << filePath << ", Taille : " << content.size() << " octets" << std::endl;
 
             // Nettoie le contenu (optionnel)
             // content = sanitizeContent(content);
@@ -81,7 +81,7 @@ public:
                 try {
                     // Tente de lire le fichier et l'ajoute à la liste des documents
                     documents.push_back(readDocument(entry.path().string(), fileType, ngram));
-                    cout << documents[documents.size() - 1]->tf.size() << endl; // Debug : Affiche la taille du TF
+                    // cout << documents[documents.size() - 1]->tf.size() << endl; // Debug : Affiche la taille du TF
                 } catch (const std::exception& e) {
                     std::cerr << "Erreur lors de la lecture du fichier : " << entry.path() << " - " << e.what() << std::endl;
                 }
