@@ -23,6 +23,13 @@ class Corpus {
                 compute_df();
             };
         explicit Corpus(string FolderName){};
+        auto begin() { return Documents.begin(); }
+        auto end() { return Documents.end(); }
+        auto begin() const { return Documents.begin(); }
+        auto end() const { return Documents.end(); }
+        size_t size() const {
+            return Documents.size();
+        }
         void add_document(const std::shared_ptr<Document>& doc);
         void compute_df();
         map<string,double>  compute_tf_idf(const Document& doc)const;

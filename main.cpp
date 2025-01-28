@@ -60,6 +60,10 @@ int main(int argc, char* argv[]) {
         cerr << "Erreur : " << e.what() << endl;
         return 1;
     }
+    cout<<"Documents lu"<<endl;
+    for(auto& doc:corpus){
+        cout<<doc->title<<endl;
+    }
     // corpus.compute_df();
     // Redirect output to file if needed
     ofstream output_file;
