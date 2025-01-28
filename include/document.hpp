@@ -25,7 +25,7 @@ class Document{
         void tokenization();
         vector<string> create_ngrams(int n) const;
         void compute_tf(vector<string>& ngrams) ;
-        void compute_tf(int n) ;
+        void compute_tf(int n,int top_ngram=500) ;
         friend ostream& operator<<(ostream& os, const Document& doc) {
         os << "Document Title: " << doc.title << endl;
         os << "Document Type: ";

@@ -54,7 +54,7 @@ int main(int argc, char* argv[]) {
     try {
         
         doc = fileReader.readDocument(test_file, t,ngram);
-        cout<<doc->titre<<" est lu"<<endl;
+        cout<<doc->title<<" est lu"<<endl;
         corpus = fileReader.readCorpus(corpus_path,ngram);
     } catch (const exception& e) {
         cerr << "Erreur : " << e.what() << endl;
@@ -79,7 +79,7 @@ int main(int argc, char* argv[]) {
     // -----------------------------
     cout << "# Detecteur De Plagiat\n\n";
     cout << "### Langue du document a tester : " << toString(t) << endl;
-    cout << "### Titre du document a tester : " << doc->titre << endl;
+    cout << "### title du document a tester : " << doc->title << endl;
     
     
     SimilarityAnalyzer analyzer(corpus);
@@ -95,7 +95,7 @@ sort(sortedResult.begin(), sortedResult.end(),
 
     cout << "### Resultats de plagiat"<<endl;;
     for (const auto& couple : sortedResult) {
-        cout << "- Document : " << couple.first->titre 
+        cout << "- Document : " << couple.first->title 
                   << " (" << couple.second * 100 << "% de similitude)"<<endl;
     }
 
@@ -166,7 +166,7 @@ sort(sortedResult.begin(), sortedResult.end(),
     
     // map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
     // for(auto couple:result){
-    //     cout<<couple.first->titre<<": "<<couple.second<<endl;
+    //     cout<<couple.first->title<<": "<<couple.second<<endl;
     // }
     // auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc1);
 

@@ -165,7 +165,7 @@ void Document::compute_tf(vector<string>& ngrams){
     }
 }
 
-void Document::compute_tf(int n) {
+void Document::compute_tf(int n,int top_ngram) {
     ngram = n;
     tf.clear();
     vector<string> ngrams = create_ngrams(n);
@@ -178,18 +178,21 @@ void Document::compute_tf(int n) {
     }
 
     // Keep only the top 100 ngrams
-    // vector<pair<string, double>> sorted_tf(tf.begin(), tf.end());
-    // std::sort(sorted_tf.begin(), sorted_tf.end(),
-    //           [](const pair<string, double>& a, const pair<string, double>& b) {
-    //               return a.second > b.second;
-    //           });
-    // if (sorted_tf.size() >= 100) {
-    //     sorted_tf.resize(100);
-    // }
-    // tf.clear();
-    // for (const auto& pair : sorted_tf) {
-    //     tf[pair.first] = pair.second;
-    // }
+    if(ngram!=-1){
+        vector<pair<string, double>> sorted_tf(tf.begin(), tf.end());
+    std::sort(sorted_tf.begin(), sorted_tf.end(),
+              [](const pair<string, double>& a, const pair<string, double>& b) {
+                  return a.second > b.second;
+              });
+    if (sorted_tf.size() >= top_ngram) {
+        sorted_tf.resize(top_ngram);
+    }
+    tf.clear();
+    for (const auto& pair : sorted_tf) {
+        tf[pair.first] = pair.second;
+    }
+    }
+    
 }
 
 std::string escape_special_chars(const std::string& word) {

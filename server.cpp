@@ -12,10 +12,11 @@ using namespace std;
 int main() {
     
     FileReader fileReader;
+    int ngram = 4;
     Corpus corpus;
     string corpus_path = "./Corpus";
     try {
-       corpus = fileReader.readCorpus(corpus_path,1);
+       corpus = fileReader.readCorpus(corpus_path,ngram);
     } catch (const std::exception& e) {
         std::cerr << "Erreur : " << e.what() << std::endl;
         return 1;
@@ -53,7 +54,6 @@ int main() {
                 t = ANGLAIS;
             }
         doc = make_shared<Document>(request_json["text"],t);
-        int ngram = 4;
         SimilarityAnalyzer analyzer(corpus);
         PlagiarismDetector detector(analyzer, ngram);
         auto result = detector.check_plagiarism(*doc);
