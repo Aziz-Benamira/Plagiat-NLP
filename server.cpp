@@ -18,6 +18,7 @@ using namespace std;
 int main() {
     // Initialisation des composants principaux
     FileReader fileReader;
+    int ngram = 4;
     Corpus corpus;
     string corpus_path = "./Corpus";
     

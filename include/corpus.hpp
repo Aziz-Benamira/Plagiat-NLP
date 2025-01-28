@@ -31,14 +31,17 @@ class Corpus {
 
         // Constructeur explicite pour charger un corpus à partir d'un dossier
         explicit Corpus(string FolderName){};
-
-        // Ajoute un document au corpus
+        auto begin() { return Documents.begin(); }
+        auto end() { return Documents.end(); }
+        auto begin() const { return Documents.begin(); }
+        auto end() const { return Documents.end(); }
+        size_t size() const {
+            return Documents.size();
+        }
         void add_document(const std::shared_ptr<Document>& doc);
 
         // Calcule la fréquence des termes dans les documents (Document Frequency)
         void compute_df();
-
-        // Calcule le score TF-IDF pour un document donné
-        map<string, double> compute_tf_idf(const Document& doc) const;
+        map<string,double>  compute_tf_idf(const Document& doc)const;
 };
 #endif
