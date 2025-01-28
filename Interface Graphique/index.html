@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- Configuration de base -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Détecteur de Plagiat</title>
+    
+    <!-- Fichiers CSS -->
     <link rel="stylesheet" href="styles.css" />
+    
+    <!-- Bibliothèques externes -->
+    <!-- jQuery pour la manipulation du DOM -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- jsPDF pour la génération de PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+    <!-- html2canvas pour la conversion HTML en image -->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
       integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA=="
@@ -22,37 +32,49 @@
   </head>
 
   <body>
+    <!-- Conteneur principal -->
     <div class="container">
       <h1>Détecteur de Plagiat</h1>
 
-      <!-- Zone de saisie de texte -->
-      <textarea
-        id="textInput"
-        placeholder="Collez votre texte ici..."
-      ></textarea>
+      <!-- Section de saisie -->
+      <section class="input-section">
+        <!-- Zone de saisie manuelle -->
+        <textarea
+          id="textInput"
+          placeholder="Collez votre texte ici..."
+        ></textarea>
 
-      <!-- Bouton pour uploader un fichier -->
-      <div class="file-upload">
-        <input type="file" id="fileInput" accept=".txt, .py, .cpp" />
-        <label for="fileInput">Choisir un fichier</label>
-      </div>
-      <div class="type-options">
-        <select id="typeselect">
-          <option value="anglais">Anglais</option>
-          <option value="fr">Français</option>
-          <option value="c++">C++</option>
-          <option value="python">Python</option>
-        </select>
-      </div>
+        <!-- Zone d'upload de fichier -->
+        <div class="file-upload">
+          <input type="file" id="fileInput" accept=".txt, .py, .cpp" />
+          <label for="fileInput">Choisir un fichier</label>
+        </div>
 
-      <!-- Bouton pour lancer la détection de plagiat -->
-      <button id="detectButton">Détecter le plagiat</button>
+        <!-- Sélection du type de document -->
+        <div class="type-options">
+          <select id="typeselect">
+            <option value="anglais">Anglais</option>
+            <option value="fr">Français</option>
+            <option value="c++">C++</option>
+            <option value="python">Python</option>
+          </select>
+        </div>
 
-      <!-- Zone d'affichage des résultats -->
-      <div id="result">
+        <!-- Bouton de détection -->
+        <button id="detectButton">Détecter le plagiat</button>
+      </section>
+
+      <!-- Section des résultats -->
+      <section id="result">
         <h2>Résultat :</h2>
-        <h3><span id="documentTitle"></span></h3>
-        <div>Type de document : <span id="documentType"></span></div>
+        
+        <!-- Informations sur le document analysé -->
+        <div class="document-info">
+          <h3><span id="documentTitle"></span></h3>
+          <div>Type de document : <span id="documentType"></span></div>
+        </div>
+
+        <!-- Tableau des scores de similarité -->
         <div id="table">
           <table>
             <thead>
@@ -64,15 +86,20 @@
             <tbody id="scoreTable"></tbody>
           </table>
         </div>
-        <p id="documentText"></p>
-        <p>Score final : <span id="finalScore"></span></p>
-        <div id="highlightedText"></div>
-      </div>
+
+        <!-- Résultats détaillés -->
+        <div class="detailed-results">
+          <p id="documentText"></p>
+          <p>Score final : <span id="finalScore"></span></p>
+          <div id="highlightedText"></div>
+        </div>
+      </section>
+
+      <!-- Section pour la génération de PDF -->
       <div id="pdf"></div>
     </div>
 
+    <!-- Script principal de l'interface -->
     <script src="interface.js"></script>
-
-    <!-- Lien vers votre fichier JavaScript -->
   </body>
 </html>

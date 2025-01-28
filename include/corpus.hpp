@@ -1,5 +1,6 @@
 #ifndef CORPUS_H
 #define CORPUS_H
+
 #include <iostream>
 #include <vector>
 #include "document.hpp"
@@ -12,29 +13,32 @@
 #include <math.h>
 using namespace std;
 
+// Classe Corpus pour représenter une collection de documents
 class Corpus {
-    public :
-        vector<shared_ptr<Document>> Documents;
-        map<string, int> df; //  document frequency 
-        set<string> tokens_;
-        int num_gram ;
+    public:
+        vector<shared_ptr<Document>> Documents;  // Liste des documents dans le corpus
+        map<string, int> df;                     // Fréquence des termes dans les documents (Document Frequency)
+        set<string> tokens_;                     // Ensemble des tokens uniques dans le corpus
+        int num_gram;                            // Taille des n-grammes utilisés pour l'analyse
+
+        // Constructeur par défaut
         Corpus(){};
-        Corpus(vector<shared_ptr<Document>>docs, int ngram):Documents(docs),num_gram(ngram){
-                compute_df();
-            };
+
+        // Constructeur avec une liste de documents et une taille de n-gramme
+        Corpus(vector<shared_ptr<Document>> docs, int ngram) : Documents(docs), num_gram(ngram) {
+            compute_df();  // Calcule la fréquence des termes dans les documents
+        };
+
+        // Constructeur explicite pour charger un corpus à partir d'un dossier
         explicit Corpus(string FolderName){};
+
+        // Ajoute un document au corpus
         void add_document(const std::shared_ptr<Document>& doc);
+
+        // Calcule la fréquence des termes dans les documents (Document Frequency)
         void compute_df();
-    
 
-    
-        map<string,double>  compute_tf_idf(const Document& doc)const;
-
-        
-
-
-
-
-
+        // Calcule le score TF-IDF pour un document donné
+        map<string, double> compute_tf_idf(const Document& doc) const;
 };
 #endif

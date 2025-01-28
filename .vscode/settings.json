@@ -93,6 +93,7 @@
     "cstdarg": "cpp",
     "ranges": "cpp",
     "valarray": "cpp",
-    "xhash": "cpp"
+    "xhash": "cpp",
+    "cinttypes": "cpp"
   }
 }

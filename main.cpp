@@ -6,8 +6,9 @@
 #include <memory>
 #include <fstream>
 using namespace std;
-// Define the toString function for the types enumeration
 
+
+// Convertit une valeur de type 'types' en chaîne de caractères.
 string toString(types t) {
     switch (t) {
         case ANGLAIS: return "anglais";
@@ -19,15 +20,18 @@ string toString(types t) {
 }
 
 int main(int argc, char* argv[]) {
+    // precision de 3 chiffres après la virgule
     cout.precision(3);
-    cout << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> (<output_path>/terminal par defaut)\n";
+    // Au cas où l'utilisateur ne fournit pas les bons arguments
+    if(argc<4) cout << "Usage: " << argv[0] << " <test_file> <type> <corpus_path> (<output_path>/terminal par defaut)" << endl;
 
-    std::string test_file = argv[1];
-    std::string type = argv[2];
+    // Récupérer les arguments
+    string test_file = argv[1];
+    string type = argv[2];
     cout<<"type : "<<type<<endl;
-    std::string corpus_path = argv[3];
-    std::string output_path;
-
+    string corpus_path = argv[3];
+    string output_path;
+    // Convertir le type en enum
     types t;
     if (type == "anglais") {
         t = ANGLAIS;
@@ -41,90 +45,96 @@ int main(int argc, char* argv[]) {
         t = ANGLAIS;
     }
 
-    // Initialize file reader and corpus
+    // initialiser les objets
     FileReader fileReader;
     Corpus corpus;
     shared_ptr<Document> doc;
 
+    // Lire les fichiers
     try {
         doc = fileReader.readDocument(test_file, t);
         corpus = fileReader.readCorpus(corpus_path,1);
-    } catch (const std::exception& e) {
-        std::cerr << "Erreur : " << e.what() << std::endl;
+    } catch (const exception& e) {
+        cerr << "Erreur : " << e.what() << endl;
         return 1;
     }
+    cout<<"Corpus lu contenant "<<corpus.size()<<" documents"<<endl;
 
-    // Redirect output to file if needed
-    std::ofstream output_file;
+    // Ouvrir le fichier de sortie si nécessaire
+    ofstream output_file;
     if (argc==5) {
         output_path= argv[4];
-        output_file.open(output_path, std::ios::out | std::ios::binary);
+        output_file.open(output_path, ios::out | ios::binary);
         if (!output_file.is_open()) {
-            std::cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << std::endl;
+            cerr << "Erreur : Impossible d'ouvrir le fichier output.txt" << endl;
             return 1;
         }
         output_file << "\xEF\xBB\xBF"; // UTF-8 BOM
-        std::cout.rdbuf(output_file.rdbuf());
+        cout.rdbuf(output_file.rdbuf());
     }
 
-    // -----------------------------
-    // Generate output
-    // -----------------------------
-    std::cout << "\n";
-    std::cout << "# Détecteur De Plagiat\n\n";
-    std::cout << "### Langue du document à tester : " << toString(t) << "\n";
-    std::cout << "### Titre du document à tester : " << doc->title << "\n";
+    // Afficher les informations
+    cout << endl;
+    cout << "# Détecteur De Plagiat" << endl;
+    cout << "### Langue du document à tester : " << toString(t) << endl;
+    cout << "### Titre du document à tester : " << doc->title << endl;
 
     int ngram = 3;
+    // Créer un analyseur de similarité et un détecteur de plagiat
     SimilarityAnalyzer analyzer(corpus);
     PlagiarismDetector detector(analyzer, ngram);
 
+    // Resultat pour tout les documents
     auto result = detector.check_plagiarism(*doc);
+
     // Trie descendant
-    std::vector<std::pair<std::shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
-std::sort(sortedResult.begin(), sortedResult.end(),
+    vector<pair<shared_ptr<Document>, double>> sortedResult(result.begin(), result.end());
+sort(sortedResult.begin(), sortedResult.end(),
           [](const auto& a, const auto& b) {
               return a.second > b.second;
           });
 
-    std::cout << "### Résultats de plagiat\n\n";
+    cout << "### Résultats de plagiat" << endl;
     for (const auto& couple : sortedResult) {
         cout << "- Document : " << couple.first->title 
-                  << " (" << couple.second * 100 << "% de similitude)\n";
+                  << " (" << couple.second * 100 << "% de similitude)" << endl;
     }
 
-    std::vector<std::shared_ptr<Document>> top_documents;
+    // Limiter à 5 documents
+    vector<shared_ptr<Document>> top_documents;
     for (const auto& [doc, score] : sortedResult) {
         top_documents.push_back(doc);
-        if (top_documents.size() >= 5) break; // Limiter à 5 documents
+        if (top_documents.size() >= 5) break; 
     }
     map<string, int> gram_intensity;
+    // resultat final apartir des 5 top documents
     double final_score = detector.get_final_score(*doc, top_documents,gram_intensity);
+    // Obtenir les mots plagiés avec leur intensité
     auto word_intensity = detector.get_plagiarized_words_with_intensity(gram_intensity);
-    std::string highlighted_text;
-
+    string highlighted_text;
+    // Surligner les mots plagiés (depend de la sortie)
     if (argc==5) {
         highlighted_text = doc->highlight_plagiarism_in_processed_text(word_intensity);
     } else {
         highlighted_text = doc->highlight_plagiarism_in_terminal(word_intensity);
     }
 
-    std::cout << "\n\n\n";
-    std::cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :\n";
+    cout << endl;
+    cout << "### Ceci est le schéma des couleurs utilisé pour surligner les mots plagiés :" << end;
     if (argc==5) {
-        std::cout << "<red>rouge</red>, pour une intensité élevée\n";
-        std::cout << "<yellow>doré</yellow>, pour une intensité moyenne\n";
-        std::cout << "<magenta>magenta</magenta>, pour une intensité faible.\n\n";
+        cout << "<red>rouge</red>, pour une intensité élevée" << endl;
+        cout << "<yellow>doré</yellow>, pour une intensité moyenne" << endl;
+        cout << "<magenta>magenta</magenta>, pour une intensité faible." << endl;
     } else {
-        std::cout << "\033[31mrouge\033[0m, pour une intensite elevee\n";
-        std::cout << "\033[33mdore\033[0m, pour une intensite moyenne\n";
-        std::cout << "\033[35mmagenta\033[0m, pour une intensite faible.\n\n";
+        cout << "\033[31mrouge\033[0m, pour une intensite elevee" << endl;
+        cout << "\033[33mdore\033[0m, pour une intensite moyenne" << endl;
+        cout << "\033[35mmagenta\033[0m, pour une intensite faible." << endl;
     }
 
-    cout << "\n### Texte surligné\n\n";
-    cout << highlighted_text << "\n";
+    cout << "\n### Texte surligné" << endl;
+    cout << highlighted_text << endl;
     cout <<"Score final de plagiat : "<< final_score*100<<"%"<<endl;
-    // Close the file if needed
+    // Fermer le fichier de sortie si nécessaire
     if (argc==5) {
         output_file.close();
     }
@@ -132,101 +142,3 @@ std::sort(sortedResult.begin(), sortedResult.end(),
     return 0;
 }
 
-
-    // Créer le corpus
-
-    // Corpus DOCS;
-    // DOCS.add_document(doc2);
-    // DOCS.add_document(doc3);
-    // DOCS.add_document(doc4);
-    // DOCS.add_document(doc5);
-    // DOCS.add_document(doc6);
-    // DOCS.add_document(doc7);
-    // DOCS.compute_df();
-    // doc1->compute_tf(2);
-    // doc4->compute_tf(2);
-    // DOCS.compute_df();
-    // auto test = DOCS.compute_tf_idf(*doc1);
-    // auto test1 = DOCS.compute_tf_idf(*doc4);
-    // Créer le détecteur de plagiat
-    // SimilarityAnalyzer analyzer(DOCS);
-    // PlagiarismDetector detector(analyzer, ngram);
-    // double resultt = 0.0;
-    // // for (int method = COSINE; method <= MANHATTAN; ++method) {
-    // for (int method = SimilarityAnalyzer::COSINE; method <= SimilarityAnalyzer::BHATTACHARYYA; ++method) {
-    //     resultt =analyzer.compute_similarity(*doc1, *doc5, static_cast<SimilarityAnalyzer::Method>(method));
-    //     cout<<method <<":"<<resultt<<endl;
-    // }
-    // return result/4;
-    
-    // map<shared_ptr<Document>,double> result =detector.check_plagiarism(*doc1);
-    // for(auto couple:result){
-    //     cout<<couple.first->title<<": "<<couple.second<<endl;
-    // }
-    // auto word_intensity = detector.get_plagiarized_words_with_intensity(*doc1);
-
-    // // Afficher les résultats
-    // cout << "Words from doc_to_test with intensity in corpus:\n";
-    // for (const auto& [word, intensity] : word_intensity) {
-    //     cout << word << ": " << intensity << endl;
-    // }
-
-    
-
-
-// auto doc1 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 1");
-    // auto doc2 = make_shared<Document>("Machine learning and artificial intelligence are transforming the way we analyze data. These technologies enable predictive analytics, improve decision-making, and drive innovation. Applications of AI include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 2");
-    // auto doc3 = make_shared<Document>("Artificial intelligence and machine learning are revolutionizing data analysis. These technologies allow predictive modeling, improve decision-making, and foster innovation. AI applications include natural language processing, computer vision, and robotics.",ANGLAIS, ngram, "ML 3");
-    // auto doc4 = make_shared<Document>("Aziz is passionate about machine learning and enjoys working on projects that involve data analysis and predictive modeling.", ANGLAIS, ngram, "ML 4");
-    // auto doc5 = make_shared<Document>("Machine learning and artificial intelligence are revolutionizing the way we analyze data. These technologies enable predictive modeling, improve decision-making processes, and create opportunities for innovation. AI applications include natural language processing, computer vision, and robotics.", ANGLAIS, ngram, "ML 5");
-    // auto doc6 = make_shared<Document>("Data science is an interdisciplinary field that uses scientific methods to extract knowledge from data. It combines elements of statistics, machine learning, and domain expertise.", ANGLAIS, ngram, "ML 6");
-    // auto doc7 = make_shared<Document>("Robotics is a branch of engineering that involves the design and construction of robots. These machines can perform tasks autonomously or with minimal human intervention.", ANGLAIS, ngram, "ML 7");
-
-
-
-
-    // SimilarityAnalyzer analyzer(DOCS);
-    // cout<<"FINAL SCORE "<<endl;
-    // double cosine = analyzer.compute_similarity(*doc1,*doc4 , SimilarityAnalyzer::COSINE);
-    // double jaccard = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::JACCARD);
-    // double euclidean = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::EUCLIDEAN);
-    // double manhattan = analyzer.compute_similarity(*doc1, *doc4, SimilarityAnalyzer::MANHATTAN);
-
-    // cout << "Cosine Similarity: " << cosine << endl;
-    // cout << "Jaccard Similarity: " << jaccard << endl;
-    // cout << "Euclidean Distance: " << euclidean << endl;
-    // cout << "Manhattan Distance: " << manhattan << endl;
-    // cout<< "Final score "<<analyzer.compute_score(*doc1,*doc4)<<endl;
-
-    // Highlight les parties plagiées dans le texte traité
-    // string highlighted_text = doc1->highlight_plagiarism_in_processed_text(word_intensity);
-    // cout << "Highlighted Text (Processed):\n" << highlighted_text << endl;
-    
-// inside docs
-// about:0.0367016
-// adam:0.0367016
-// also:0.0367016
-// aziz:0.0367016
-// build:0.0367016
-// find:0.0367016
-// learning:0.0367016
-// loves:0.0367016
-// machine:0.0367016
-// passionate:0.0367016
-// project:0.0367016
-// together:0.0367016
-// work:0.0367016
-
-// about:0.0231562
-// adam:0.0231562
-// also:0.0231562
-// aziz:0.0231562
-// build:0.0231562
-// find:0.0231562
-// learning:0.0231562
-// loves:0.0231562
-// machine:0.0231562
-// passionate:0.0231562
-// project:0.0231562
-// together:0.0231562
-// work:0.0231562

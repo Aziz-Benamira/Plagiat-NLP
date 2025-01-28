@@ -1,18 +1,19 @@
 import wikipediaapi
 import os
 
+# Un code python pour télécharger des articles Wikipedia pour remplir le corpus
 def fetch_wikipedia_articles(titles, output_folder):
-    # Initialize the Wikipedia API with UTF-8 encoding
+    # Creer une instance de wikipediaapi
     wiki = wikipediaapi.Wikipedia(
         language='fr',
         user_agent='MyAppName/1.0 (https://github.com/username/repository; email@example.com)',
         extract_format=wikipediaapi.ExtractFormat.WIKI
     )
 
-    # Create output folder if it doesn't exist
+    # Creer le dossier de sortie s'il n'existe pas
     os.makedirs(output_folder, exist_ok=True)
     def clean_text(text):
-        # Map common French characters to ASCII equivalents
+        # Remplacer les caractères français par leurs équivalents ASCII
         char_map = {
             'é': 'e', 'è': 'e', 'ê': 'e', 'ë': 'e',
             'à': 'a', 'â': 'a', 'ä': 'a',
@@ -32,15 +33,14 @@ def fetch_wikipedia_articles(titles, output_folder):
         return text
 
     for title in titles:
-        # Fetch the Wikipedia page
         page = wiki.page(title)
 
-        # Check if the page exists
+        # Verifier si la page existe
         if page.exists():
-            # Clean text by replacing French characters with ASCII equivalents
+            # Nettoyer le texte pour supprimer les caractères spéciaux
             cleaned_text = clean_text(page.text)
             
-            # Save the content as a .txt file with ASCII encoding
+            # Enregistrer le texte dans un fichier
             file_path = os.path.join(output_folder, f"{clean_text(title).replace('/', '_')}.fr")
             with open(file_path, "w", encoding="ascii", errors='ignore') as file:
                 file.write(cleaned_text)
