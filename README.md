@@ -2,12 +2,15 @@
 
 Ce projet est un outil de détection de plagiat qui permet de comparer un document donné avec un corpus de référence pour identifier les similitudes et les éventuels cas de plagiat. Il supporte plusieurs langues (français, anglais) et formats de code (C++, Python).
 Elabroré dans le cadre du cours de C++ de la 2ème année en ENSTA.
+
 ## Table des Noms
 
 | Nom            | Rôle                  |
-|----------------|-----------------------|
+| -------------- | --------------------- |
 | Aziz BEN AMIRA | Développeur Principal |
 | Adam GASSEM    | Développeur Principal |
+
+[Présentation PowerPoint](https://www.canva.com/design/DAGdZ4z1NSY/ACd1Q6QGqrRbskftkMLH8A/edit?utm_content=DAGdZ4z1NSY&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ## Fonctionnalités
 
@@ -28,10 +31,10 @@ Le projet est organisé comme suit :
 - **`similarity_analyzer.hpp`** : Contient la classe `SimilarityAnalyzer` pour analyser la similarité entre les documents.
 - **`plagiarism_detector.hpp`** : Contient la classe `PlagiarismDetector` pour détecter le plagiat.
 
-## Architecture 
-
+## Architecture
 
 ![Architecture](doc/architecture.png)
+
 ## Resultat
 
 ### Exemple de Sortie en Ligne de Commande
@@ -39,14 +42,14 @@ Le projet est organisé comme suit :
 ![Exemple de Sortie en Ligne de Commande](doc/Résultat_terminal.jpg)
 
 ### Application web
----
-![Exemple de Sortie via l'API HTTP](doc/interface_de_commande.jpg)
----
-![Exemple de Sortie via l'API HTTP](doc/Interface_Résultat_des_scores.jpg)
----
-![Exemple de Sortie via l'API HTTP](doc/interface_texte_souligné.jpg)
+
 ---
 
+## ![Exemple de Sortie via l'API HTTP](doc/interface_de_commande.jpg)
+
+## ![Exemple de Sortie via l'API HTTP](doc/Interface_Résultat_des_scores.jpg)
+
+## ![Exemple de Sortie via l'API HTTP](doc/interface_texte_souligné.jpg)
 
 ## Utilisation
 
@@ -77,12 +80,13 @@ Exemple de requête JSON :
 
 ```json
 {
-    "text": "Votre texte ici",
-    "type": "fr"
+  "text": "Votre texte ici",
+  "type": "fr"
 }
 ```
 
 La réponse contiendra les scores de similarité, le score final de plagiat, et le texte surligné.
+
 ```json
 {
     "scores": ["document1": 85.5, "document2": 72.3, "document3": 65.8 ...],
@@ -90,6 +94,7 @@ La réponse contiendra les scores de similarité, le score final de plagiat, et 
     "highlighted_text": "highlighted_text"
 }
 ```
+
 ## Dépendances
 
 - **`httplib.h`** : Bibliothèque pour créer un serveur HTTP.
@@ -135,19 +140,19 @@ Réponse JSON :
 
 ```json
 {
-    "scores": [
-        {"document1": 85.5},
-        {"document2": 72.3},
-        {"document3": 65.8}
-    ],
-    "final_score": 85.5,
-    "highlighted_text": "Ceci est un <red>texte</red> avec des <yellow>mots</yellow> plagiés."
+  "scores": [
+    { "document1": 85.5 },
+    { "document2": 72.3 },
+    { "document3": 65.8 }
+  ],
+  "final_score": 85.5,
+  "highlighted_text": "Ceci est un <red>texte</red> avec des <yellow>mots</yellow> plagiés."
 }
 ```
 
 ## Auteurs
 
--  [BEN AMIRA AZIZ] & [GASSEM ADAM]
+- [BEN AMIRA AZIZ] & [GASSEM ADAM]
 
 ## Licence
 
@@ -210,7 +215,3 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
-
-
-
-
